@@ -3,7 +3,7 @@
 // Redirect to Login Page for unauthorized connection...
 session_start();
 if(!isset($_SESSION['id'])) {
-    header('location: login.php');
+    header('location: login');
     exit();
 }
 

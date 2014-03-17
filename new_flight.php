@@ -3,41 +3,41 @@
 // Redirect to Login Page for unauthorized connection...
 session_start();
 if(!isset($_SESSION['id'])) {
-    header('location: login.php');
+    header('location: login');
     exit();
 }
 if(!$_SESSION['is_admin']) {
-    header('location: main.php');
+    header('location: main');
     exit();
 }
 
 if($_POST['code'] && $_POST['departure'] && $_POST['arrival']) {
-    
+
     $code = $_POST['code'];
     $departure = $_POST['departure'];
     $arrival = $_POST['arrival'];
     $departure_date = $_POST['depart_year'].'-'.$_POST['depart_month'].'-'.$_POST['depart_date'].' '.$_POST['depart_hour'].':'.$_POST['depart_minute'].':00';
     $arrival_date = $_POST['arrive_year'].'-'.$_POST['arrive_month'].'-'.$_POST['arrive_date'].' '.$_POST['arrive_hour'].':'.$_POST['arrive_minute'].':00';
-    
+
     require_once('include/db.php');
     try {
         $db = new PDO($dsn, $db_user, $db_password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = 'INSERT INTO `phwu_cs`.`flights` (`id`, `code`, `departure`, `arrival`, `departure_date`, `arrival_date`) VALUES (NULL, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO `flights` (`id`, `code`, `departure`, `arrival`, `departure_date`, `arrival_date`) VALUES (NULL, ?, ?, ?, ?, ?)';
         $query = $db -> prepare($sql);
         $query -> execute(array($code,$departure, $arrival, $departure_date, $arrival_date));
     } catch(PDOException $e) {
         echo 'ERROR: ' . $e->getMessage();
         exit();
     }
-    header('location: main.php');
+    header('location: main');
 
-    
+
 } else {
 
-    $prepend = array('01','02','03','04','05','06','07','08','09'); 
+    $prepend = array('01','02','03','04','05','06','07','08','09');
     $prepend_00 = array_merge(array('00'), $prepend);
-    
+
     $datetime = array(
         'years' => range(2014,2015),
         'months' => array(
@@ -58,11 +58,11 @@ if($_POST['code'] && $_POST['departure'] && $_POST['arrival']) {
         'hours' => array_merge($prepend_00, range(10, 23)),
         'minutes' => array_merge($prepend_00, range(10, 59)),
     );
-    
-    
+
+
     require_once 'twig.php';
     $template = $twig->loadTemplate('new_flight.html');
     echo $template->render(compact('datetime'));
 }
-    
+
 ?>

@@ -8,7 +8,7 @@
 {% block content %}
 <div class="">
     <h1>You are about to delete:</h1>
-    <form action="delete_flight.php" method="post">
+    <form action="delete_flight" method="post">
         <ul>
             {% for flight in flights %}
             <li class="hide"><label for="id">id</label><input type="text" name="id" id="id" value="{{ flight.id }}" readonly></li>

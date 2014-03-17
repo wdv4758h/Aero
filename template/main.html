@@ -4,7 +4,7 @@
 
 {% block options %}
 <ul>
-    <li><a href="logout.php">Sign Out</a></li>
+    <li><a href="logout">Sign Out</a></li>
 </ul>
 {% endblock %}
 
@@ -14,12 +14,12 @@
         <h1 class="left">Flight Schedule</h1>
         {% if _SESSION.is_admin %}
         <div class="option-group right">
-            <a href="new_flight.php" class="btn">Add</a>
+            <a href="new_flight" class="btn">Add</a>
             <input type="search">
         </div>
         {% endif %}
     </div>
-    
+
     <table>
         <thead>
             <tr>
@@ -43,8 +43,8 @@
                 <td>{{flight.arrival_date}}</td>
                 {% if _SESSION.is_admin %}
                 <td>
-                    <a href="edit_flight.php?id={{flight.id}}">Edit</a>
-                    <a href="delete_flight.php?id={{flight.id}}">Delete</a>
+                    <a href="edit_flight?id={{flight.id}}">Edit</a>
+                    <a href="delete_flight?id={{flight.id}}">Delete</a>
                 </td>
                 {% endif %}
             </tr>

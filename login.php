@@ -39,21 +39,21 @@ $password = sha1('mightySalt'.$password);
 
 if ($password != $result->password) {
     session_destroy();
-    
+
     // Render Login Page
     require_once 'twig.php';
     $template = $twig->loadTemplate('login.html');
     echo $template->render(array());
-    
+
 } else {
-    
+
     // Authorized User... Redirecting...
     session_regenerate_id();
     $_SESSION['id'] = $result->id;
     $_SESSION['username'] = $result->username;
     $_SESSION['is_admin'] = $result->is_admin;
     session_write_close();
-    header('location: main.php');
+    header('location: main');
 }
 
 ?>
