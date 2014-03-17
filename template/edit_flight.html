@@ -1,0 +1,24 @@
+{% extends '_section.html' %}
+
+{% block title %} Editing Flight {% endblock %}
+
+{% block options %}
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <form action="edit_flight.php" method="post">
+        <ul>
+            {% for flight in flights %}
+            <li class="hide"><label for="id">id</label><input type="text" name="id" id="id" value="{{ flight.id }}" readonly></li>
+            <li><label for="code">Flight Number</label><input type="text" name="code" id="code" value="{{ flight.code }}" required></li>
+            <li><label for="departure">Departure</label><input type="text" name="departure" id="departure" value="{{ flight.departure }}" required></li>
+            <li><label for="arrival">Arrival</label><input type="text" name="arrival" id="arrival" value="{{ flight.arrival }}" required></li>
+            <li><label for="departure_date">Departing Time</label><input type="text" name="departure_date" id="departure_date" value="{{ flight.departure_date }}" required></li>
+            <li><label for="arrival_date">Arriving Time</label><input type="text" name="arrival_date" id="arrival_date" value="{{ flight.arrival_date }}" required></li>
+            <li><input type="submit" value="Confirm"></li>
+            {% endfor %}
+        </ul>
+    </form>
+</div>
+{% endblock %}

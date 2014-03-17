@@ -1,0 +1,21 @@
+{% extends '_section.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block options %}
+<ul>
+    <li><a href="signup.php">Sign Up</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="center-widget">
+  <form action="login.php" method="post">
+    <ul>
+      <li><label for="username">Username</label><input type="text" name="username" id="username"></li>
+      <li><label for="password">Password</label><input type="password" name="password" id="password"></li>
+      <li><input type="submit" value="Login"></li>
+    </ul>
+  </form>
+</div>
+{% endblock %}

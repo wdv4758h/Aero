@@ -1,0 +1,55 @@
+{% extends '_section.html' %}
+
+{% block title %} AERO {% endblock %}
+
+{% block options %}
+<ul>
+    <li><a href="logout.php">Sign Out</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<section class="flight-schedule">
+    <div class="option-bar">
+        <h1 class="left">Flight Schedule</h1>
+        {% if _SESSION.is_admin %}
+        <div class="option-group right">
+            <a href="new_flight.php" class="btn">Add</a>
+            <input type="search">
+        </div>
+        {% endif %}
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Flight Number</td>
+                <td>Departure</td>
+                <td>Arrival</td>
+                <td>Departing Time</td>
+                <td>Arriving Time</td>
+                {% if _SESSION.is_admin %}<td>Operations</td>{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in flights %}
+            <tr>
+                <td>{{flight.id}}</td>
+                <td>{{flight.code}}</td>
+                <td>{{flight.departure}}</td>
+                <td>{{flight.arrival}}</td>
+                <td>{{flight.departure_date}}</td>
+                <td>{{flight.arrival_date}}</td>
+                {% if _SESSION.is_admin %}
+                <td>
+                    <a href="edit_flight.php?id={{flight.id}}">Edit</a>
+                    <a href="delete_flight.php?id={{flight.id}}">Delete</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

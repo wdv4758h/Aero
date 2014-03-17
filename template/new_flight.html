@@ -1,0 +1,81 @@
+{% extends '_section.html' %}
+
+{% block title %} New Flight? {% endblock %}
+
+{% block options %}
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <form action="new_flight.php" method="post">
+        <ul>
+            <li><label for="code">Code</label><input type="text" name="code" id="code" required></li>
+            <li><label for="departure">Departure</label><input type="text" name="departure" id="departure" required></li>
+            <li><label for="arrival">Arrival</label><input type="text" name="arrival" id="arrival" required></li>
+            <li><label for="departure">Departing Time</label>
+                <div id="departure">
+                    <select name="depart_year">
+                        {% for year in datetime.years %}
+                        <option value="{{year}}">{{year}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="depart_month">
+                        {% for num, month in datetime.months %}
+                        <option value="{{num}}">{{month}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="depart_date">
+                        {% for date in datetime.dates %}
+                        <option value="{{date}}">{{date}}</option>
+                        {% endfor %}
+                    </select>
+                    -
+                    <select name="depart_hour">
+                        {% for hour in datetime.hours %}
+                        <option value="{{hour}}">{{hour}}</option>
+                        {% endfor %}
+                    </select>
+                    :
+                    <select name="depart_minute">
+                        {% for minute in datetime.minutes %}
+                        <option value="{{minute}}">{{minute}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </li>
+            <li><label for="arrival">Arriving Time</label>
+                <div id="arrival">
+                    <select name="arrive_year">
+                        {% for year in datetime.years %}
+                        <option value="{{year}}">{{year}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="arrive_month">
+                        {% for num, month in datetime.months %}
+                        <option value="{{num}}">{{month}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="arrive_date">
+                        {% for date in datetime.dates %}
+                        <option value="{{date}}">{{date}}</option>
+                        {% endfor %}
+                    </select>
+                    -
+                    <select name="arrive_hour">
+                        {% for hour in datetime.hours %}
+                        <option value="{{hour}}">{{hour}}</option>
+                        {% endfor %}
+                    </select>
+                    :
+                    <select name="arrive_minute">
+                        {% for minute in datetime.minutes %}
+                        <option value="{{minute}}">{{minute}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </li>
+            <li><input type="submit" value="Confirm"></li>
+        </ul>
+    </form>
+</div>
+{% endblock %}

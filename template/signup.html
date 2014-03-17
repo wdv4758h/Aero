@@ -1,0 +1,20 @@
+{% extends '_section.html' %}
+
+{% block title %} Sign Up? {% endblock %}
+
+{% block options %}
+{% endblock %}
+
+{% block content %}
+<div class="center-widget">
+  <form action="signup.php" method="post">
+    <ul>
+      <li><label for="username">Username</label><input type="text" name="username" id="username" required></li>
+      <li><label for="password">Password</label><input type="password" name="password" id="password" required></li>
+      <li><label for="password2">Password Confirmation</label><input type="password" name="password2" id="password2" required></li>
+      <li><label for="is_admin">Is Admin?</label><input type="checkbox" name="is_admin"></li>
+      <li><input type="submit" value="Sign Up"></li>
+    </ul>
+  </form>
+</div>
+{% endblock %}

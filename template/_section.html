@@ -1,0 +1,18 @@
+{% extends '_layout.html' %}
+{% block body %}
+<header>
+    <div class="global-logo"><a class="logo"><span>AERO | Aerospace Exploration and Research Organization</span></a></div>
+    <div class="global-nav">{% block options %}{% endblock %}</div>
+</header>
+
+<div class="wrapper">
+    {% block content %}{% endblock %}
+</div>
+
+<footer>
+    <div class="global-copyright">&copy; 2014, Pu-Hsuan Wu.</div>
+    <ul class="global-legal-documents">
+        <li><a href="http://be.net/phwu">Behance</a></li>
+    </ul>
+</footer>
+{% endblock %}
