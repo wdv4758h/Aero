@@ -1,11 +1,9 @@
 <?php
-session_start();
+require_once 'include/base.php';
 
 // If is not POST connection... Render Login Page
 if(!isset($_POST['username']) || trim($_POST['password'])=='') {
-    require_once 'twig.php';
-    $template = $twig->loadTemplate('login.html');
-    echo $template->render(array());
+    render('login.html', array());
     exit();
 }
 
@@ -41,9 +39,7 @@ if ($password != $result->password) {
     session_destroy();
 
     // Render Login Page
-    require_once 'twig.php';
-    $template = $twig->loadTemplate('login.html');
-    echo $template->render(array());
+    render('login.html', array());
 
 } else {
 
