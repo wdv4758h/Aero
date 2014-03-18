@@ -1,7 +1,8 @@
 <?php
 
+require_once 'include/base.php';
+
 // Redirect to Login Page for unauthorized connection...
-session_start();
 if(!isset($_SESSION['id'])) {
     header('location: login');
     exit();
@@ -59,10 +60,7 @@ if($_POST['code'] && $_POST['departure'] && $_POST['arrival']) {
         'minutes' => array_merge($prepend_00, range(10, 59)),
     );
 
-
-    require_once 'twig.php';
-    $template = $twig->loadTemplate('new_flight.html');
-    echo $template->render(compact('datetime'));
+    render('new_flight.html', compact('datetime'));
 }
 
 ?>
