@@ -13,17 +13,10 @@ $password = $_POST['password'];
 
 require_once('include/db.php');
 
-try {
-    $db = new PDO($dsn, $db_user, $db_password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT * FROM users WHERE username = ?";
-    $query = $db -> prepare($sql);
-    $query -> execute(array($username));
-    $result = $query->fetchObject();
-} catch(PDOException $e) {
-    echo 'ERROR: ' . $e->getMessage();
-    exit();
-}
+$aero = new Aero();
+$aero -> sql = 'SELECT * FROM users WHERE username = ?';
+$aero -> execute(array($username));
+$result = $aero -> query -> fetchObject();
 
 // Check
 if (!$result) {

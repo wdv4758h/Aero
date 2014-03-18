@@ -17,32 +17,18 @@ if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
 
     $password = sha1('mightySalt'.$password);
 
-    try {
-        $db = new PDO($dsn, $db_user, $db_password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT username FROM `users` WHERE username = ?";
-        $query = $db -> prepare($sql);
-        $query -> execute(array($username));
-        $result = $query->fetchObject();
-        if ($result) {
-            echo "repeated";
-            exit();
-        }
-    } catch(PDOException $e) {
-        echo 'ERROR: ' . $e->getMessage();
+    $aero = new Aero();
+    $aero -> sql = "SELECT username FROM `users` WHERE username = ?";
+    $aero -> execute(array($username));
+    $result = $aero -> query -> fetchObject();
+    if ($result) {
+        echo "repeated";
         exit();
     }
 
-    try {
-        $db = new PDO($dsn, $db_user, $db_password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = 'INSERT INTO `users` (`id`, `username`, `password`, `is_admin`) VALUES (NULL, ?, ?, ?)';
-        $query = $db -> prepare($sql);
-        $query -> execute(array($username,$password, $is_admin));
-    } catch(PDOException $e) {
-        echo 'ERROR: ' . $e->getMessage();
-        exit();
-    }
+    $aero = new Aero();
+    $aero -> sql = 'INSERT INTO `users` (`id`, `username`, `password`, `is_admin`) VALUES (NULL, ?, ?, ?)';
+    $aero -> execute(array($username,$password, $is_admin));
 
     header('location: main');
 

@@ -21,16 +21,10 @@ if($_POST['code'] && $_POST['departure'] && $_POST['arrival']) {
     $arrival_date = $_POST['arrive_year'].'-'.$_POST['arrive_month'].'-'.$_POST['arrive_date'].' '.$_POST['arrive_hour'].':'.$_POST['arrive_minute'].':00';
 
     require_once('include/db.php');
-    try {
-        $db = new PDO($dsn, $db_user, $db_password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = 'INSERT INTO `flights` (`id`, `code`, `departure`, `arrival`, `departure_date`, `arrival_date`) VALUES (NULL, ?, ?, ?, ?, ?)';
-        $query = $db -> prepare($sql);
-        $query -> execute(array($code,$departure, $arrival, $departure_date, $arrival_date));
-    } catch(PDOException $e) {
-        echo 'ERROR: ' . $e->getMessage();
-        exit();
-    }
+    $aero = new Aero();
+    $aero -> sql = 'INSERT INTO `flights` (`id`, `code`, `departure`, `arrival`, `departure_date`, `arrival_date`) VALUES (NULL, ?, ?, ?, ?, ?)';
+    $aero -> execute(array($code,$departure, $arrival, $departure_date, $arrival_date));
+
     header('location: main');
 
 

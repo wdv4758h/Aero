@@ -22,33 +22,22 @@ if($_POST['id'] && $_POST['code']) {
     $arrival_date = $_POST['arrive_year'].'-'.$_POST['arrive_month'].'-'.$_POST['arrive_date'].' '.$_POST['arrive_hour'].':'.$_POST['arrive_minute'].':00';
 
     require_once('include/db.php');
-    try {
-        $db = new PDO($dsn, $db_user, $db_password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = 'DELETE FROM `flights` WHERE `id`=?';
-        $query = $db -> prepare($sql);
-        $query -> execute(array($id));
-    } catch(PDOException $e) {
-        echo 'ERROR: ' . $e->getMessage();
-        exit();
-    }
+
+    $aero = new Aero();
+    $aero -> sql = 'DELETE FROM `flights` WHERE `id`=?';
+    $aero -> execute(array($id));
+
     header('location: main');
 
 
 } else if($_GET['id']) {
 
     require_once('include/db.php');
-    try {
-        $db = new PDO($dsn, $db_user, $db_password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM flights WHERE id=?";
-        $query = $db -> prepare($sql);
-        $query -> execute(array($_GET['id']));
-        $flights = $query->fetchAll();
-    } catch(PDOException $e) {
-        echo 'ERROR: ' . $e->getMessage();
-        exit();
-    }
+
+    $aero = new Aero();
+    $aero -> sql = 'SELECT * FROM flights WHERE id=?';
+    $aero -> execute(array($_GET['id']));
+    $flights = $aero -> query -> fetchAll();
 
     render('delete_flight.html', compact('flights'));
 
