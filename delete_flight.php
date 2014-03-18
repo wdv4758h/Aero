@@ -1,7 +1,8 @@
 <?php
 
+require_once 'include/base.php';
+
 // Redirect to Login Page for unauthorized connection...
-session_start();
 if(!isset($_SESSION['id'])) {
     header('location: login');
     exit();
@@ -49,9 +50,8 @@ if($_POST['id'] && $_POST['code']) {
         exit();
     }
 
-    require_once 'twig.php';
-    $template = $twig->loadTemplate('delete_flight.html');
-    echo $template->render(compact('flights'));
+    render('delete_flight.html', compact('flights'));
+
 } else {
 
     header('location: delete_flight');
