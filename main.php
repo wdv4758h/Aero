@@ -1,7 +1,8 @@
 <?php
 
+require_once('include/base.php');
+
 // Redirect to Login Page for unauthorized connection...
-session_start();
 if(!isset($_SESSION['id'])) {
     header('location: login');
     exit();
@@ -23,8 +24,6 @@ try {
 
 
 // Render...
-require_once 'twig.php';
-$template = $twig->loadTemplate('main.html');
-echo $template->render(compact('flights', '_SESSION'));
+render('main.html', compact('flights', '_SESSION'));
 
 ?>
