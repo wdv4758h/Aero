@@ -1,5 +1,8 @@
 <?php
-session_start();
+
+// start session if it is not started before
+if (session_id() == "")
+    session_start();
 
 // Composer autoload
 require_once './vendor/autoload.php';
