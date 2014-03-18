@@ -1,5 +1,7 @@
 <?php
 
+require_once 'include/base.php';
+
 // Redirect to Login Page for unauthorized connection...
 session_start();
 if(!isset($_SESSION['id'])) {
@@ -51,9 +53,8 @@ if($_POST['id'] && $_POST['code'] && $_POST['departure'] && $_POST['arrival'] &&
         exit();
     }
 
-    require_once 'twig.php';
-    $template = $twig->loadTemplate('edit_flight.html');
-    echo $template->render(compact('flights'));
+    render('edit_flight.html', compact('flights'));
+
 } else {
 
     //header('location: new_flight');
