@@ -49,9 +49,8 @@ if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
 
 } else {
 
-    require_once 'twig.php';
-    $template = $twig->loadTemplate('signup.html');
-    echo $template->render(array());
+    require_once 'include/base.php';
+    render('signup.html', array());
 
 }
 ?>
