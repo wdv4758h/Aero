@@ -3,7 +3,6 @@
 require_once 'include/base.php';
 
 // Redirect to Login Page for unauthorized connection...
-session_start();
 if(!isset($_SESSION['id'])) {
     header('location: login');
     exit();
