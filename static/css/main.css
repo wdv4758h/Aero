@@ -13,6 +13,48 @@ body {
     background-color: #b1c2c4;
 }
 
+footer {
+    border-top: 3px solid #104273;
+    margin: 0px 30px 0px 30px;
+    padding: 5px 0px 0px 0px;
+    text-align: center;
+    clear: both;
+    min-height: 2em;
+    position: relative;
+    color: #104273;
+    font-size: 14px;
+}
+
+footer div{
+    display: inline;
+    text-align: left;
+}
+
+footer div.left {
+    float: left;
+}
+
+footer div.right {
+    float: right;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer li {
+    display: inline;
+}
+
+footer a {
+    color: #104273;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #cc0316;
+}
+
 
 /* 
 -------------------------------------------------------------------------------*/
