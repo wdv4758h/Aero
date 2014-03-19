@@ -8,52 +8,95 @@
 
 @import url('reset.min.css');
 @import url('text.css');
-@import url('framework.css');
-@import url('form.css');
-@import url('table.css');
 
-
-
-
-.option-bar {
-    overflow: auto;
-}
-
-.left {
-    float: left;
-}
-
-.right {
-    float: right;
-}
-
-.option-group > * {
-    display: inline !important;
+body {
+    background-color: #b1c2c4;
 }
 
 
-
-.angle {
-    background-color: #f7e8d0;
-    margin: 20px;
-    padding: 20px;
+/* 
+-------------------------------------------------------------------------------*/
+.login {
+    background-image: url('../img/aero_logo_big@2x.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 420px 173px;
+    min-width: 500px;
+    padding-top: 220px;
+    margin: 80px auto;
+    text-align: center;
 }
 
+.login ul {
+    display: inline-block;
+    list-style: none;
+    width: 400px;
+}
 
+.login li {
+    background-repeat: no-repeat;
+    padding-left: 90px;
+    margin: 30px 0px;
+}
 
-/* DB HW - addon
+.login li:first-child {
+    background-image: url(../img/type_uuid@2x.png);
+    background-position: left 10px;
+    background-size: 63px 19px;
+}
+
+.login li:nth-child(2) {
+    background-image: url(../img/type_password@2x.png);
+    background-position: left 0px;
+    background-size: 63px 32px;
+}
+
+.login li:last-child {
+    padding-left: 0px;
+}
+
+.login label {
+    display: none;
+}
+
+.login input {
+    background-color: #104273;
+    border: none;
+    border-radius: 7px;
+    color: #fc8a0d;
+    padding: 5px 10px;
+    font-size: 16pt;
+    line-height: 20pt;
+    letter-spacing: 0.1em;
+    outline-color: #f6ffff;
+}
+
+.login input[type="submit"] {
+    background-color: transparent;
+    background-image: url('../img/type_login@2x.png');
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    background-size: 83px 80px;
+    border-radius: 0px;
+    color:rgba(0,0,0,0);
+    overflow: hidden;
+    width: 83px;
+    height: 19px;
+}
+
+.login input[type="submit"]:hover {
+    background-position: 0px -20px;
+}
+
+.login input[type="submit"]:focus {
+    outline: none;
+    background-position: 0px -40px;
+}
+
+/* 
 -------------------------------------------------------------------------------*/
 .center-widget {
-    margin: 60px auto !important;
+    margin: 60px auto;
     width: 200px;
 }
 
-
-/* Flight-schedule Column Width
--------------------------------------------------------------------------------*/
-.flight-schedule thead td:first-child  { width: 40px; }
-.flight-schedule thead td:nth-child(2) { width: 110px; }
-.flight-schedule thead td:nth-child(3) { width: 70px; }
-.flight-schedule thead td:nth-child(4) { width: 70px; }
-.flight-schedule thead td:nth-child(5) { width: 190px; }
-.flight-schedule thead td:nth-child(6) { width: 190px; }
