@@ -15,12 +15,15 @@ body {
 
 footer {
     border-top: 3px solid #104273;
-    margin: 0px 30px 0px 30px;
+    margin: 0px 5% 0px 5%;
     padding: 5px 0px 0px 0px;
     text-align: center;
     clear: both;
     min-height: 2em;
-    position: relative;
+    position: absolute;
+    left: 0px;
+    bottom: 15px;
+    width: 90%;
     color: #104273;
     font-size: 14px;
 }
@@ -65,7 +68,7 @@ footer a:hover {
     background-size: 420px 173px;
     min-width: 500px;
     padding-top: 220px;
-    margin: 80px auto;
+    margin: 150px auto;
     text-align: center;
 }
 
