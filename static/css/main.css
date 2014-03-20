@@ -68,7 +68,7 @@ footer a:hover {
     background-size: 420px 173px;
     min-width: 500px;
     padding-top: 220px;
-    margin: 150px auto 0px auto;
+    margin: 80px auto 0px auto;
     text-align: center;
 }
 
@@ -138,10 +138,111 @@ footer a:hover {
     background-position: 0px -40px;
 }
 
+
+
+
 /* 
 -------------------------------------------------------------------------------*/
-.center-widget {
-    margin: 60px auto;
-    width: 200px;
+.signup {
+    background-color: #104273;
+    background-image: url('../img/aero_logo_alt_big@2x.png');
+    background-position: center 50px;
+    background-repeat: no-repeat;
+    background-size: 420px 173px;
+    height: 380px;
+    width: 600px;
+    padding-top: 260px;
+    position: absolute;
+    margin: auto auto;
+    text-align: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
+.signup ul {
+    display: inline-block;
+    list-style: none;
+}
+
+.signup li {
+    background-repeat: no-repeat;
+    padding-left: 90px;
+    margin: 30px 0px;
+}
+
+.signup li:first-child {
+    background-image: url(../img/type_uuid_white@2x.png);
+    background-position: left 10px;
+    background-size: 63px 19px;
+}
+
+.signup li:nth-child(2) {
+    background-image: url(../img/type_password_white@2x.png);
+    background-position: left 0px;
+    background-size: 63px 32px;
+}
+
+.signup li:nth-child(3) {
+    background-image: url(../img/type_confirm_white@2x.png);
+    background-position: left 0px;
+    background-size: 55px 33px;
+}
+
+.signup li:nth-child(4) {
+    background-image: url(../img/type_priority@2x.png);
+    background-position: 115px center;
+    background-size: 210px 14px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.signup li:last-child {
+    margin-top: 50px;
+    padding-left: 0px;
+}
+
+.signup label {
+    display: none;
+}
+
+.signup input {
+    background-color: #b1c2c4;
+    border: none;
+    border-radius: 7px;
+    color: #cc0316;
+    padding: 5px 10px;
+    font-size: 16pt;
+    line-height: 20pt;
+    letter-spacing: 0.1em;
+    outline-color: #f6ffff;
+}
+
+.signup input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 7px;
+}
+
+.signup input[type="submit"] {
+    background-color: transparent;
+    background-image: url('../img/type_join@2x.png');
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    background-size: 83px 80px;
+    border-radius: 0px;
+    color:rgba(0,0,0,0);
+    overflow: hidden;
+    width: 83px;
+    height: 19px;
+}
+
+.signup input[type="submit"]:hover {
+    background-position: 0px -20px;
+}
+
+.signup input[type="submit"]:focus {
+    outline: none;
+    background-position: 0px -40px;
+}
