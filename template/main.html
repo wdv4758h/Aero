@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="flight-schedule" ng-app='Airline'>
+<section class="flight-schedule">
     <div class="option-bar">
         <h1 class="left">Flight Schedule</h1>
         {% if _SESSION.is_admin %}
@@ -20,7 +20,7 @@
         {% endif %}
     </div>
 
-    <table ng-controller='flightList'>
+    <table data-ng-controller='flightList'>
         <thead>
             <tr>
                 <td>ID</td>
@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat='flight in flights'>
+            <tr data-ng-repeat='flight in flights'>
                 <td>[[ flight.id ]]</td>
                 <td>[[ flight.code ]]</td>
                 <td>[[ flight.departure ]]</td>
