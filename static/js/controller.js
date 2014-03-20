@@ -5,7 +5,7 @@ var app = angular.module('Airline', [], function($interpolateProvider) {
 
 app.controller('flightList', function($scope, $http){
     var getFlightList = function(){
-        var planes = $http.get('/db/api/planes');
+        var planes = $http.get('/api/planes');
         planes.success(function(data, status, headers, config){
                 $scope.flights = data;
         });
