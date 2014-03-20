@@ -21,6 +21,10 @@ body > * {
 -------------------------------------------------------------------------------*/
 header {
     background-color: #fcfcfc;
+    background-image: url('../img/aero_banner_small.png ');
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    background-size: 400px 64px;
     border-bottom: 1px solid #efefef;
     padding-top: 30px;
     height: 2em;
@@ -81,10 +85,13 @@ header li:hover > ul {
 
 header .global-logo {
     float: left;
+    
+    height: 54px;
+    width: 400px;
 }
 
 header .global-logo span {
-/*    display: none;*/
+    display: none;
 }
 
 header .global-nav {
