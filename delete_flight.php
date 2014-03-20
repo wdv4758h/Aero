@@ -14,13 +14,6 @@ if(!$_SESSION['is_admin']) {
 
 if($_POST['id'] && $_POST['code']) {
 
-    $id = $_POST['id'];
-    $code = $_POST['code'];
-    $departure = $_POST['departure'];
-    $arrival = $_POST['arrival'];
-    $departure_date = $_POST['depart_year'].'-'.$_POST['depart_month'].'-'.$_POST['depart_date'].' '.$_POST['depart_hour'].':'.$_POST['depart_minute'].':00';
-    $arrival_date = $_POST['arrive_year'].'-'.$_POST['arrive_month'].'-'.$_POST['arrive_date'].' '.$_POST['arrive_hour'].':'.$_POST['arrive_minute'].':00';
-
     require_once('include/db.php');
 
     $aero = new Aero();
