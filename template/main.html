@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="flight-schedule">
+<section class="flight-schedule" ng-app='Airline'>
     <div class="option-bar">
         <h1 class="left">Flight Schedule</h1>
         {% if _SESSION.is_admin %}
@@ -20,7 +20,7 @@
         {% endif %}
     </div>
 
-    <table>
+    <table ng-controller='flightList'>
         <thead>
             <tr>
                 <td>ID</td>
@@ -33,14 +33,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for flight in flights %}
-            <tr>
-                <td>{{flight.id}}</td>
-                <td>{{flight.code}}</td>
-                <td>{{flight.departure}}</td>
-                <td>{{flight.arrival}}</td>
-                <td>{{flight.departure_date}}</td>
-                <td>{{flight.arrival_date}}</td>
+            <tr ng-repeat='flight in flights'>
+                <td>[[ flight.id ]]</td>
+                <td>[[ flight.code ]]</td>
+                <td>[[ flight.departure ]]</td>
+                <td>[[ flight.arrival ]]</td>
+                <td>[[ flight.departure_date ]]</td>
+                <td>[[ flight.arrival_date ]]</td>
                 {% if _SESSION.is_admin %}
                 <td>
                     <a href="edit_flight?id={{flight.id}}">Edit</a>
@@ -48,8 +47,8 @@
                 </td>
                 {% endif %}
             </tr>
-            {% endfor %}
         </tbody>
     </table>
 </section>
+
 {% endblock %}
