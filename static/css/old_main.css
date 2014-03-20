@@ -51,9 +51,9 @@
 
 /* Flight-schedule Column Width
 -------------------------------------------------------------------------------*/
-.flight-schedule thead td:first-child  { width: 40px; }
-.flight-schedule thead td:nth-child(2) { width: 110px; }
-.flight-schedule thead td:nth-child(3) { width: 70px; }
-.flight-schedule thead td:nth-child(4) { width: 70px; }
+.flight-schedule thead td:first-child  { width: 45px; }
+.flight-schedule thead td:nth-child(2) { width: 100px; }
+.flight-schedule thead td:nth-child(3) { min-width: 120px; }
+.flight-schedule thead td:nth-child(4) { min-width: 120px; }
 .flight-schedule thead td:nth-child(5) { width: 190px; }
 .flight-schedule thead td:nth-child(6) { width: 190px; }
