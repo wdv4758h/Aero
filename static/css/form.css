@@ -1,0 +1,110 @@
+/*
+    Designed By  ::   Pu-Hsuan Wu
+                      hwupu.cs01@nctu.edu.tw
+    
+	Information Technology Service Center
+    Copyright (c) 2013 National Chiao Tung University
+	
+-------------------------------------------------------------------------------*/
+form {
+    font-size: 11pt;
+}
+
+form ul {
+    list-style: none;
+    margin-top: 0px;
+}
+
+form li {
+    margin-left: 0px;
+    margin-bottom: 20px;
+}
+
+form label {
+    color: #a97452;
+    display: inline-block;
+    font-size: 0.9em;
+}
+
+form .hide {
+    display: none;
+}
+
+input,
+textarea,
+select{
+    color: #a97452;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="time"],
+input[type="url"],
+textarea,
+select{
+    border: none;
+    box-shadow: inset 0px 0px 1px 1px #efd6b3;
+    padding: 0px 2%;
+    font-size: 1.1em;
+    line-height: 1.6em;
+    letter-spacing: 0.1em;
+    outline-color: #e17d12;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="range"],
+input[type="week"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+select{
+    display: block;
+/*    width: 96%;*/
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+
+}
+
+button,
+input[type="submit"] {
+    border: none;
+    background-color: transparent;
+    color: #e17d12;
+    line-height: 1.6em;
+    padding: 0em;
+}
+
+a.btn {
+    display: block;
+    color: #e17d12;
+    text-decoration: none;
+    font-size: 11pt;
+    line-height: 1.6em;
+    padding: 0em;
+    
+    margin-right: 10px;
+}
+
+
+/* DB HW - addon
+-------------------------------------------------------------------------------*/
+form #departure select, form #arrival select {
+    display: inline-block !important;
+}

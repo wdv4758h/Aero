@@ -1,0 +1,59 @@
+/*
+	Designed By  ::   Pu-Hsuan Wu
+                      hwupu.cs01@nctu.edu.tw
+    
+    Copyright (c) 2013 Pu-Hsuan Wu
+	
+-------------------------------------------------------------------------------*/
+
+@import url('reset.min.css');
+@import url('text.css');
+@import url('framework.css');
+@import url('form.css');
+@import url('table.css');
+
+
+
+
+.option-bar {
+    overflow: auto;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.option-group > * {
+    display: inline !important;
+}
+
+
+
+.angle {
+    background-color: #f7e8d0;
+    margin: 20px;
+    padding: 20px;
+}
+
+
+
+/* DB HW - addon
+-------------------------------------------------------------------------------*/
+.center-widget {
+    margin: 60px auto !important;
+    width: 200px;
+}
+
+
+/* Flight-schedule Column Width
+-------------------------------------------------------------------------------*/
+.flight-schedule thead td:first-child  { width: 40px; }
+.flight-schedule thead td:nth-child(2) { width: 110px; }
+.flight-schedule thead td:nth-child(3) { width: 70px; }
+.flight-schedule thead td:nth-child(4) { width: 70px; }
+.flight-schedule thead td:nth-child(5) { width: 190px; }
+.flight-schedule thead td:nth-child(6) { width: 190px; }
