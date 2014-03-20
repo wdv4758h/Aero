@@ -42,8 +42,8 @@
                 <td>[[ flight.arrival_date ]]</td>
                 {% if _SESSION.is_admin %}
                 <td>
-                    <a href="edit_flight?id={{flight.id}}">Edit</a>
-                    <a href="delete_flight?id={{flight.id}}">Delete</a>
+                    <a href="edit_flight?id=[[ flight.id ]]">Edit</a>
+                    <a href="delete_flight?id=[[ flight.id ]]">Delete</a>
                 </td>
                 {% endif %}
             </tr>
