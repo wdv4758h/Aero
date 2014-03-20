@@ -13,7 +13,7 @@ body {
     background-color: #b1c2c4;
 }
 
-footer {
+footer.page {
     border-top: 3px solid #104273;
     margin: 0px 5% 0px 5%;
     padding: 5px 0px 0px 0px;
@@ -28,33 +28,33 @@ footer {
     font-size: 14px;
 }
 
-footer div{
+footer.page div{
     display: inline;
     text-align: left;
 }
 
-footer div.left {
+footer.page div.left {
     float: left;
 }
 
-footer div.right {
+footer.page div.right {
     float: right;
 }
 
-footer ul {
+footer.page ul {
     list-style: none;
 }
 
-footer li {
+footer.page li {
     display: inline;
 }
 
-footer a {
+footer.page a {
     color: #104273;
     text-decoration: none;
 }
 
-footer a:hover, footer a:focus {
+footer.page a:hover, footer a:focus {
     color: #cc0316;
 }
 
