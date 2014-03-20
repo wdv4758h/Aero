@@ -22,7 +22,7 @@ footer {
     min-height: 2em;
     position: absolute;
     left: 0px;
-    bottom: 15px;
+    bottom: 10px;
     width: 90%;
     color: #104273;
     font-size: 14px;
@@ -54,7 +54,7 @@ footer a {
     text-decoration: none;
 }
 
-footer a:hover {
+footer a:hover, footer a:focus {
     color: #cc0316;
 }
 
@@ -63,19 +63,24 @@ footer a:hover {
 -------------------------------------------------------------------------------*/
 .login {
     background-image: url('../img/aero_logo_big@2x.png');
-    background-position: center top;
+    background-position: center 30px;
     background-repeat: no-repeat;
     background-size: 420px 173px;
-    min-width: 500px;
-    padding-top: 220px;
-    margin: 80px auto 0px auto;
+    height: 280px;
+    width: 600px;
+    padding-top: 225px;
+    position: absolute;
+    margin: auto auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     text-align: center;
 }
 
 .login ul {
     display: inline-block;
     list-style: none;
-    width: 400px;
 }
 
 .login li {
@@ -113,7 +118,13 @@ footer a:hover {
     font-size: 16pt;
     line-height: 20pt;
     letter-spacing: 0.1em;
-    outline-color: #f6ffff;
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(246,255,255,0);
+    transition: 0.2s box-shadow;
+}
+
+.login input:focus {
+    box-shadow: 0px 0px 10px rgba(246,255,255,1);
 }
 
 .login input[type="submit"] {
@@ -123,6 +134,7 @@ footer a:hover {
     background-repeat: no-repeat;
     background-size: 83px 80px;
     border-radius: 0px;
+    box-shadow: none;
     color:rgba(0,0,0,0);
     overflow: hidden;
     width: 83px;
@@ -195,7 +207,7 @@ footer a:hover {
     background-position: 115px center;
     background-size: 210px 14px;
     text-align: left;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .signup li:last-child {
@@ -209,20 +221,33 @@ footer a:hover {
 
 .signup input {
     background-color: #b1c2c4;
-    border: none;
+    border: 1px solid rgba(246,255,255,0);
     border-radius: 7px;
     color: #cc0316;
     padding: 5px 10px;
     font-size: 16pt;
     line-height: 20pt;
     letter-spacing: 0.1em;
-    outline-color: #f6ffff;
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(246,255,255,0);
+    transition: 0.2s box-shadow,
+                0.2s border;
+}
+
+.signup input:focus {
+    border: 1px solid rgba(246,255,255,0.5);
+    box-shadow: 0px 0px 10px rgba(246,255,255,1);
 }
 
 .signup input[type="checkbox"] {
+    position: relative;
+    bottom: 4px;
+    left: 0px;
+/*
     width: 20px;
     height: 20px;
     border-radius: 7px;
+*/
 }
 
 .signup input[type="submit"] {
@@ -236,6 +261,8 @@ footer a:hover {
     overflow: hidden;
     width: 83px;
     height: 19px;
+    box-shadow: none;
+    border: none;
 }
 
 .signup input[type="submit"]:hover {
