@@ -24,6 +24,5 @@ app.controller('flightList', function($scope, $http){
 app.controller('FXshake', function ($scope) {
     var remove = function(x) {
        angular.element(document.getElementById(x)).removeClass('error');
-   };
-
-);
+    }
+});
