@@ -20,7 +20,7 @@ $result = $aero -> query -> fetchObject();
 
 // Check
 if (!$result) {
-    status[] = 'error';
+    $status = 'error';
     render('login.html', compact('status'));
     exit();
 }
@@ -33,7 +33,7 @@ if ($password != $result->password) {
     session_destroy();
 
     // Render Login Page
-    status[] = 'error';
+    $status = 'error';
     render('login.html', compact('status'));
 
 } else {
