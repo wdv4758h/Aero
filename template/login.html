@@ -4,10 +4,10 @@
 
 {% block content %}
 <div class="login">
-    <form action="login" method="post">
+    <form action="login" method="post" data-ng-controller="FXshake">
         <ul>
-            <li><label for="username">Username</label><input type="text" name="username" id="username" autofocus></li>
-            <li><label for="password">Password</label><input type="password" name="password" id="password"></li>
+            <li><label for="username">Username</label><input type="text" name="username" id="username" class="{{ error }}" data-ng-model="username" data-ng-change="remove(username)" autofocus></li>
+            <li><label for="password">Password</label><input type="password" name="password" id="password" class="{{ error }}" data-ng-model="password" data-ng-change="remove(password)"></li>
             <li><input type="submit" value="Login"></li>
         </ul>
     </form>

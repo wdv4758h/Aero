@@ -3,7 +3,7 @@ require_once 'include/base.php';
 
 // If is not POST connection... Render Login Page
 if(!isset($_POST['username']) || trim($_POST['password'])=='') {
-    render('login.html', array());
+    render('login.html', array(array('error'->'error')));
     exit();
 }
 
@@ -20,7 +20,7 @@ $result = $aero -> query -> fetchObject();
 
 // Check
 if (!$result) {
-    echo "NOT FOUND";
+    render('login.html', array(array('error'->'error')));
     exit();
 }
 
@@ -32,7 +32,7 @@ if ($password != $result->password) {
     session_destroy();
 
     // Render Login Page
-    render('login.html', array());
+    render('login.html', array(array('error'->'error')));
 
 } else {
 

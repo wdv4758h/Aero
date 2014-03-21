@@ -120,11 +120,32 @@ footer.page a:hover, footer a:focus {
     letter-spacing: 0.1em;
     outline: none;
     box-shadow: 0px 0px 10px rgba(246,255,255,0);
-    transition: 0.2s box-shadow;
+    transition: 0.2s box-shadow,
+                0.5s background-color;
 }
 
 .login input:focus {
     box-shadow: 0px 0px 10px rgba(246,255,255,1);
+}
+
+@-webkit-keyframes shake {
+      0% { -webkit-transform: translateX( 5px); }
+     10% { -webkit-transform: translateX(-5px); }
+     20% { -webkit-transform: translateX( 5px); }
+     30% { -webkit-transform: translateX(-5px); }
+     40% { -webkit-transform: translateX( 4px); }
+     50% { -webkit-transform: translateX(-4px); }
+     60% { -webkit-transform: translateX( 3px); }
+     70% { -webkit-transform: translateX(-2px); }
+     80% { -webkit-transform: translateX( 1px); }
+     90% { -webkit-transform: translateX(-1px); }
+    100% { -webkit-transform: translateX( 0px); }
+}
+
+.login input.error {
+    background-color: #cc0316;
+    -webkit-animation: shake 0.6s;
+    
 }
 
 .login input[type="submit"] {
