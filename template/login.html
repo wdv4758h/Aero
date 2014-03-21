@@ -1,5 +1,15 @@
 {% extends '_page.html' %}
 
+{% block head %}
+<script>
+    function FXshake($scope) {
+        $scope.remove = function(x) {
+            angular.element(document.getElementById(x)).removeClass('error');
+        };
+    }
+</script>
+{% endblock %}
+
 {% block title %} Login {% endblock %}
 
 {% block content %}
