@@ -2,7 +2,7 @@
 require_once 'include/base.php';
 
 // If is not POST connection... Render Login Page
-if(!isset($_POST['username']) || trim($_POST['password'])=='') {
+if(!isset($_POST['username'])) {
     render('login.html', array());
     exit();
 }
