@@ -11,7 +11,8 @@ if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
     $is_admin = $_POST['is_admin']?1:0;
 
     if ($password != $password2) {
-        echo "diff password";
+        $status = 'different';
+        render('signup.html', compact('status'));
         exit();
     }
 
@@ -22,7 +23,8 @@ if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
     $aero -> execute(array($username));
     $result = $aero -> query -> fetchObject();
     if ($result) {
-        echo "repeated";
+        $status = 'repeated';
+        render('signup.html', compact('status'));
         exit();
     }
 
