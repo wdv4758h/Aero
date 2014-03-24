@@ -247,7 +247,9 @@ footer.page a:hover, footer a:focus {
     box-shadow: 0px 0px 10px rgba(246,255,255,1);
 }
 
-.signup input.error {
+.signup input.error,
+.signup input.repeated,
+.signup input.different {
     color: #f6ffff;
     background-color: #cc0316;
     -webkit-animation: shake 0.6s;
