@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once 'include/base.php';
 
 if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
 
@@ -37,7 +37,6 @@ if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
 
 } else {
 
-    require_once 'include/base.php';
     render('signup.html', array());
 
 }
