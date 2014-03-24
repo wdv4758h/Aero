@@ -10,14 +10,6 @@ if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
     $password2 = $_POST['password2'];
     $is_admin = $_POST['is_admin']?1:0;
 
-    if ($password != $password2) {
-        $status = 'different';
-        render('signup.html', compact('status'));
-        exit();
-    }
-
-    $password = sha1('mightySalt'.$password);
-
     $aero = new Aero();
     $aero -> sql = "SELECT username FROM `users` WHERE username = ?";
     $aero -> execute(array($username));
@@ -27,6 +19,14 @@ if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
         render('signup.html', compact('status'));
         exit();
     }
+
+    if ($password != $password2) {
+        $status = 'different';
+        render('signup.html', compact('status', 'username'));
+        exit();
+    }
+
+    $password = sha1('mightySalt'.$password);
 
     $aero = new Aero();
     $aero -> sql = 'INSERT INTO `users` (`id`, `username`, `password`, `is_admin`) VALUES (NULL, ?, ?, ?)';
