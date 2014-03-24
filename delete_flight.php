@@ -18,7 +18,7 @@ if($_POST['id'] && $_POST['code']) {
 
     $aero = new Aero();
     $aero -> sql = 'DELETE FROM `flights` WHERE `id`=?';
-    $aero -> execute(array($id));
+    $aero -> execute(array($_POST['id']));
 
     header('location: main');
 
