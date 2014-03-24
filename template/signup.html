@@ -1,14 +1,35 @@
 {% extends '_page.html' %}
 
+{% block head %}
+<script>
+    function FXshake($scope) {
+        $scope.remove = function(x) {
+            angular.element(document.getElementById(x)).removeClass('error');
+        };
+    }
+</script>
+{% endblock %}
+
 {% block title %} Join Galactic Membership {% endblock %}
 
 {% block content %}
 <div class="signup">
-  <form action="signup" method="post">
+  <form action="signup" method="post" data-ng-controller="FXshake">
     <ul>
-      <li><label for="username">Username</label><input type="text" name="username" id="username" required autofocus></li>
+      {% if status == 'repeated' %}
+      <li><label for="username">Username</label><input type="text" name="username" id="username" class="{{ status }}"  data-ng-model="username" data-ng-change="remove('username')" placeholder="Duplicated UUID" required autofocus></li>
+      {% else %}
+      <li><label for="username">Username</label><input type="text" name="username" id="username" value="{{ username }}" required autofocus></li>
+      {% endif %}
+      
+      {% if status == 'different' %}
+      <li><label for="password">Password</label><input type="password" name="password" id="password" class="{{ status }}"  data-ng-model="password" data-ng-change="remove('password')" placeholder="Asymmetric Password"  required></li>
+      <li><label for="password2">Password Confirmation</label><input type="password" name="password2" id="password2" class="{{ status }}"  data-ng-model="password2" data-ng-change="remove('password2')" required></li>
+      {% else %}
       <li><label for="password">Password</label><input type="password" name="password" id="password" required></li>
       <li><label for="password2">Password Confirmation</label><input type="password" name="password2" id="password2" required></li>
+      {% endif %}
+      
       <li><label for="is_admin">Is Admin?</label><input type="checkbox" name="is_admin"></li>
       <li><input type="submit" value="Sign Up"></li>
     </ul>
