@@ -22,8 +22,14 @@ if($_POST['code'] && $_POST['departure'] && $_POST['arrival']) {
 
     require_once('include/db.php');
     $aero = new Aero();
-    $aero -> sql = 'INSERT INTO `flights` (`id`, `code`, `departure`, `arrival`, `departure_date`, `arrival_date`) VALUES (NULL, ?, ?, ?, ?, ?)';
-    $aero -> execute(array($code,$departure, $arrival, $departure_date, $arrival_date));
+    $aero -> sql = 'INSERT INTO `flights` (`id`, `code`, `departure`, `arrival`, `departure_date`, `arrival_date`) VALUES (NULL, :code, (SELECT id FROM airports WHERE name=:departure), (SELECT id FROM airports WHERE name=:arrival), :depart_date, :arrive_date)';
+    $aero -> execute(array(
+	':code' => $code,
+	':departure'	=> $departure,
+	':arrival'	=> $arrival,
+	':depart_date'	=> $departure_date,
+	':arrive_date'	=> $arrival_date
+    ));
 
     header('location: main');
 
