@@ -4,12 +4,15 @@
 if (session_id() == "")
     session_start();
 
+$root = realpath($_SERVER["DOCUMENT_ROOT"]).'/db_project';
+
 // Composer autoload
-require_once './vendor/autoload.php';
+require_once "$root/vendor/autoload.php";
 
 // twig
 function render($template, $parameter){
-    $loader = new Twig_Loader_Filesystem('./template');
+    global $root;
+    $loader = new Twig_Loader_Filesystem("$root/template");
     $twig = new Twig_Environment($loader);
 
     //$parameter['session'] = $_SESSION;
