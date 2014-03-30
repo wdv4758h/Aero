@@ -5,7 +5,7 @@ session_start();
 
 // Redirect to Login Page for unauthorized connection...
 if(!isset($_SESSION['id'])) {
-    header('location: ../login');
+    header('location: /login');
     exit();
 }
 

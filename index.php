@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['id']))
-    header('location: login');
+    header('location: /login');
 else
-    header('location: main');
+    header('location: /flights/');
 ?>

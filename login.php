@@ -44,7 +44,7 @@ if ($password != $result->password) {
     $_SESSION['username'] = $result->username;
     $_SESSION['is_admin'] = $result->is_admin;
     session_write_close();
-    header('location: main');
+    header('location: /');
 }
 
 ?>

@@ -1,18 +1,18 @@
 <?php
 
-require_once 'include/base.php';
+require_once '../include/base.php';
 
 // Redirect to Login Page for unauthorized connection...
 if(!isset($_SESSION['id'])) {
-    header('location: login');
+    header('location: /login');
     exit();
 }
 if(!$_SESSION['is_admin']) {
-    header('location: main');
+    header('location: /flights/');
     exit();
 }
 
-require_once('include/db.php');
+require_once('../include/db.php');
 
 if($_POST['id'] && $_POST['code'] && $_POST['departure'] && $_POST['arrival'] && $_POST['departure_date'] && $_POST['arrival_date']) {
 
@@ -34,7 +34,7 @@ if($_POST['id'] && $_POST['code'] && $_POST['departure'] && $_POST['arrival'] &&
 	':arrive_date' => $arrival_date
     ));
 
-    header('location: main');
+    header('location: /flights/');
 
 
 } else if($_GET['id']) {
@@ -47,12 +47,12 @@ if($_POST['id'] && $_POST['code'] && $_POST['departure'] && $_POST['arrival'] &&
     $flights[0]['departure_date'] = str_replace(' ', 'T', $flights[0]['departure_date']);
     $flights[0]['arrival_date'] = str_replace(' ', 'T', $flights[0]['arrival_date']);
 
-    render('edit_flight.html', compact('flights'));
+    render('edit_flight.html', compact('/flights/'));
 
 } else {
 
     //header('location: new_flight');
-    echo "Can not be empty";
+    echo "[TODO: Need mockup!] Can not be empty";
 
 }
 

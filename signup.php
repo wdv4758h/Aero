@@ -32,7 +32,7 @@ if($_POST['username'] && $_POST['password'] && $_POST['password2']) {
     $aero -> sql = 'INSERT INTO `users` (`id`, `username`, `password`, `is_admin`) VALUES (NULL, ?, ?, ?)';
     $aero -> execute(array($username,$password, $is_admin));
 
-    header('location: main');
+    header('location: /');
 
 
 } else {
