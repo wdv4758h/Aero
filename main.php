@@ -12,7 +12,8 @@ if(!isset($_SESSION['id'])) {
 require_once('include/db.php');
 
 $aero = new Aero();
-$aero -> sql = 'SELECT * FROM flights';
+//$aero -> sql = 'SELECT * FROM flights';
+$aero -> sql = 'SELECT f.id, f.code, a.name, b.name, f.departure_date, f.arrival_date FROM flights f INNER JOIN airports a ON (f.departure=a.id) INNER JOIN airports b ON (f.arrival=b.id)';
 $aero -> execute();
 $flights = $aero -> query -> fetchAll();
 
