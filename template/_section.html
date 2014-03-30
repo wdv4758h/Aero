@@ -7,7 +7,16 @@
 {% block body %}
 <header>
     <div class="global-logo"><a class="logo"><span>AERO | Aerospace Exploration and Research Organization</span></a></div>
-    <div class="global-nav">{% block options %}{% endblock %}</div>
+    <div class="global-nav">{% block options %}
+	<ul>
+	    <li><a href="flights">Flights</a></li>
+	    {% if _SESSION.is_admin %}
+	    <li><a href="airports">Airports</a></li>
+	    <li><a href="users">Users</a></li>
+	    {% endif %}
+	    <li><a href="logout">Sign Out</a></li>
+	</ul>
+    {% endblock %}</div>
 </header>
 
 <div class="wrapper">
@@ -15,9 +24,9 @@
 </div>
 
 <footer>
-    <div class="global-copyright">&copy; 2014 Chiu-Hsiang Hsu &amp; Pu-Hsuan Wu</div>
+    <div class="global-copyright">&copy; 2014 Chiu-Hsiang Hsu &amp; <a href="http://be.net/phwu">Pu-Hsuan Wu</a></div>
     <ul class="global-legal-documents">
-        <li><a href="http://be.net/phwu">Behance</a></li>
+        <li><a href=""></a></li>
     </ul>
 </footer>
 {% endblock %}
