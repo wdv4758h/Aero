@@ -24,8 +24,15 @@ if($_POST['id'] && $_POST['code'] && $_POST['departure'] && $_POST['arrival'] &&
     $arrival_date = $_POST['arrival_date'];
 
     $aero = new Aero();
-    $aero -> sql = 'UPDATE `flights` SET `code`=?, `departure`=?, `arrival`=?, `departure_date`=?, `arrival_date`=? WHERE `id`=?';
-    $aero -> execute(array($code,$departure, $arrival, $departure_date, $arrival_date, $id));
+    $aero -> sql = 'UPDATE `flights` SET `code`=:code, `departure`=(SELECT id FROM airports WHERE name=:departure), `arrival`=(SELECT id FROM airports WHERE name=:arrival), `departure_date`=:depart_date, `arrival_date`=:arrive_date WHERE `id`=:id';
+    $aero -> execute(array(
+	         ':id' => $id,
+	       ':code' => $code,
+	  ':departure' => $departure,
+	    ':arrival' => $arrival,
+	':depart_date' => $departure_date,
+	':arrive_date' => $arrival_date
+    ));
 
     header('location: main');
 
@@ -33,7 +40,7 @@ if($_POST['id'] && $_POST['code'] && $_POST['departure'] && $_POST['arrival'] &&
 } else if($_GET['id']) {
 
     $aero = new Aero();
-    $aero -> sql = 'SELECT * FROM flights WHERE id=?';
+    $aero -> sql = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date FROM flights f INNER JOIN airports a ON (f.departure=a.id) INNER JOIN airports b ON (f.arrival=b.id) WHERE f.id=?';
     $aero -> execute(array($_GET['id']));
     $flights = $aero -> query -> fetchAll();
 
