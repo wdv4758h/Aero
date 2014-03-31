@@ -32,7 +32,7 @@ if($_POST['id'] && $_POST['code']) {
     $aero -> execute(array($_GET['id']));
     $flights = $aero -> query -> fetchAll();
 
-    render('delete_flight.html', compact('flights'));
+    render('flight_delete.html', compact('flights'));
 
 } else {
 
