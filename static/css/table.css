@@ -61,6 +61,7 @@ tbody tr:hover td:last-child a {
     display: inline-block;
 }
 
+/*
 tbody td:first-child:before {
     content:"";
     border: 1px solid white;
@@ -88,7 +89,7 @@ tbody td:first-child[data-status=warning]:before {
 tbody td:first-child[data-status=inactive]:before {
     background-color: #d4d4d4;
 }
-
+*/
 tfoot tr {
     border-left: none;
     border-right: none;

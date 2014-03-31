@@ -20,10 +20,11 @@
             <li><label for="arrival_date">Arriving Time</label>
                 <input type="datetime-local" name="arrival_date" id="arrival_date" data-ng-model="arrival_date" data-ng-init="arrival_date='{{ flight.arrival_date }}'" min="[[ departure_date ]]" required>
             </li>
+            <li><label for="fare">Fare</label><input type="number" name="fare" id="fare" value="{{ flight.fare }}" required></li>
             <li><input type="submit" value="Confirm"></li>
             {% endfor %}
         </ul>
     </form>
-    <div class="cancel"><a href="/main">Cancel</a></div>
+    <div class="cancel"><a href="/flights">Cancel</a></div>
 </div>
 {% endblock %}

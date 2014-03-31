@@ -23,7 +23,8 @@
                 <td>Arrival</td>
                 <td>Departing Time</td>
                 <td>Arriving Time</td>
-                {% if _SESSION.is_admin %}<td>Operations</td>{% endif %}
+                <td>Fare</td>
+                <td>Operations</td>
             </tr>
         </thead>
         <tbody>
@@ -34,12 +35,14 @@
                 <td>[[ flight.arrival ]]</td>
                 <td>[[ flight.departure_date ]]</td>
                 <td>[[ flight.arrival_date ]]</td>
-                {% if _SESSION.is_admin %}
+                <td>[[ flight.fare | currency ]]</td>
                 <td>
+                    <a href="add_fav?id=[[ flight.id ]]">Compare</a>
+                    {% if _SESSION.is_admin %}
                     <a href="edit_flight?id=[[ flight.id ]]">Edit</a>
                     <a href="delete_flight?id=[[ flight.id ]]">Delete</a>
+                    {% endif %}
                 </td>
-                {% endif %}
             </tr>
         </tbody>
     </table>

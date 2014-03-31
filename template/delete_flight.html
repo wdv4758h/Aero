@@ -17,10 +17,11 @@
             <li><label for="arrival">Arrival</label><input type="text" name="arrival" id="arrival" value="{{ flight.arrival }}"></li>
             <li><label for="departure_date">Departing Time</label><input type="text" name="departure_date" id="departure_date" value="{{ flight.departure_date }}"></li>
             <li><label for="arrival_date">Arriving Time</label><input type="text" name="arrival_date" id="arrival_date" value="{{ flight.arrival_date }}"></li>
+            <li><label for="fare">Fare</label><input type="number" name="fare" id="fare" value="{{ flight.fare }}" required></li>
             <li><input type="submit" value="Confirm"></li>
             {% endfor %}
         </ul>
     </form>
-    <div class="cancel"><a href="/main">Cancel</a></div>
+    <div class="cancel"><a href="/flights">Cancel</a></div>
 </div>
 {% endblock %}

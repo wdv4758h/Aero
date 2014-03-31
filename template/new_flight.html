@@ -18,9 +18,10 @@
             <li><label for="arrival">Arriving Time</label>
                 <input id="arrival_date" name="arrival_date" type="datetime-local" data-ng-model="arrival_date" min="[[ departure_date ]]" required>
             </li>
+            <li><label for="fare">Fare</label><input type="number" name="fare" id="fare" min="0" required></li>
             <li><input type="submit" value="Confirm"></li>
         </ul>
     </form>
-    <div class="cancel"><a href="/main">Cancel</a></div>
+    <div class="cancel"><a href="/flights">Cancel</a></div>
 </div>
 {% endblock %}
