@@ -8,7 +8,7 @@
         <h1 class="left">Flight Schedule</h1>
         {% if _SESSION.is_admin %}
         <div class="option-group right">
-            <a href="new_flight" class="btn">Add</a>
+            <a href="/flights/add" class="btn">Add</a>
             <input type="search">
         </div>
         {% endif %}
@@ -37,10 +37,10 @@
                 <td>[[ flight.arrival_date ]]</td>
                 <td>[[ flight.fare | currency ]]</td>
                 <td>
-                    <a href="add_fav?id=[[ flight.id ]]">Compare</a>
+                    <a href="/flights/interest?id=[[ flight.id ]]">Compare</a>
                     {% if _SESSION.is_admin %}
-                    <a href="edit_flight?id=[[ flight.id ]]">Edit</a>
-                    <a href="delete_flight?id=[[ flight.id ]]">Delete</a>
+                    <a href="/flights/edit?id=[[ flight.id ]]">Edit</a>
+                    <a href="/flights/delete?id=[[ flight.id ]]">Delete</a>
                     {% endif %}
                 </td>
             </tr>
