@@ -1,0 +1,46 @@
+{% extends '_section.html' %}
+
+{% block title %} AERO {% endblock %}
+
+{% block content %}
+<section class="airport-list">
+    <div class="option-bar">
+        <h1 class="left">Airports</h1>
+        {% if _SESSION.is_admin %}
+        <div class="option-group right">
+            <a href="/airports/add" class="btn">Add</a>
+            <input type="search">
+        </div>
+        {% endif %}
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Longitude</td>
+                <td>Latutude</td>
+                <td>Options</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for airport in airports %}
+            <tr>
+                <td>{{ airport.id }}</td>
+                <td>{{ airport.name }}</td>
+                <td>{{ airport.longitude }}</td>
+                <td>{{ airport.latutude }}</td>
+                <td>
+                    {% if _SESSION.is_admin %}
+                    <a href="/airports/edit?id=[[ flight.id ]]">Edit</a>
+                    <a href="/airports/delete?id=[[ flight.id ]]">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}

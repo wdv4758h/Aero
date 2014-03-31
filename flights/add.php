@@ -37,7 +37,7 @@ if($_POST['code'] && $_POST['departure'] && $_POST['arrival']) {
 
 
 } else {
-    render('flight_add.html', array());
+    render('flights_add.html', array());
 }
 
 ?>

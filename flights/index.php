@@ -9,6 +9,6 @@ if(!isset($_SESSION['id'])) {
 }
 
 // Render...
-render('flight_list.html', compact('flights', '_SESSION'));
+render('flights_list.html', compact('flights', '_SESSION'));
 
 ?>

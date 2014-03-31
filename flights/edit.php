@@ -49,7 +49,7 @@ if($_POST['id'] && $_POST['code'] && $_POST['departure'] && $_POST['arrival'] &&
     $flights[0]['departure_date'] = str_replace(' ', 'T', $flights[0]['departure_date']);
     $flights[0]['arrival_date'] = str_replace(' ', 'T', $flights[0]['arrival_date']);
 
-    render('flight_edit.html', compact('flights'));
+    render('flights_edit.html', compact('flights'));
 
 } else {
 
