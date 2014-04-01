@@ -1,5 +1,5 @@
 <?php
-require_once('include/db.php');
+require_once('include/aero.php');
 
 function printr($data, $exit = TRUE) {
       if ($data) {
@@ -13,8 +13,9 @@ function printr($data, $exit = TRUE) {
 }
 
 
-$aero = new Aero();
-printr($aero->get('Airport',1));
+$a = new Airport();
+
+printr($a->get(1));
 
 
 ?>
