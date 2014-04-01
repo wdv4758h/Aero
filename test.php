@@ -1,21 +1,21 @@
 <?php
 require_once('include/aero.php');
 
-function printr($data, $exit = TRUE) {
-      if ($data) {
-              print '<pre>';
-                  print_r($data);
-                      print '</pre>';
-                        }
-        if ($exit) {
-                exit;
-                  }
-}
-
 
 $a = new Airport();
 
-printr($a->get(1));
+$b = $a->get(1);
 
+var_dump($a);
+echo '<br>';
+echo '<br>';
+var_dump($b);
+
+$value = array(
+        ':name' => 'test',
+        ':longitude' => '1.01',
+        ':latitude' => '2.02',
+        );
+$a -> add($value);
 
 ?>

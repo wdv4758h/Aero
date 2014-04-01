@@ -18,7 +18,8 @@ abstract class AbstractAero {
                 $aero -> sql = $this -> sql_selectID;
             else
                 $aero -> sql = $this -> sql_select . ' WHERE id=:id';
-
+            
+            $aero -> execute(array(':id'=>$id));
             $aero -> query -> setFetchMode(PDO::FETCH_CLASS, get_class($this));
             return $aero -> query -> fetch();
 
@@ -27,7 +28,17 @@ abstract class AbstractAero {
         }
     }
     
-    public function update($id, $value) {
+    public function add($value) {
+        try {
+            $aero = new Aero();
+            $aero -> sql = $this -> sql_insert;
+            $aero -> execute($value);
+        } catch(PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+    
+    public function update($value) {
         try {
             $aero = new Aero();
             $aero -> sql = $this -> sql_update;
@@ -53,6 +64,7 @@ class Airport extends AbstractAero {
     public $longitude;
     public $latitude;
     
+    protected $sql_insert = 'INSERT INTO `airports` (`id`, `name`, `longitude`, `latitude`) VALUES (NULL, :name, :longitude, :latitude)';
     protected $sql_select = 'SELECT * FROM `airports`';
     protected $sql_update = 'UPDATE `airports` SET `name`=:name, `longitude`=:longitude, `latitude`=:latitude WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `airports` WHERE `id`=:id';
@@ -60,10 +72,16 @@ class Airport extends AbstractAero {
     public function get($id) {
         $result = $this -> fetch($id);
         
-        $this -> $id = $result -> $id;
-        $this -> $name = $result -> $anme;
-        $this -> $longitude = $result -> $longitude;
-        $this -> $latitude = $result -> $latitude;
+        $this -> id = $result -> id;
+        $this -> name = $result -> name;
+        $this -> longitude = $result -> longitude;
+        $this -> latitude = $result -> latitude;
+        
+        return $result;
+    }
+    
+    public function this() {
+        var_dump($this);
     }
 }
 
@@ -75,6 +93,7 @@ class Flights extends AbstractAero {
     public $arrival_date;
     public $fare;
     
+    protected $sql_insert = 'INSERT INTO `flights` (`id`, `code`, `departure`, `arrival`, `departure_date`, `arrival_date`, `fare`) VALUES (NULL, :code, (SELECT id FROM airports WHERE name=:departure), (SELECT id FROM airports WHERE name=:arrival), :depart_date, :arrive_date, :fare)';
     protected $sql_select = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.id) INNER JOIN `airports` b ON (f.arrival=b.id)';
     protected $sql_selectID = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.id) INNER JOIN `airports` b ON (f.arrival=b.id) WHERE f.id=:id';
     protected $sql_update = 'UPDATE `flights` SET `code`=:code, `departure`=(SELECT id FROM `airports` WHERE name=:departure), `arrival`=(SELECT id FROM `airports` WHERE name=:arrival), `departure_date`=:depart_date, `arrival_date`=:arrive_date, `fare`=:fare WHERE `id`=:id';
@@ -97,6 +116,7 @@ class Plan extends AbstractAero {
     public $users_id;
     public $flights_id;
     
+    protected $sql_insert = 'INSERT INTO `plans` (`id`, `users_id`, `flights_id`) VALUES (NULL, :users_id, :flights_id)';
     protected $sql_select = 'SELECT * FROM `plans`';
     protected $sql_update = 'UPDATE `plans` SET `users_id`=:users_id, `flights_id`=:flights_id WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `plans` WHERE `id`=:id';
@@ -115,6 +135,7 @@ class User {
     public $password;
     public $is_admin;
     
+    protected $sql_insert = 'INSERT INTO `users` (`id`, `username`, `password`, `is_admin`) VALUES (NULL, :username, :password, :is_admin)';
     protected $sql_select = 'SELECT * FROM `users`';
     protected $sql_update = 'UPDATE `users` SET `username`=:username, `password`=:password, `is_admin`=:is_admin WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `users` WHERE `id`=:id';
