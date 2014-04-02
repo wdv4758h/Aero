@@ -26,9 +26,18 @@
                 <td>Fare</td>
                 <td>Operations</td>
             </tr>
+            <tr>
+                <td><input data-ng-model='search.id' type="search"></td>
+                <td><input data-ng-model='search.code' type="search"></td>
+                <td><input data-ng-model='search.departure' type="search"></td>
+                <td><input data-ng-model='search.arrival' type="search"></td>
+                <td><input data-ng-model='search.departure_date' type="search"></td>
+                <td><input data-ng-model='search.arrival_date' type="search"></td>
+                <td><input data-ng-model='search.fare' type="search"></td>
+            </tr>
         </thead>
         <tbody>
-            <tr data-ng-repeat='flight in flights'>
+            <tr data-ng-repeat='flight in flights | filter:search'>
                 <td>[[ flight.id ]]</td>
                 <td>[[ flight.code ]]</td>
                 <td>[[ flight.departure ]]</td>
