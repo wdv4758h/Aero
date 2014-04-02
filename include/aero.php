@@ -150,7 +150,7 @@ class Plan extends AbstractAero {
     }
 }
 
-class User {
+class User extends AbstractAero {
     public $username;
     public $password;
     public $is_admin;
