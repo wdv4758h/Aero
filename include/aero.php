@@ -136,22 +136,19 @@ class Plan extends AbstractAero {
     public $flights_id;
     
     protected $sql_insert = 'INSERT INTO `plans` (`id`, `users_id`, `flights_id`) VALUES (NULL, :users_id, :flights_id)';
-    protected $sql_select = 'SELECT * FROM `plans`';
-    protected $sql_selectID = 'SELECT * FROM `plans` WHERE `users_id`=:id';
+    protected $sql_select = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date, f.fare FROM `plans` p INNER JOIN `flights` f ON (p.flights_id=f.id) INNER JOIN `airports` a ON (f.departure=a.id) INNER JOIN `airports` b ON (f.arrival=b.id) WHERE `users_id`=:id';
     protected $sql_update = '';
     protected $sql_delete = 'DELETE FROM `plans` WHERE `users_id`=:users_id AND `flights_id`=:flights_id';
     
     public function get($id = null) {
         if ($id) {
-            $result = $this -> fetch($id);
-            
-            $this -> id = $result -> id;
-            $this -> users_id = $result -> users_id;
-            $this -> flights_id = $result -> flights_id;
+            $aero = new Aero();
+            $aero -> sql = $this -> sql_select;
+            $aero -> execute(array(':id'=>$id));
+            return $aero -> query -> fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Flight');
         } else {
-            $result = $this -> fetchAll();
+            //$result = $this -> fetchAll();
         }
-        return $result;
     }
     
     public function add($id) { // $id = array('users_id','flights_id')
