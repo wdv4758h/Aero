@@ -10,8 +10,28 @@ app.controller('flightList', function($scope, $http){
                 $scope.flights = data;
         });
         planes.error(function(data, status, headers, config){
-                alert('Ajax failed');
+                console.log('Ajax failed');
         });
+    };
+
+    var getCompare = function(){
+        var planes = $http.get('/api/plans');
+        planes.success(function(data, status, headers, config){
+                $scope.plans = data;
+        });
+        planes.error(function(data, status, headers, config){
+                console.log('Ajax failed');
+        });
+    };
+
+    $scope.interest = function(id){
+        data = { "id" : id }
+        $http.post('/flights/interest', data).error(function(){ console.log("Post of Interest failed")});
+    };
+
+    $scope.deinterest = function(id){
+        data = { "id" : id }
+        $http.post('/flights/deinterest', data).error(function(){ console.log("Post of Deinterest failed")});
     };
 
     var timer = setInterval(function() {
