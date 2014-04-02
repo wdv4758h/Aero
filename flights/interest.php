@@ -16,13 +16,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     require_once('../include/aero.php');
     $p = new Plan();
-    
+
     $value = array(
-       ':users_id' => $_SESSION['id'],
-	  ':flights_id' => $_GET['id'],
+        ':users_id' => $_SESSION['id'],
+	    ':flights_id' => $_POST['id'],
     );
     $p -> add($value);
-    
+
     header('location: /flights/');
 
 } else {
