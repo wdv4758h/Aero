@@ -25,17 +25,27 @@ app.controller('flightList', function($scope, $http){
     };
 
     $scope.interest = function(id){
-        data = { "id" : id }
-        $http.post('/flights/interest', data).error(function(){ console.log("Post of Interest failed")});
+        var tmp = $http({
+            method: 'POST',
+            url: '/flights/interest',
+            data: 'id=' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+        tmp.error(function(){ console.log("Post of Interest failed")});
     };
 
-    $scope.deinterest = function(id){
-        data = { "id" : id }
-        $http.post('/flights/deinterest', data).error(function(){ console.log("Post of Deinterest failed")});
+    $scope.disinterest = function(id){
+        var tmp = $http({
+            method: 'POST',
+            url: '/flights/disinterest',
+            data: 'id=' + id,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
     };
 
     var timer = setInterval(function() {
         $scope.$apply(getFlightList);
+        $scope.$apply(getCompare);
     }, 1000);
 
     $scope.flightsFilter = function(object) {
