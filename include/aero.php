@@ -151,16 +151,16 @@ class Plan extends AbstractAero {
         }
     }
     
-    public function add($id) { // $id = array('users_id','flights_id')
+    public function add($value) {
         try {
             $aero = new Aero();
             $aero -> sql = 'SELECT * FROM `plans` WHERE `users_id`=:users_id AND `flights_id`=:flights_id';
-            $aero -> execute($id);
+            $aero -> execute($value);
             $result = $aero -> query -> fetchObject();
             
             if(!$result) {
                 $aero -> sql = $this -> sql_insert;
-                $aero -> execute($id);
+                $aero -> execute($value);
             }
         } catch(PDOExeception $e) { // incomplete
             if ($e->getCode() == '2A000')
