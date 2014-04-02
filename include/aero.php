@@ -57,6 +57,7 @@ abstract class AbstractAero {
         } catch(PDOException $e) {
             echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
         }
+    }
 
     public function delete($id) {
         try {
