@@ -9,7 +9,7 @@ if(!isset($_SESSION['id'])) {
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if(!isset($_GET['id'])) {
+    if(!isset($_POST['id'])) {
         echo 'Can not be empty';
         exit();
     }
