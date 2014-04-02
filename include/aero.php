@@ -63,7 +63,11 @@ abstract class AbstractAero {
         try {
             $aero = new Aero();
             $aero -> sql = $this -> sql_delete;
-            $aero -> execute(array(':id'=>$id));
+            if (is_array($id)) {
+                $aero -> execute($id);
+            } else { 
+                $aero -> execute(array(':id'=>$id));
+            }
         } catch(PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
@@ -133,8 +137,9 @@ class Plan extends AbstractAero {
     
     protected $sql_insert = 'INSERT INTO `plans` (`id`, `users_id`, `flights_id`) VALUES (NULL, :users_id, :flights_id)';
     protected $sql_select = 'SELECT * FROM `plans`';
-    protected $sql_update = 'UPDATE `plans` SET `users_id`=:users_id, `flights_id`=:flights_id WHERE `id`=:id';
-    protected $sql_delete = 'DELETE FROM `plans` WHERE `id`=:id';
+    protected $sql_selectID = 'SELECT * FROM `plans` WHERE `users_id`=:id';
+    protected $sql_update = '';
+    protected $sql_delete = 'DELETE FROM `plans` WHERE `users_id`=:users_id AND `flights_id`=:flights_id';
     
     public function get($id = null) {
         if ($id) {
@@ -147,6 +152,11 @@ class Plan extends AbstractAero {
             $result = $this -> fetchAll();
         }
         return $result;
+    }
+    
+    public function update($value) {
+        echo 'update() is not supported';
+        exit();
     }
 }
 
