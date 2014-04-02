@@ -24,7 +24,7 @@ abstract class AbstractAero {
             return $aero -> query -> fetch();
 
         } catch(PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
         }
     }
     
@@ -35,7 +35,7 @@ abstract class AbstractAero {
             $aero -> execute();
             return $aero -> query -> fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, get_class($this));
         } catch(PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
         }
     }
     
@@ -45,7 +45,7 @@ abstract class AbstractAero {
             $aero -> sql = $this -> sql_insert;
             $aero -> execute($value);
         } catch(PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
         }
     }
     
@@ -55,10 +55,9 @@ abstract class AbstractAero {
             $aero -> sql = $this -> sql_update;
             $aero -> execute($value);
         } catch(PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
         }
-    }
-    
+
     public function delete($id) {
         try {
             $aero = new Aero();
@@ -69,7 +68,7 @@ abstract class AbstractAero {
                 $aero -> execute(array(':id'=>$id));
             }
         } catch(PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
         }
     }
 }
@@ -154,9 +153,45 @@ class Plan extends AbstractAero {
         return $result;
     }
     
+    public function add($id) { // $id = array('users_id','flights_id')
+        try {
+            $aero = new Aero();
+            $aero -> sql = 'SELECT * FROM `plans` WHERE `users_id`=:users_id AND `flights_id`=:flights_id';
+            $aero -> execute($id);
+            $result = $aero -> query -> fetchObject();
+            
+            if(!$result) {
+                $aero -> sql = $this -> sql_insert;
+                $aero -> execute($id);
+            }
+        } catch(PDOExeception $e) { // incomplete
+            if ($e->getCode() == '2A000')
+                echo 'Flight ID not found. (Need mockup)';
+            else
+                echo 'Error: ' . $e->errorCode();
+                //echo 'Error: ' . $e->getMessage();
+        }
+    }
+    
     public function update($value) {
         echo 'update() is not supported';
         exit();
+    }
+    
+    public function delete($id) { // $id = array('users_id','flights_id')
+        try {
+            $aero = new Aero();
+            $aero -> sql = 'SELECT * FROM `plans` WHERE `users_id`=:users_id AND `flights_id`=:flights_id';
+            $aero -> execute($id);
+            $result = $aero -> query -> fetchObject();
+            
+            if($result) {
+                $aero -> sql = $this -> sql_delete;
+                $aero -> execute($id);
+            }
+        } catch(PDOExeception $e) {
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
+        }
     }
 }
 
