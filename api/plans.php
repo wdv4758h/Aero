@@ -15,7 +15,7 @@ if(!isset($_SESSION['id'])) {
     exit();
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
+if($_SERVER['REQUEST_METHOD'] === 'GET') {
     require_once '../include/aero.php';
     $p = new Plan();
     echo json_encode($p -> get($_SESSION['id']));

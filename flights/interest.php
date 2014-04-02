@@ -8,7 +8,7 @@ if(!isset($_SESSION['id'])) {
     exit();
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'GET') {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(!isset($_GET['id'])) {
         echo 'Can not be empty';
         exit();
