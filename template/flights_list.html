@@ -9,7 +9,7 @@
         {% if _SESSION.is_admin %}
         <div class="option-group right">
             <a href="/flights/add" class="btn">Add</a>
-            <input type="search">
+            <input data-ng-model='search' type="search">
         </div>
         {% endif %}
     </div>
@@ -37,7 +37,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr data-ng-repeat='flight in flights | orderBy:order:reverse | filter:search'>
+            <tr data-ng-repeat='flight in flights | orderBy:order:reverse | filter:flightsFilter'>
                 <td>[[ flight.id ]]</td>
                 <td>[[ flight.code ]]</td>
                 <td>[[ flight.departure ]]</td>

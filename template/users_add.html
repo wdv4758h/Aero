@@ -1,0 +1,21 @@
+{% extends '_section.html' %}
+
+{% block title %} New User? {% endblock %}
+
+{% block options %}
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <form action="/users/add" method="post">
+        <ul>
+            <li><label for="username">Username</label><input type="text" name="username" id="username" required></li>
+            <li><label for="password">Password</label><input type="password" name="password" id="password" required></li>
+            <li><label for="password2">Password2</label><input type="password" name="password2" id="password2" required></li>
+            <li><label for="is_admin">is_admin</label><input type="checkbox" name="is_admin" id="is_admin" required></li>
+            <li><input type="submit" value="Confirm"></li>
+        </ul>
+    </form>
+    <div class="cancel"><a href="/users/">Cancel</a></div>
+</div>
+{% endblock %}

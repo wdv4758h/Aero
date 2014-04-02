@@ -1,0 +1,44 @@
+{% extends '_section.html' %}
+
+{% block title %} AERO {% endblock %}
+
+{% block content %}
+<section class="user-list">
+    <div class="option-bar">
+        <h1 class="left">Users</h1>
+        {% if _SESSION.is_admin %}
+        <div class="option-group right">
+            <a href="/users/add" class="btn">Add</a>
+            <input type="search">
+        </div>
+        {% endif %}
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Username</td>
+                <td>Admin</td>
+                <td>Options</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.is_admin }}</td>
+                <td>
+                    {% if _SESSION.is_admin %}
+                    <a href="/users/edit?id={{ user.id }}">Edit</a>
+                    <a href="/users/delete?id={{ user.id }}">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}
