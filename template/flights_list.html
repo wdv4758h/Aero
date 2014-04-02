@@ -3,7 +3,7 @@
 {% block title %} AERO {% endblock %}
 
 {% block content %}
-<section class="flight-schedule">
+<section class="interest-list flight-schedule">
     <div class="option-bar">
         <h1 class="left">Flight Schedule</h1>
         {% if _SESSION.is_admin %}
@@ -25,15 +25,6 @@
                 <td ng-click="order = 'arrival_date'; reverse=!reverse">Arriving Time</td>
                 <td ng-click="order = 'fare'; reverse=!reverse">Fare</td>
                 <td>Operations</td>
-            </tr>
-            <tr>
-                <td><input data-ng-model='search.id' type="search"></td>
-                <td><input data-ng-model='search.code' type="search"></td>
-                <td><input data-ng-model='search.departure' type="search"></td>
-                <td><input data-ng-model='search.arrival' type="search"></td>
-                <td><input data-ng-model='search.departure_date' type="search"></td>
-                <td><input data-ng-model='search.arrival_date' type="search"></td>
-                <td><input data-ng-model='search.fare' type="search"></td>
             </tr>
         </thead>
         <tbody>
