@@ -16,7 +16,7 @@ $airport = new Airport();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    if(!isset($_POST['id']) || trim($_POST['code'])==='') {
+    if(!isset($_POST['id'])) {
         echo "Can not be empty";
     }
     

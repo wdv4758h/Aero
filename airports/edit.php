@@ -43,6 +43,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     render('airports_edit.html', array('airports'=>$a));
 
+} else {
+    header('location: /airports/');
 }
 
 ?>

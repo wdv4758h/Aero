@@ -12,8 +12,12 @@ if(!$_SESSION['is_admin']) {
     exit();
 }
 
-if($_POST['name'] && $_POST['longitude'] && $_POST['latitude']) {
-
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    if(trim($_POST['name'])==='' || !isset($_POST['longitude']) || !isset($_POST['latitude'])) {
+        echo "Can not be empty";
+    }
+    
     require_once('../include/aero.php');
     $a = new Airport();
     $value = array(
