@@ -7,14 +7,14 @@
 
 {% block content %}
 <div class="">
-    <form action="/flights/add" method="post">
+    <form action="/airports/add" method="post">
         <ul>
             <li><label for="name">Name</label><input type="text" name="name" id="name" required></li>
             <li><label for="longitude">Longitude</label><input type="text" name="longitude" id="longitude" required></li>
-            <li><label for="latutude">Latutude</label><input type="text" name="latutude" id="latutude" required></li>
+            <li><label for="latitude">Latitude</label><input type="text" name="latitude" id="latitude" required></li>
             <li><input type="submit" value="Confirm"></li>
         </ul>
     </form>
-    <div class="cancel"><a href="/airports">Cancel</a></div>
+    <div class="cancel"><a href="/airports/">Cancel</a></div>
 </div>
 {% endblock %}

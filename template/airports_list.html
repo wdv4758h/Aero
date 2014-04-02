@@ -20,7 +20,7 @@
                 <td>ID</td>
                 <td>Name</td>
                 <td>Longitude</td>
-                <td>Latutude</td>
+                <td>Latitude</td>
                 <td>Options</td>
             </tr>
         </thead>
@@ -30,15 +30,15 @@
                 <td>{{ airport.id }}</td>
                 <td>{{ airport.name }}</td>
                 <td>{{ airport.longitude }}</td>
-                <td>{{ airport.latutude }}</td>
+                <td>{{ airport.latitude }}</td>
                 <td>
                     {% if _SESSION.is_admin %}
-                    <a href="/airports/edit?id=[[ flight.id ]]">Edit</a>
-                    <a href="/airports/delete?id=[[ flight.id ]]">Delete</a>
+                    <a href="/airports/edit?id={{ airport.id }}">Edit</a>
+                    <a href="/airports/delete?id={{ airport.id }}">Delete</a>
                     {% endif %}
                 </td>
             </tr>
-            {% endif %}
+            {% endfor %}
         </tbody>
     </table>
 </section>
