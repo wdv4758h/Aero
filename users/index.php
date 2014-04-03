@@ -13,11 +13,7 @@ if(!$_SESSION['is_admin']) {
     exit();
 }
 
-// Initial and Get airports...
-$u = new User();
-$users = $u -> get();
-
 // Render...
-render('users_list.html', compact('users', '_SESSION'));
+render('users_list.html', compact('_SESSION'));
 
 ?>
