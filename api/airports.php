@@ -8,7 +8,11 @@ if(!isset($_SESSION['id'])) {
     exit();
 }
 
-// Render...
-render('airports_list.html', compact('_SESSION'));
+// Initial and Get airports...
+$a = new Airport();
+$airports = $a -> get();
+
+
+echo json_encode($airports);
 
 ?>
