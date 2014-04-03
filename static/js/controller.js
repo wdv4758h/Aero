@@ -96,7 +96,25 @@ app.controller('flightList', function($scope, $http){
         if(match == array.length)
             return true;
         return false;
-    }
+    };
 
     getFlightList();
+});
+
+app.controller('userList', function($scope, $http){
+    var getUserList = function(){
+        var users = $http.get('/api/users');
+        users.success(function(data, status, headers, config){
+                $scope.users = data;
+        });
+        users.error(function(data, status, headers, config){
+                console.log('Ajax failed');
+        });
+    };
+
+    var timer = setInterval(function() {
+        $scope.$apply(getUserList);
+    }, 1000);
+
+    getUserList();
 });
