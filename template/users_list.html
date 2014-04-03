@@ -9,34 +9,32 @@
         {% if _SESSION.is_admin %}
         <div class="option-group right">
             <a href="/users/add" class="btn">Add</a>
-            <input type="search">
+            <input data-ng-model="search" type="search">
         </div>
         {% endif %}
     </div>
 
-    <table>
+    <table data-ng-controller='userList'>
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Username</td>
-                <td>Admin</td>
+                <td data-ng-click="order = 'id'; reverse=!reverse">ID</td>
+                <td data-ng-click="order = 'username'; reverse=!reverse">Username</td>
+                <td data-ng-click="order = 'is_admin'; reverse=!reverse">Admin</td>
                 <td>Options</td>
             </tr>
         </thead>
         <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.is_admin }}</td>
+            <tr data-ng-repeat='user in users | orderBy:order:reverse | filter:search'>
+                <td>[[ user.id ]]</td>
+                <td>[[ user.username ]]</td>
+                <td>[[ user.is_admin ]]</td>
                 <td>
                     {% if _SESSION.is_admin %}
-                    <a href="/users/edit?id={{ user.id }}">Edit</a>
-                    <a href="/users/delete?id={{ user.id }}">Delete</a>
+                    <a href="/users/edit?id=[[ user.id ]]">Edit</a>
+                    <a href="/users/delete?id=[[ user.id ]]">Delete</a>
                     {% endif %}
                 </td>
             </tr>
-            {% endfor %}
         </tbody>
     </table>
 </section>
