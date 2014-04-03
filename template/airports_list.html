@@ -9,12 +9,12 @@
         {% if _SESSION.is_admin %}
         <div class="option-group right">
             <a href="/airports/add" class="btn">Add</a>
-            <input type="search">
+            <input data-ng-model="search" type="search">
         </div>
         {% endif %}
     </div>
 
-    <table>
+    <table data-ng-controller='airportsList'>
         <thead>
             <tr>
                 <td>ID</td>
@@ -25,20 +25,18 @@
             </tr>
         </thead>
         <tbody>
-            {% for airport in airports %}
-            <tr>
-                <td>{{ airport.id }}</td>
-                <td>{{ airport.name }}</td>
-                <td>{{ airport.longitude }}</td>
-                <td>{{ airport.latitude }}</td>
+            <tr data-ng-repeat="airport in airports | filter:search">
+                <td>[[ airport.id ]]</td>
+                <td>[[ airport.name ]]</td>
+                <td>[[ airport.longitude ]]</td>
+                <td>[[ airport.latitude ]]</td>
                 <td>
                     {% if _SESSION.is_admin %}
-                    <a href="/airports/edit?id={{ airport.id }}">Edit</a>
-                    <a href="/airports/delete?id={{ airport.id }}">Delete</a>
+                    <a href="/airports/edit?id=[[ airport.id ]]">Edit</a>
+                    <a href="/airports/delete?id=[[ airport.id ]]">Delete</a>
                     {% endif %}
                 </td>
             </tr>
-            {% endfor %}
         </tbody>
     </table>
 </section>

@@ -118,3 +118,21 @@ app.controller('userList', function($scope, $http){
 
     getUserList();
 });
+
+app.controller('airportsList', function($scope, $http){
+    var getAirportsList = function(){
+        var airports = $http.get('/api/airports');
+        airports.success(function(data, status, headers, config){
+                $scope.airports = data;
+        });
+        airports.error(function(data, status, headers, config){
+                console.log('Ajax failed');
+        });
+    };
+
+    var timer = setInterval(function() {
+        $scope.$apply(getAirportsList);
+    }, 1000);
+
+    getAirportsList();
+});
