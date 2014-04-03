@@ -6,12 +6,12 @@
 <section class="airport-list">
     <div class="option-bar">
         <h1 class="left">Airports</h1>
-        {% if _SESSION.is_admin %}
         <div class="option-group right">
+            {% if _SESSION.is_admin %}
             <a href="/airports/add" class="btn">Add</a>
+            {% endif %}
             <input data-ng-model="search" type="search">
         </div>
-        {% endif %}
     </div>
 
     <table data-ng-controller='airportsList'>
