@@ -16,6 +16,6 @@ if(!$_SESSION['is_admin']) {
 $u = new User();
 $users = $u -> get();
 
-echo json_encode($users);
+echo json_encode($users, JSON_NUMERIC_CHECK);
 
 ?>

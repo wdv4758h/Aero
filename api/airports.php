@@ -13,6 +13,6 @@ $a = new Airport();
 $airports = $a -> get();
 
 
-echo json_encode($airports);
+echo json_encode($airports, JSON_NUMERIC_CHECK);
 
 ?>
