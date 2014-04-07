@@ -11,8 +11,6 @@
         <ul>
             <li class="hide"><label for="id">id</label><input type="text" name="id" id="id" value="{{ user.id }}" readonly></li>
             <li><label for="username">Username</label><input type="text" name="username" id="username" value="{{ user.username }}" readonly></li>
-            <li><label for="password">Password</label><input type="password" name="password" id="password" required></li>
-            <li><label for="password">Password2</label><input type="password" name="password2" id="password2" required></li>
             <li><label for="is_admin">is_admin</label><input type="checkbox" name="is_admin" id="is_admin" {% if user.is_admin %}checked{% endif %} required></li>
             <li><input type="submit" value="Confirm"></li>
         </ul>

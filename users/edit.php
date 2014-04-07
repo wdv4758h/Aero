@@ -26,8 +26,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $is_admin = $_POST['is_admin']?1:0;
 
     $u -> get($_POST['id']);
-    if ($username != $u -> username) {
-        echo "Ooops! It doesn't seems right";
+    if ($u -> is_admin) {
+        echo "403 You can't modify admin accounts.";
         exit();
     }
 
@@ -46,7 +46,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     $u -> get($_GET['id']);
-
+    if ($u -> is_admin) {
+        echo "403 You can't modify admin accounts.";
+        exit();
+    }
+    
     render('users_edit.html', array('user'=>$u));
 
 } else {
