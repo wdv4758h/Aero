@@ -70,31 +70,37 @@ app.controller('flightList', function($scope, $http){
         };
 
         var match = 0;
+
+        var keywords = {
+            'from': ['departure', 'departure_date'],
+            'to': ['arrival', 'arrival_date'],
+            'id': ['id'],
+            'fare': ['fare'],
+            'flight': ['code'],
+            'on': ['departure_date', 'arrival_date']
+        };
+
         for(var i = 0, len = array.length, is_sub; i < len; i++){
             is_sub = 0;
-            if(array[i] == 'from'){
-                if(i+1 < len){
-                    if(checkSubStr(object, array[i+1], ['departure', 'departure_date'])){
-                        match+=2;
-                        i++;
+
+            next = false;
+            for(var key in keywords){
+                if(array[i] == key){
+                    if(i+1 < len){
+                        if(checkSubStr(object, array[i+1], keywords[key])){
+                            match+=2;
+                            i++;
+                        }
+                    } else{
+                        match++;
                     }
-                } else{
-                    match++;
+                    next = true;
+                    break;
                 }
-                continue;
             }
 
-            if(array[i] == 'to'){
-                if(i+1 < len){
-                    if(checkSubStr(object, array[i+1], ['arrival', 'arrival_date'])){
-                        match+=2;
-                        i++;
-                    }
-                } else{
-                    match++;
-                }
+            if(next)
                 continue;
-            }
 
             for(var key in object){
                 if(object[key].toString().toLowerCase().indexOf(array[i].toLowerCase()) != -1)
