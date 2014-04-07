@@ -9,7 +9,7 @@ tr {
 }
 
 td {
-    padding: 0px 3px;
+    padding: 0px 5px;
 }
 
 thead tr {
@@ -22,8 +22,56 @@ thead tr {
 }
 
 thead td {
-
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
 }
+thead td:first-child {
+    border-left: none !important;
+}
+thead td:last-child {
+    border-right: none !important;
+}
+
+
+thead td.focus {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background-color: #b1c2c4;
+    color: #104273;
+    font-weight: bold;
+}
+
+
+thead td.hover,
+thead td:hover {
+    background-color: #ffe7d2;
+}
+
+thead td.sort {
+    background-image: url('../img/icon_table_arrows@2x.png');
+    background-position: right -1px;
+    background-repeat: no-repeat;
+    background-size: 13px 136px;
+}
+
+thead td.asc {
+    background-position: right -29px;
+}
+
+thead td.des {
+    background-position: right -57px;
+}
+
+thead td.focus.asc {
+    background-position: right -81px;
+}
+
+thead td.focus.des {
+    background-position: right -108px;
+}
+
+
+
 
 tbody tr {
     border-bottom: 1px solid #ccc;
