@@ -73,11 +73,16 @@ app.controller('flightList', function($scope, $http){
 
         var keywords = {
             'from': ['departure', 'departure_date'],
+            '從': ['departure', 'departure_date'],
             'to': ['arrival', 'arrival_date'],
+            '到': ['arrival', 'arrival_date'],
             'id': ['id'],
             'fare': ['fare'],
+            '價錢': ['fare'],
             'flight': ['code'],
-            'on': ['departure_date', 'arrival_date']
+            '航班': ['code'],
+            'on': ['departure_date', 'arrival_date'],
+            '日期': ['departure_date', 'arrival_date']
         };
 
         for(var i = 0, len = array.length, is_sub; i < len; i++){
