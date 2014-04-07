@@ -62,7 +62,7 @@ app.controller('flightList', function($scope, $http){
         checkSubStr = function(data, target, checkArray){
             target = target.toLowerCase();
             for(var i = 0, len = checkArray.length; i < len; i++){
-                if(data[checkArray[i]].toLowerCase().indexOf(target) != -1){
+                if(data[checkArray[i]].toString().toLowerCase().indexOf(target) != -1){
                     return true;
                 }
             }
@@ -97,7 +97,7 @@ app.controller('flightList', function($scope, $http){
             }
 
             for(var key in object){
-                if(object[key].toLowerCase().indexOf(array[i].toLowerCase()) != -1)
+                if(object[key].toString().toLowerCase().indexOf(array[i].toLowerCase()) != -1)
                     is_sub = 1;
             }
             match += is_sub;
