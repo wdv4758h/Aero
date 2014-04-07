@@ -3,9 +3,6 @@ var app = angular.module('Airline', [], function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-var tmp;
-var tmp2;
-
 app.controller('flightList', function($scope, $http){
     var getFlightList = function(){
         var planes = $http.get('/api/flights');
@@ -52,7 +49,6 @@ app.controller('flightList', function($scope, $http){
     }, 1000);
 
     $scope.flightsFilter = function(object) {
-        tmp = object;
 
         if(typeof $scope.search == "undefined")
             return true;
@@ -62,14 +58,23 @@ app.controller('flightList', function($scope, $http){
             return true;
 
         array = search.split(' ');
-        tmp2 = array;
+
+        checkSubStr = function(data, target, checkArray){
+            target = target.toLowerCase();
+            for(var i = 0, len = checkArray.length; i < len; i++){
+                if(data[checkArray[i]].toLowerCase().indexOf(target) != -1){
+                    return true;
+                }
+            }
+            return false;
+        };
 
         var match = 0;
         for(var i = 0, len = array.length, is_sub; i < len; i++){
             is_sub = 0;
             if(array[i] == 'from'){
                 if(i+1 < len){
-                    if(object['departure'].toLowerCase().indexOf(array[i+1].toLowerCase()) != -1){
+                    if(checkSubStr(object, array[i+1], ['departure', 'departure_date'])){
                         match+=2;
                         i++;
                     }
@@ -81,7 +86,7 @@ app.controller('flightList', function($scope, $http){
 
             if(array[i] == 'to'){
                 if(i+1 < len){
-                    if(object['arrival'].toLowerCase().indexOf(array[i+1].toLowerCase()) != -1){
+                    if(checkSubStr(object, array[i+1], ['arrival', 'arrival_date'])){
                         match+=2;
                         i++;
                     }
