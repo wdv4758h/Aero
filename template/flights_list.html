@@ -46,8 +46,17 @@
             </tr>
         </tbody>
     </table>
+</section>
 
-    <br>
+
+<section class="flight-schedule">
+    <div class="option-bar">
+        <h1 class="left">Compare Flights</h1>
+        <div class="option-group right">
+            <input data-ng-model='search' type="search">
+        </div>
+    </div>
+    
     <table data-ng-hide="plans.isEmpty()" data-ng-controller='flightList'>
         <thead>
             <tr>
