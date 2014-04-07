@@ -1,4 +1,5 @@
 {% extends '_section.html' %}
+{% import _self as m %}
 
 {% block title %} AERO {% endblock %}
 
@@ -16,19 +17,23 @@
 
     <table data-ng-controller='flightList'>
         <thead>
+            {% macro THEAD() %}
             <tr>
-                <td data-ng-click="order = 'id'; reverse=!reverse">ID</td>
-                <td data-ng-click="order = 'code'; reverse=!reverse">Flight Number</td>
-                <td data-ng-click="order = 'departure'; reverse=!reverse">Departure</td>
-                <td data-ng-click="order = 'arrival'; reverse=!reverse">Arrival</td>
-                <td data-ng-click="order = 'departure_date'; reverse=!reverse">Departing Time</td>
-                <td data-ng-click="order = 'arrival_date'; reverse=!reverse">Arriving Time</td>
-                <td data-ng-click="order = 'fare'; reverse=!reverse">Fare</td>
+                <td class="sort" data-ng-class="{asc: order=='id' && !reverse, des: order=='id' && reverse}" data-ng-click="order = 'id'; reverse=!reverse">ID</td>
+                <td class="sort" data-ng-class="{asc: order=='code' && !reverse, des: order=='code' && reverse}" data-ng-click="order = 'code'; reverse=!reverse">Flight Number</td>
+                <td class="sort" data-ng-class="{asc: order=='departure' && !reverse, des: order=='departure' && reverse}" data-ng-click="order = 'departure'; reverse=!reverse">Departure</td>
+                <td class="sort" data-ng-class="{asc: order=='arrival' && !reverse, des: order=='arrival' && reverse}" data-ng-click="order = 'arrival'; reverse=!reverse">Arrival</td>
+                <td class="sort" data-ng-class="{asc: order=='departure_date' && !reverse, des: order=='departure_date' && reverse}" data-ng-click="order = 'departure_date'; reverse=!reverse">Departing Time</td>
+                <td class="sort" data-ng-class="{asc: order=='arrival_date' && !reverse, des: order=='arrival_date' && reverse}" data-ng-click="order = 'arrival_date'; reverse=!reverse">Arriving Time</td>
+                <td class="sort" data-ng-class="{asc: order=='fare' && !reverse, des: order=='fare' && reverse}" data-ng-click="order = 'fare'; reverse=!reverse">Fare</td>
                 <td>Operations</td>
             </tr>
+            {% endmacro %}
+            {{ m.THEAD() }}
         </thead>
         <tbody>
             <tr data-ng-repeat='flight in flights | orderBy:order:reverse | filter:flightsFilter'>
+                {% macro TBODY() %}
                 <td>[[ flight.id ]]</td>
                 <td>[[ flight.code ]]</td>
                 <td>[[ flight.departure ]]</td>
@@ -36,6 +41,8 @@
                 <td>[[ flight.departure_date ]]</td>
                 <td>[[ flight.arrival_date ]]</td>
                 <td>[[ flight.fare | currency ]]</td>
+                {% endmacro %}
+                {{ m.TBODY() }}
                 <td>
                     <a data-ng-click="interest(flight.id)">Compare</a>
                     {% if _SESSION.is_admin %}
@@ -59,26 +66,11 @@
 
     <table data-ng-hide="plansIsEmpty()" data-ng-controller='flightList'>
         <thead>
-            <tr>
-                <td data-ng-click="order = 'id'; reverse=!reverse">ID</td>
-                <td data-ng-click="order = 'code'; reverse=!reverse">Flight Number</td>
-                <td data-ng-click="order = 'departure'; reverse=!reverse">Departure</td>
-                <td data-ng-click="order = 'arrival'; reverse=!reverse">Arrival</td>
-                <td data-ng-click="order = 'departure_date'; reverse=!reverse">Departing Time</td>
-                <td data-ng-click="order = 'arrival_date'; reverse=!reverse">Arriving Time</td>
-                <td data-ng-click="order = 'fare'; reverse=!reverse">Fare</td>
-                <td>Operations</td>
-            </tr>
+            {{ m.THEAD() }}
         </thead>
         <tbody>
         <tr data-ng-repeat='flight in plans | orderBy:order:reverse'>
-                <td>[[ flight.id ]]</td>
-                <td>[[ flight.code ]]</td>
-                <td>[[ flight.departure ]]</td>
-                <td>[[ flight.arrival ]]</td>
-                <td>[[ flight.departure_date ]]</td>
-                <td>[[ flight.arrival_date ]]</td>
-                <td>[[ flight.fare | currency ]]</td>
+                {{ m.TBODY() }}
                 <td>
                     <a data-ng-click="disinterest(flight.id)">Remove</a>
                 </td>
