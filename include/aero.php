@@ -200,7 +200,7 @@ class User extends AbstractAero {
 
     protected $sql_insert = 'INSERT INTO `users` (`id`, `username`, `password`, `is_admin`) VALUES (NULL, :username, :password, :is_admin)';
     protected $sql_select = 'SELECT `id`, `username`, `is_admin` FROM `users`';
-    protected $sql_update = 'UPDATE `users` SET `username`=:username, `password`=:password, `is_admin`=:is_admin WHERE `id`=:id';
+    protected $sql_update = 'UPDATE `users` SET `is_admin`=:is_admin WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `users` WHERE `id`=:id';
 
     public function get($id = null) {
@@ -209,6 +209,7 @@ class User extends AbstractAero {
 
             $this -> id = $result -> id;
             $this -> username = $result -> username;
+            $this -> password = $result -> password;
             $this -> is_admin = $result -> is_admin;
         } else {
             $result = $this -> fetchAll();

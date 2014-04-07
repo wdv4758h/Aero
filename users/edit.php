@@ -17,14 +17,12 @@ $u = new User();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    if(!isset($_POST['id']) || trim($_POST['username'])=='' || trim($_POST['password'])=='' || trim($_POST['password2'])=='') {
-        echo "Can not be empty";
+    if(!isset($_POST['id'])) {
+        echo "Oooops! It doesn't seems right";
         exit();
     }
     
     $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    $password2 = trim($_POST['password2']);
     $is_admin = $_POST['is_admin']?1:0;
 
     $u -> get($_POST['id']);
@@ -33,17 +31,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    if ($password != $password2) {
-        echo 'Different password';
-        exit();
-    }
-
-    $password = sha1('mightySalt'.$password); 
-    
     $value = array(
 	         ':id' => $_POST['id'],
-	   ':username' => $username,
-	   ':password' => $password,
 	   ':is_admin' => $is_admin,
     );
     $u -> update($value);
