@@ -3,6 +3,9 @@ var app = angular.module('Airline', [], function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
+var tmp;
+var tmp2;
+
 app.controller('flightList', function($scope, $http){
     var getFlightList = function(){
         var planes = $http.get('/api/flights');
@@ -49,6 +52,7 @@ app.controller('flightList', function($scope, $http){
     }, 1000);
 
     $scope.flightsFilter = function(object) {
+        tmp = object;
 
         if(typeof $scope.search == "undefined")
             return true;
@@ -58,6 +62,7 @@ app.controller('flightList', function($scope, $http){
             return true;
 
         array = search.split(' ');
+        tmp2 = array;
 
         var match = 0;
         for(var i = 0, len = array.length, is_sub; i < len; i++){
@@ -98,6 +103,15 @@ app.controller('flightList', function($scope, $http){
         return false;
     };
 
+
+    $scope.plansIsEmpty = function() {
+        for(var key in $scope.plans) {
+            if($scope.plans.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
+
     getFlightList();
 });
 
@@ -136,11 +150,3 @@ app.controller('airportsList', function($scope, $http){
 
     getAirportsList();
 });
-
-Object.prototype.isEmpty = function() {
-    for(var key in this) {
-        if(this.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-}
