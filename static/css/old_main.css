@@ -50,12 +50,31 @@
 
 
 /* Flight-schedule Column Width
+---------------------------------------------------------------------------------
+20 110 90 90 145 145 100 200 (extra 124)
 -------------------------------------------------------------------------------*/
-.flight-schedule thead td:first-child  { width: 35px; }
-.flight-schedule thead td:nth-child(2) { width: 100px; }
-.flight-schedule thead td:nth-child(3) { min-width: 120px; }
-.flight-schedule thead td:nth-child(4) { min-width: 120px; }
-.flight-schedule thead td:nth-child(5) { width: 190px; }
-.flight-schedule thead td:nth-child(6) { width: 190px; }
-.flight-schedule thead td:nth-child(7) { min-width: 100px; }
+.flight-schedule thead td:first-child  { width: 20px; }
+.flight-schedule thead td:nth-child(2) { min-width: 110px; }
+.flight-schedule thead td:nth-child(3) { min-width: 90px; }
+.flight-schedule thead td:nth-child(4) { min-width: 90px; }
+.flight-schedule thead td:nth-child(5) { width: 186px; }
+.flight-schedule thead td:nth-child(6) { width: 186px; }
+.flight-schedule thead td:nth-child(7) { min-width: 141; }
 .flight-schedule thead td:nth-child(8) { min-width: 200px; }
+
+
+/* Airport-list Column Width
+-------------------------------------------------------------------------------*/
+.airport-list thead td:first-child  { width: 20px; }
+.airport-list thead td:nth-child(2) { width: 110px; }
+.airport-list thead td:nth-child(3) { width: 110px; }
+.airport-list thead td:nth-child(4) { width: 110px; }
+.airport-list thead td:nth-child(5) { min-widthwidth: 200px; }
+
+
+/* User-list Column Width
+-------------------------------------------------------------------------------*/
+.user-list thead td:first-child  { width: 20px; }
+.user-list thead td:nth-child(2) { width: 110px; }
+.user-list thead td:nth-child(3) { width: 60px; }
+.user-list thead td:nth-child(4) { min-width: 200px; }
