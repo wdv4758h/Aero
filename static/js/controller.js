@@ -48,12 +48,12 @@ app.controller('flightList', function($scope, $http){
         $scope.$apply(getCompare);
     }, 1000);
 
-    $scope.flightsFilter = function(object) {
+    search = function(object, key) {
 
-        if(typeof $scope.search == "undefined")
+        if(typeof key == "undefined")
             return true;
 
-        var search = $scope.search.replace(/ +$/, '');
+        var search = key.replace(/ +$/, '');
         if(!search)
             return true;
 
@@ -108,6 +108,13 @@ app.controller('flightList', function($scope, $http){
         return false;
     };
 
+    $scope.flightsFilter = function(object){
+        return search(object, $scope.search);
+    };
+
+    $scope.compareFilter = function(object){
+        return search(object, $scope.search2);
+    };
 
     $scope.plansIsEmpty = function() {
         for(var key in $scope.plans) {

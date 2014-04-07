@@ -60,7 +60,7 @@
     <div class="option-bar">
         <h1 class="left">Compare Flights</h1>
         <div class="option-group right">
-            <input data-ng-model='search' type="search">
+            <input data-ng-model='search2' type="search">
         </div>
     </div>
 
@@ -69,7 +69,7 @@
             {{ m.THEAD() }}
         </thead>
         <tbody>
-        <tr data-ng-repeat='flight in plans | orderBy:order:reverse'>
+        <tr data-ng-repeat='flight in plans | orderBy:order:reverse | filter:compareFilter'>
                 {{ m.TBODY() }}
                 <td>
                     <a data-ng-click="disinterest(flight.id)">Remove</a>
