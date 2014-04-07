@@ -42,8 +42,8 @@ thead td.focus {
 }
 
 
-thead td.hover,
-thead td:hover {
+thead td:not(:last-child).hover,
+thead td:not(:last-child):hover {
     background-color: #ffe7d2;
 }
 
