@@ -52,6 +52,7 @@ thead td.sort {
     background-position: right -1px;
     background-repeat: no-repeat;
     background-size: 13px 136px;
+    cursor: pointer;
 }
 
 thead td.asc {
@@ -97,6 +98,7 @@ tbody td:last-child a {
     color: black;
     text-decoration: none;
     padding: 0px 5px;
+    cursor: pointer;
 }
 
 tbody td:last-child a:active {
