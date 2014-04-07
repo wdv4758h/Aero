@@ -48,7 +48,7 @@
     </table>
 
     <br>
-    <table data-ng-controller='flightList'>
+    <table data-ng-hide="plans.isEmpty()" data-ng-controller='flightList'>
         <thead>
             <tr>
                 <td data-ng-click="order = 'id'; reverse=!reverse">ID</td>
