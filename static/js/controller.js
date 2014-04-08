@@ -32,6 +32,7 @@ app.controller('flightList', function($scope, $http){
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
         tmp.error(function(){ console.log("Post of Interest failed")});
+        $scope.$apply(getCompare);
     };
 
     $scope.disinterest = function(id){
@@ -41,12 +42,13 @@ app.controller('flightList', function($scope, $http){
             data: 'id=' + id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
+        $scope.$apply(getCompare);
     };
 
     var timer = setInterval(function() {
         $scope.$apply(getFlightList);
         $scope.$apply(getCompare);
-    }, 1000);
+    }, 3000);
 
     search = function(object, key) {
 
@@ -151,7 +153,7 @@ app.controller('userList', function($scope, $http){
 
     var timer = setInterval(function() {
         $scope.$apply(getUserList);
-    }, 1000);
+    }, 3000);
 
     getUserList();
 });
@@ -167,9 +169,20 @@ app.controller('airportsList', function($scope, $http){
         });
     };
 
+    var getAirportsListOnce = function(){
+        var airports = $http.get('/api/airports');
+        airports.success(function(data, status, headers, config){
+                $scope.airportsOnce = data;
+        });
+        airports.error(function(data, status, headers, config){
+                console.log('Ajax failed');
+        });
+    };
+
     var timer = setInterval(function() {
         $scope.$apply(getAirportsList);
-    }, 1000);
+    }, 3000);
 
     getAirportsList();
+    getAirportsListOnce();
 });
