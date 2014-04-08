@@ -1,4 +1,5 @@
 {% extends '_section.html' %}
+{% import _self as m %}
 
 {% block title %} New Flight? {% endblock %}
 
@@ -7,11 +8,21 @@
 
 {% block content %}
 <div class="">
-    <form action="/flights/add" method="post">
+    <form action="/flights/add" method="post" data-ng-controller='airportsList'>
         <ul>
             <li><label for="code">Code</label><input type="text" name="code" id="code" required></li>
-            <li><label for="departure">Departure</label><input type="text" name="departure" id="departure" required></li>
-            <li><label for="arrival">Arrival</label><input type="text" name="arrival" id="arrival" required></li>
+
+            {% macro SELECT(var) %}
+            <li>
+                <label for="{{ var }}">{{ var }}</label>
+                <select data-ng-model="{{ var }}" data-ng-options="i.name for i in airportsOnce"></select>
+                <input name="{{ var }}" id="{{ var }}" type="hidden" value="[[ {{ var }}.name ]]" required/>
+            </li>
+            {% endmacro %}
+
+            {{ m.SELECT('departure') }}
+            {{ m.SELECT('arrival') }}
+
             <li><label for="departure">Departing Time</label>
                 <input id="departure_date" name="departure_date" type="datetime-local" data-ng-model="departure_date" max="[[ arrival_date ]]" required>
             </li>
