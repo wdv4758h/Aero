@@ -1,14 +1,8 @@
 <?php
 
 require_once('../include/base.php');
+checkCredential();
 
-// Redirect to Login Page for unauthorized connection...
-if(!isset($_SESSION['id'])) {
-    header('location: /login');
-    exit();
-}
-
-// Render...
 render('flights_list.html', compact('_SESSION'));
 
 ?>

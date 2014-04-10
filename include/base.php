@@ -20,7 +20,7 @@ function checkCredential($level = 0) {
     $user -> get($_SESSION['id']);
     if($user->id == null) {
         //echo "not in databas";
-        header('location: /login');
+        header('location: /logout');
         exit();
     }
     $_SESSION['is_admin'] = $user -> is_admin;
