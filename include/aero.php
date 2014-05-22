@@ -218,4 +218,29 @@ class User extends AbstractAero {
     }
 }
 
+class Country extends AbstractAero {
+    public $full_name;
+    public $short_name;
+    public $timezone;
+
+    protected $sql_insert = 'INSERT INTO `country` (`id`, `full_name`, `short_name`, `timezone`) VALUES (NULL, :full_name, :short_name, :timezone)';
+    protected $sql_select = 'SELECT `id`, `full_name`, `short_name`, `timezone` FROM `country`';
+    protected $sql_update = '';
+    protected $sql_delete = 'DELETE FROM `country` WHERE `id`=:id';
+
+    public function get($id = null) {
+        if ($id) {
+            $result = $this -> fetch($id);
+
+            $this -> id         = $result -> id;
+            $this -> full_name  = $result -> full_name;
+            $this -> short_name = $result -> short_name;
+            $this -> timezone   = $result -> timezone;
+        } else {
+            $result = $this -> fetchAll();
+        }
+        return $result;
+    }
+}
+
 ?>
