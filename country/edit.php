@@ -7,7 +7,7 @@ require_once('../include/aero.php');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if(!isset($_POST['id']) || trim($_POST['full_name'])=='' || trim($_POST['short_name'])=='' || trim($_POST['timezone'])=='') {
+    if(!isset($_POST['id']) || trim($_POST['full_name'])=='' || trim($_POST['short_name'])=='') {
         echo "Can not be empty";
         exit();
     }
@@ -17,7 +17,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':id'           => $_POST['id'],
         ':full_name'    => $_POST['full_name'],
         ':short_name'   => $_POST['short_name'],
-        ':timezone'     => $_POST['timezone'],
     );
     $a -> update($value);
 

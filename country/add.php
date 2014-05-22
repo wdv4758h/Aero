@@ -5,7 +5,7 @@ checkCredential(Credential::isAdmin);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if(!isset($_POST['full_name']) || !isset($_POST['short_name']) || !isset($_POST['timezone'])) {
+    if(!isset($_POST['full_name']) || !isset($_POST['short_name'])) {
         echo "Can not be empty";
     }
 
@@ -14,7 +14,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $value = array(
 	    ':full_name'    => $_POST['full_name'],
 	    ':short_name'   => $_POST['short_name'],
-	    ':timezone'     => $_POST['timezone'],
     );
     $a -> add($value);
 

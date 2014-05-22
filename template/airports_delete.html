@@ -18,6 +18,10 @@
                 <label for="timezone">Timezone</label>
                 {% include "include/timezone.html" with {'timezone' : airports.timezone} %}
             </li>
+            <li>
+                <label for="country">Country</label>
+                {% include "include/country.html" with {'country' : airports.country_id} %}
+            </li>
             <li><input type="submit" value="Confirm"></li>
         </ul>
     </form>
