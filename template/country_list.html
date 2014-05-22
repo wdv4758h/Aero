@@ -1,0 +1,44 @@
+{% extends '_section.html' %}
+
+{% block title %} AERO {% endblock %}
+
+{% block content %}
+<section class="country-list">
+    <div class="option-bar">
+        <h1 class="left">countrys</h1>
+        <div class="option-group right">
+            {% if _SESSION.is_admin %}
+            <a href="/country/add" class="btn">Add</a>
+            {% endif %}
+            <input data-ng-model="search" type="search">
+        </div>
+    </div>
+
+    <table data-ng-controller='countryList'>
+        <thead>
+            <tr>
+                <td data-ng-click="order = 'id'; reverse=!reverse">ID</td>
+                <td data-ng-click="order = 'full_name'; reverse=!reverse">Full Name</td>
+                <td data-ng-click="order = 'short_name'; reverse=!reverse">Short Name</td>
+                <td data-ng-click="order = 'timezone'; reverse=!reverse">Timezone</td>
+                <td>Options</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-ng-repeat='country in countrys | orderBy:order:reverse | filter:search'>
+                <td>[[ country.id ]]</td>
+                <td>[[ country.full_name ]]</td>
+                <td>[[ country.short_name ]]</td>
+                <td>[[ country.timezone ]]</td>
+                <td>
+                    {% if _SESSION.is_admin %}
+                    <a href="/country/edit?id=[[ country.id ]]">Edit</a>
+                    <a href="/country/delete?id=[[ country.id ]]">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}
