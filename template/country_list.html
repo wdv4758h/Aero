@@ -20,7 +20,6 @@
                 <td data-ng-click="order = 'id'; reverse=!reverse">ID</td>
                 <td data-ng-click="order = 'full_name'; reverse=!reverse">Full Name</td>
                 <td data-ng-click="order = 'short_name'; reverse=!reverse">Short Name</td>
-                <td data-ng-click="order = 'timezone'; reverse=!reverse">Timezone</td>
                 <td>Options</td>
             </tr>
         </thead>
@@ -29,7 +28,6 @@
                 <td>[[ country.id ]]</td>
                 <td>[[ country.full_name ]]</td>
                 <td>[[ country.short_name ]]</td>
-                <td>[[ country.timezone ]]</td>
                 <td>
                     {% if _SESSION.is_admin %}
                     <a href="/country/edit?id=[[ country.id ]]">Edit</a>
