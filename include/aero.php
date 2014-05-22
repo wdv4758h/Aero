@@ -225,7 +225,7 @@ class Country extends AbstractAero {
 
     protected $sql_insert = 'INSERT INTO `country` (`id`, `full_name`, `short_name`, `timezone`) VALUES (NULL, :full_name, :short_name, :timezone)';
     protected $sql_select = 'SELECT `id`, `full_name`, `short_name`, `timezone` FROM `country`';
-    protected $sql_update = '';
+    protected $sql_update = 'UPDATE `country` SET `full_name`=:full_name, `short_name`=:short_name, `timezone`=:timezone WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `country` WHERE `id`=:id';
 
     public function get($id = null) {

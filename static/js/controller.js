@@ -200,3 +200,17 @@ app.controller('countryList', function($scope, $http){
 
     getCountryList();
 });
+
+app.controller('timezone', function($scope, $http){
+    var getTimezone = function(){
+        var timezone = $http.get('/api/timezone.json');
+        timezone.success(function(data, status, headers, config){
+            $scope.timezone = data.timezone;
+        });
+        timezone.error(function(data, status, headers, config){
+            console.log('Ajax failed');
+        });
+    };
+
+    getTimezone();
+});
