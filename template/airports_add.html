@@ -12,6 +12,10 @@
             <li><label for="name">Name</label><input type="text" name="name" id="name" required></li>
             <li><label for="longitude">Longitude</label><input type="text" name="longitude" id="longitude" required></li>
             <li><label for="latitude">Latitude</label><input type="text" name="latitude" id="latitude" required></li>
+            <li>
+                <label for="timezone">Timezone</label>
+                {% include "include/timezone.html" %}
+            </li>
             <li><input type="submit" value="Confirm"></li>
         </ul>
     </form>

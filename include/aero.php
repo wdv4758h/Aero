@@ -79,9 +79,9 @@ class Airport extends AbstractAero {
     public $longitude;
     public $latitude;
 
-    protected $sql_insert = 'INSERT INTO `airports` (`id`, `name`, `longitude`, `latitude`) VALUES (NULL, :name, :longitude, :latitude)';
+    protected $sql_insert = 'INSERT INTO `airports` (`id`, `name`, `longitude`, `latitude`, `timezone`) VALUES (NULL, :name, :longitude, :latitude, :timezone)';
     protected $sql_select = 'SELECT * FROM `airports`';
-    protected $sql_update = 'UPDATE `airports` SET `name`=:name, `longitude`=:longitude, `latitude`=:latitude WHERE `id`=:id';
+    protected $sql_update = 'UPDATE `airports` SET `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `airports` WHERE `id`=:id';
 
     public function get($id = null) {
@@ -92,6 +92,7 @@ class Airport extends AbstractAero {
             $this -> name = $result -> name;
             $this -> longitude = $result -> longitude;
             $this -> latitude = $result -> latitude;
+            $this -> timezone = $result -> timezone;
         } else {
             $result = $this -> fetchAll();
         }

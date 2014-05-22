@@ -2,6 +2,11 @@
 
 {% block title %} AERO {% endblock %}
 
+{% block extrahead %}
+<link rel="stylesheet" href="/static/css/ol.css">
+<script src="/static/js/ol.js"></script>
+{% endblock %}
+
 {% block content %}
 <section class="airport-list">
     <div class="option-bar">
@@ -21,6 +26,7 @@
                 <td>Name</td>
                 <td>Longitude</td>
                 <td>Latitude</td>
+                <td>Timezone</td>
                 <td>Options</td>
             </tr>
         </thead>
@@ -30,6 +36,7 @@
                 <td>[[ airport.name ]]</td>
                 <td>[[ airport.longitude ]]</td>
                 <td>[[ airport.latitude ]]</td>
+                <td>[[ airport.timezone ]]</td>
                 <td>
                     {% if _SESSION.is_admin %}
                     <a href="/airports/edit?id=[[ airport.id ]]">Edit</a>
@@ -39,6 +46,11 @@
             </tr>
         </tbody>
     </table>
+
+    <div data-ng-controller='mapControl'>
+        <div id="map" class="map"></div>
+    </div>
+
 </section>
 
 {% endblock %}
