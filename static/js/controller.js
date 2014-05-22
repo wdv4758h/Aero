@@ -186,3 +186,17 @@ app.controller('airportsList', function($scope, $http){
     getAirportsList();
     getAirportsListOnce();
 });
+
+app.controller('countryList', function($scope, $http){
+    var getCountryList = function(){
+        var country = $http.get('/api/country');
+        country.success(function(data, status, headers, config){
+                $scope.countrys = data;
+        });
+        country.error(function(data, status, headers, config){
+                console.log('Ajax failed');
+        });
+    };
+
+    getCountryList();
+});
