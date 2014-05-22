@@ -1,0 +1,20 @@
+{% extends '_section.html' %}
+
+{% block title %} New Country? {% endblock %}
+
+{% block options %}
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <form action="/country/add" method="post">
+        <ul>
+            <li><label for="full_name">Full Name</label><input type="text" name="full_name" id="full_name" required></li>
+            <li><label for="short_name">Short Name</label><input type="text" name="short_name" id="short_name" required></li>
+            <li><label for="timezone">Timezone</label>{% include "include/timezone.html" %}</li>
+            <li><input type="submit" value="Confirm"></li>
+        </ul>
+    </form>
+    <div class="cancel"><a href="/country/">Cancel</a></div>
+</div>
+{% endblock %}
