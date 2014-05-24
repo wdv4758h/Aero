@@ -9,17 +9,17 @@
         <form ng-submit="processForm('/api/ticket/search')">
             <ul>
                 <li>
-                    <label for="departure">Departure</label>
-                    {% include "include/airports.html" with {'id': 'departure'} %}
+                    <label for="departure_id">Departure</label>
+                    {% include "include/airports.html" with {'id': 'departure_id', 'ng': 'formData.departure_id'} %}
                 </li>
                 <li>
-                    <label for="arrival">Arrival</label>
-                    {% include "include/airports.html" with {'id': 'arrival'} %}
+                    <label for="arrival_id">Arrival</label>
+                    {% include "include/airports.html" with {'id': 'arrival_id', 'ng': 'formData.arrival_id'} %}
                 </li>
                 <li>
                     <label for="trans_time">轉機次數</label>
-                    <select>
-                        <option value="0">不設定</option>
+                    <select id="trans_time" name="trans_time" data-ng-init="formData.trans_time=0" data-ng-model="formData.trans_time">
+                        <option value="0" data-ng-selected="1">不設定</option>
                         <option value="1">不轉機</option>
                         <option value="2">至多一次</option>
                         <option value="3">至多兩次</option>
@@ -48,16 +48,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="airport in formReturn | filter:search">
-                    <td>[[ airport.result_order ]]</td>
-                    <td>[[ airport.code ]]</td>
-                    <td>[[ airport.departure_iata ]]</td>
-                    <td>[[ airport.arrival_iata ]]</td>
-                    <td>[[ airport.departure_date ]]</td>
-                    <td>[[ airport.arrival_date ]]</td>
-                    <td>[[ airport.flight_time ]]</td>
-                    <td>[[ airport.transfer ]]</td>
-                    <td>[[ airport.fare ]]</td>
+                <tr data-ng-hide="!formReturn" data-ng-repeat="result in formReturn track by $index">
+                    <td>[[ result.result_order ]]</td>
+                    <td>[[ result.code ]]</td>
+                    <td>[[ result.departure_iata ]]</td>
+                    <td>[[ result.arrival_iata ]]</td>
+                    <td>[[ result.departure_date ]]</td>
+                    <td>[[ result.arrival_date ]]</td>
+                    <td>[[ result.flight_time ]]</td>
+                    <td>[[ result.transfer ]]</td>
+                    <td>[[ result.fare ]]</td>
                     <td>
                         {% if _SESSION %}
                         <!--

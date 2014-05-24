@@ -8,11 +8,22 @@ if(!isset($_SESSION['id'])) {
     exit();
 }
 
-// Initial and Get airports...
-$a = new Flight();
-$airports = $a -> get();
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    $postdata = file_get_contents("php://input");
+    $request = json_decode($postdata);
 
-echo json_encode($airports, JSON_NUMERIC_CHECK);
+    // Initial and Get tickets...
+    $a = new Ticket();
+    $value = array(
+        ':departure_id'     => $request -> departure_id,
+        ':arrival_id'       => $request -> arrival_id,
+    );
+    $tickets = $a -> search($value, $request -> trans_time);
+
+    echo json_encode($tickets, JSON_NUMERIC_CHECK);
+
+} else {
+}
 
 ?>

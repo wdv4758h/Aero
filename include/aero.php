@@ -248,4 +248,35 @@ class Country extends AbstractAero {
     }
 }
 
+class Ticket extends AbstractAero {
+    public $departure_id;
+    public $arrival_id;
+    public $trans_time;
+
+    public $no_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
+    //public $no_stop = 'SELECT f.*, d.iata AS departure_iata, a.iata AS arrival_iata FROM `flights` f JOIN `airports` `d` ON `d`.`id`:=`f`.`departure` JOIN `airports` `a` ON `a`.`id`:=`f`.`arrival` WHERE `f`.`departure`=:departure_id AND `f`.`arrival`=:arrival_id';
+    public $one_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
+    public $two_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
+
+    public function get($id = null) {
+        return null;
+    }
+
+    public function search($value, $trans_time) {
+        try {
+            $aero = new Aero();
+
+            if ($trans_time == 0)
+                $aero -> sql = $this -> no_stop;
+            else
+                $aero -> sql = $this -> one_stop;
+
+            $aero -> execute($value);
+            return $aero -> query -> fetchAll();
+        } catch(PDOException $e) {
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
+        }
+    }
+}
+
 ?>
