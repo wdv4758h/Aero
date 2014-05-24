@@ -182,7 +182,7 @@ app.controller('airportsList', function($scope, $http){
 
     var timer = setInterval(function() {
         $scope.$apply(getAirportsList);
-    }, 3000);
+    }, 10000);
 
     getAirportsList();
     getAirportsListOnce();
@@ -214,4 +214,32 @@ app.controller('timezone', function($scope, $http){
     };
 
     getTimezone();
+});
+
+app.controller('formPost', function($scope, $http){
+
+    $scope.formData = {}
+
+    // process the form
+    $scope.processForm = function(url) {
+        $http({
+            method  : 'POST',
+            url     : url,
+            data    : $scope.formData, //$.param($scope.formData),  // pass in data as strings
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+        })
+            .success(function(data) {
+                $scope.formReturn = data;
+
+                if (!data.success) {
+                    // if not successful, bind errors to error variables
+                    //$scope.errorName = data.errors.name;
+                    //$scope.errorSuperhero = data.errors.superheroAlias;
+                } else {
+                    // if successful, bind success message to message
+                    $scope.message = data.message;
+                }
+            });
+
+    };
 });
