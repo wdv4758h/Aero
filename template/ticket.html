@@ -1,0 +1,74 @@
+{% extends '_section.html' %}
+
+{% block title %} Tickets {% endblock %}
+
+{% block content %}
+<div data-ng-controller="formPost">
+    <div>
+        <h1>Ticket Search</h1>
+        <form ng-submit="processForm('/api/ticket/search')">
+            <ul>
+                <li>
+                    <label for="departure">Departure</label>
+                    {% include "include/airports.html" with {'id': 'departure'} %}
+                </li>
+                <li>
+                    <label for="arrival">Arrival</label>
+                    {% include "include/airports.html" with {'id': 'arrival'} %}
+                </li>
+                <li>
+                    <label for="trans_time">轉機次數</label>
+                    <select>
+                        <option value="0">不設定</option>
+                        <option value="1">不轉機</option>
+                        <option value="2">至多一次</option>
+                        <option value="3">至多兩次</option>
+                    </select>
+                </li>
+                <li><input type="submit" value="Search"></li>
+            </ul>
+        </form>
+    </div>
+
+    <div>
+        <h1>Search Result</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>Result</td>
+                    <td>Flight Number</td>
+                    <td>Departure IATA</td>
+                    <td>Arrival IATA</td>
+                    <td>Departure Time (local time)</td>
+                    <td>Arrival Time (local time)</td>
+                    <td>Flight Time</td>
+                    <td>Transfer</td>
+                    <td>Price</td>
+                    <td>Options</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="airport in formReturn | filter:search">
+                    <td>[[ airport.result_order ]]</td>
+                    <td>[[ airport.code ]]</td>
+                    <td>[[ airport.departure_iata ]]</td>
+                    <td>[[ airport.arrival_iata ]]</td>
+                    <td>[[ airport.departure_date ]]</td>
+                    <td>[[ airport.arrival_date ]]</td>
+                    <td>[[ airport.flight_time ]]</td>
+                    <td>[[ airport.transfer ]]</td>
+                    <td>[[ airport.fare ]]</td>
+                    <td>
+                        {% if _SESSION %}
+                        <!--
+                        add to compare list
+                        <a data-ng-click="interest(result.id)">Compare</a>
+                        -->
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
