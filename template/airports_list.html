@@ -23,22 +23,24 @@
         <thead>
             <tr>
                 <td>ID</td>
+                <td>IATA</td>
                 <td>Name</td>
+                <td>Country</td>
                 <td>Longitude</td>
                 <td>Latitude</td>
                 <td>Timezone</td>
-                <td>Country</td>
                 <td>Options</td>
             </tr>
         </thead>
         <tbody>
             <tr data-ng-repeat="airport in airports | filter:search">
                 <td>[[ airport.id ]]</td>
+                <td>[[ airport.iata ]]</td>
                 <td>[[ airport.name ]]</td>
+                <td>[[ airport.full_name ]]</td>
                 <td>[[ airport.longitude ]]</td>
                 <td>[[ airport.latitude ]]</td>
                 <td>[[ airport.timezone ]]</td>
-                <td>[[ airport.full_name ]]</td>
                 <td>
                     {% if _SESSION.is_admin %}
                     <a href="/airports/edit?id=[[ airport.id ]]">Edit</a>

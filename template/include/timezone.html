@@ -1,3 +1,9 @@
-<select data-ng-controller="timezone" id="timezone" name="timezone" required>
+{% if readonly == true %}
+<select data-ng-controller="timezone" id="timezone" name="timezone" required {% if readonly == true %} readonly {% endif %}>
+    <option data-ng-repeat="i in timezone" data-ng-if="i.value == '{{ timezone }}'" value="[[ i.value ]]">[[ i.name ]]</option>
+</select>
+{% else %}
+<select data-ng-controller="timezone" id="timezone" name="timezone" required {% if readonly == true %} readonly {% endif %}>
     <option data-ng-repeat="i in timezone" data-ng-selected="i.value == '{{ timezone }}'" value="[[ i.value ]]">[[ i.name ]]</option>
 </select>
+{% endif %}

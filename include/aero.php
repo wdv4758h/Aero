@@ -79,10 +79,10 @@ class Airport extends AbstractAero {
     public $longitude;
     public $latitude;
 
-    protected $sql_insert = 'INSERT INTO `airports` (`id`, `name`, `longitude`, `latitude`, `timezone`, `country_id`) VALUES (NULL, :name, :longitude, :latitude, :timezone, :country_id)';
+    protected $sql_insert = 'INSERT INTO `airports` (`id`, `iata`, `name`, `longitude`, `latitude`, `timezone`, `country_id`) VALUES (NULL, :iata, :name, :longitude, :latitude, :timezone, :country_id)';
     protected $sql_select = 'SELECT `a`.*, `c`.`full_name`, `c`.`short_name` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`id`';
     protected $sql_selectID = 'SELECT `a`.*, `c`.`full_name`, `c`.`short_name` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`id` WHERE `a`.`id`=:id';
-    protected $sql_update = 'UPDATE `airports` SET `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `id`=:id';
+    protected $sql_update = 'UPDATE `airports` SET `iata`=:iata, `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `airports` WHERE `id`=:id';
 
     public function get($id = null) {
@@ -90,6 +90,7 @@ class Airport extends AbstractAero {
             $result = $this -> fetch($id);
 
             $this -> id = $result -> id;
+            $this -> iata = $result -> iata;
             $this -> name = $result -> name;
             $this -> longitude = $result -> longitude;
             $this -> latitude = $result -> latitude;
