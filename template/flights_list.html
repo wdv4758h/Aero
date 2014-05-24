@@ -27,8 +27,10 @@
                 {{ inner.COLUMN('id', 'ID') }}
                 {{ inner.COLUMN('code', 'Flight Number') }}
                 {{ inner.COLUMN('departure', 'Departure') }}
-                {{ inner.COLUMN('arrival', 'Arrival') }}
+                {{ inner.COLUMN('departure_timezone', 'Departure Timezone') }}
                 {{ inner.COLUMN('departure_date', 'Departuring Time') }}
+                {{ inner.COLUMN('arrival', 'Arrival') }}
+                {{ inner.COLUMN('arrival_timezone', 'Arrival Timezone') }}
                 {{ inner.COLUMN('arrival_date', 'Arrivaing Time') }}
                 {{ inner.COLUMN('fare', 'Fare') }}
                 <td>Operations</td>
@@ -43,8 +45,10 @@
                 <td>[[ flight.id ]]</td>
                 <td>[[ flight.code ]]</td>
                 <td>[[ flight.departure ]]</td>
-                <td>[[ flight.arrival ]]</td>
+                <td>[[ flight.departure_timezone ]]</td>
                 <td>[[ flight.departure_date ]]</td>
+                <td>[[ flight.arrival ]]</td>
+                <td>[[ flight.arrival_timezone ]]</td>
                 <td>[[ flight.arrival_date ]]</td>
                 <td>[[ flight.fare | currency ]]</td>
                 {% endmacro %}

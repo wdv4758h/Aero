@@ -48,7 +48,7 @@ app.controller('flightList', function($scope, $http){
     var timer = setInterval(function() {
         $scope.$apply(getFlightList);
         $scope.$apply(getCompare);
-    }, 3000);
+    }, 10000);
 
     search = function(object, key) {
 
@@ -138,6 +138,7 @@ app.controller('flightList', function($scope, $http){
     }
 
     getFlightList();
+    getCompare();
 });
 
 app.controller('userList', function($scope, $http){

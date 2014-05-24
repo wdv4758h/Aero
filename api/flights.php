@@ -1,5 +1,6 @@
 <?php
-require_once('../include/db.php');
+require_once('../include/aero.php');
+require_once('../include/base.php');
 
 session_start();
 
@@ -9,9 +10,8 @@ if(!isset($_SESSION['id'])) {
     exit();
 }
 
-$aero = new Aero();
-$aero -> sql = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date, f.fare FROM flights f INNER JOIN airports a ON (f.departure=a.id) INNER JOIN airports b ON (f.arrival=b.id)';
-$aero -> execute();
+$aero = new Flight();
+$data = $aero -> get();
 
-echo json_encode($aero -> query -> fetchAll(), JSON_NUMERIC_CHECK);
+echo json_encode($data, JSON_NUMERIC_CHECK);
 ?>
