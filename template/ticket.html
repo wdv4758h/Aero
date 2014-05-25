@@ -46,18 +46,18 @@
                     <td>Options</td>
                 </tr>
             </thead>
-            <tbody>
-                <tr data-ng-repeat="result in formReturn track by $index">
-                    <td>[[ result.result_order ]]</td>
-                    <td>[[ result.code ]]</td>
-                    <td>[[ result.departure_iata ]]</td>
-                    <td>[[ result.arrival_iata ]]</td>
-                    <td>[[ result.departure_date ]]</td>
-                    <td>[[ result.arrival_date ]]</td>
-                    <td>[[ result.flight_time ]]</td>
-                    <td>[[ result.transfer ]]</td>
-                    <td>[[ result.fare ]]</td>
-                    <td>
+            <tbody data-ng-repeat="result in formReturn track by $index">
+                <tr>
+                    <td rowspan="2">[[ result.result1_order ]]</td>
+                    <td>[[ result.code1 ]]</td>
+                    <td>[[ result.departure1_iata ]]</td>
+                    <td>[[ result.arrival1_iata ]]</td>
+                    <td>[[ result.departure1_date ]]</td>
+                    <td>[[ result.arrival1_date ]]</td>
+                    <td>[[ result.flight1_time ]]</td>
+                    <td>[[ result.transfer1 ]]</td>
+                    <td>[[ result.fare1 ]]</td>
+                    <td rowspan="2">
                         {% if _SESSION %}
                         <!--
                         add to compare list
@@ -65,6 +65,16 @@
                         -->
                         {% endif %}
                     </td>
+                </tr>
+                <tr data-ng-show="result.code2">
+                    <td>[[ result.code2 ]]</td>
+                    <td>[[ result.departure2_iata ]]</td>
+                    <td>[[ result.arrival2_iata ]]</td>
+                    <td>[[ result.departure2_date ]]</td>
+                    <td>[[ result.arrival2_date ]]</td>
+                    <td>[[ result.flight2_time ]]</td>
+                    <td>[[ result.transfer2 ]]</td>
+                    <td>[[ result.fare2 ]]</td>
                 </tr>
             </tbody>
         </table>

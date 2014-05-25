@@ -254,17 +254,56 @@ class Ticket extends AbstractAero {
     public $trans_time;
 
     public $no_stop = '
-        SELECT f.*,
-            a.timezone AS departure_timezone, a.iata AS departure_iata,
-            b.timezone AS arrival_timezone, b.iata AS arrival_iata,
-            TIMEDIFF(CONVERT_TZ(f.arrival_date, b.timezone, a.timezone), f.departure_date) AS flight_time,
-            TIMEDIFF(CONVERT_TZ(f.arrival_date, b.timezone, a.timezone), f.departure_date) AS transfer
-        FROM `flights` `f`
-        JOIN `airports` `a` ON `f`.`departure`=`a`.`id`
-        JOIN `airports` `b` ON `f`.`arrival`=`b`.`id`
-        WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
+        SELECT
+            f1.code AS code1,
+            f1.departure_date AS departure1_date,
+            f1.arrival_date AS arrival1_date,
+            f1.fare AS fare1,
+            a1.timezone AS departure1_timezone, a1.iata AS departure1_iata,
+            b1.timezone AS arrival1_timezone, b1.iata AS arrival1_iata,
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight1_time,
 
-    public $one_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
+            null AS code2,
+            null AS departure2_date,
+            null AS arrival2_date,
+            null AS fare2,
+            null AS departure2_timezone, null AS departure2_iata,
+            null AS arrival2_timezone, null AS arrival2_iata,
+            null AS flight2_time,
+
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer
+        FROM `flights` `f1`
+        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
+        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`id`
+        WHERE `f1`.`departure`=:departure_id AND `f1`.`arrival`=:arrival_id';
+
+    public $one_stop = '
+        SELECT
+            f1.code AS code1,
+            f1.departure_date AS departure1_date,
+            f1.arrival_date AS arrival1_date,
+            f1.fare AS fare1,
+            a1.timezone AS departure1_timezone, a1.iata AS departure1_iata,
+            b1.timezone AS arrival1_timezone, b1.iata AS arrival1_iata,
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight1_time,
+
+            f2.code AS code2,
+            f2.departure_date AS departure2_date,
+            f2.arrival_date AS arrival2_date,
+            f2.fare AS fare2,
+            a2.timezone AS departure2_timezone, a2.iata AS departure2_iata,
+            b2.timezone AS arrival2_timezone, b2.iata AS arrival2_iata,
+            TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date) AS flight2_time,
+
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer
+        FROM `flights` `f1`
+        JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
+        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
+        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`id`
+        JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`id`
+        JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`id`
+        WHERE `f1`.`departure`=:departure_id AND `f2`.`arrival`=:arrival_id';
+
     public $two_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
 
     public function get($id = null) {
@@ -275,10 +314,14 @@ class Ticket extends AbstractAero {
         try {
             $aero = new Aero();
 
-            if ($trans_time == 0)
-                $aero -> sql = $this -> no_stop;
-            else
-                $aero -> sql = $this -> one_stop;
+            switch ($trans_time){
+                case 0:
+                    $aero -> sql = $this -> no_stop;
+                    break;
+                case 1:
+                    $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop;
+                    break;
+            }
 
             $aero -> execute($value);
             return $aero -> query -> fetchAll();
