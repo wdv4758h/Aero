@@ -279,6 +279,7 @@ class Ticket extends AbstractAero {
             null AS arrival3_timezone, null AS arrival3_iata,
             null AS flight3_time,
 
+            f1.arrival_date AS arrival_date,
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer,
             f1.fare AS total_fare
         FROM `flights` `f1`
@@ -312,6 +313,7 @@ class Ticket extends AbstractAero {
             null AS arrival3_timezone, null AS arrival3_iata,
             null AS flight3_time,
 
+            f2.arrival_date AS arrival_date,
             ADDTIME(
                 TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
                 TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
@@ -351,6 +353,7 @@ class Ticket extends AbstractAero {
             b3.timezone AS arrival3_timezone, b3.iata AS arrival3_iata,
             TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date) AS flight3_time,
 
+            f3.arrival_date AS arrival_date,
             ADDTIME(
                 ADDTIME(
                     TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
@@ -391,6 +394,8 @@ class Ticket extends AbstractAero {
                 default:
                     $aero -> sql = $this -> no_stop;
             }
+
+            $aero -> sql = $aero -> sql . " ORDER BY total_fare, departure1_date, arrival_date";
 
             $aero -> execute($value);
             return $aero -> query -> fetchAll();
