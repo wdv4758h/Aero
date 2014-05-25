@@ -271,6 +271,14 @@ class Ticket extends AbstractAero {
             null AS arrival2_timezone, null AS arrival2_iata,
             null AS flight2_time,
 
+            null AS code3,
+            null AS departure3_date,
+            null AS arrival3_date,
+            null AS fare3,
+            null AS departure3_timezone, null AS departure3_iata,
+            null AS arrival3_timezone, null AS arrival3_iata,
+            null AS flight3_time,
+
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer
         FROM `flights` `f1`
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
@@ -295,6 +303,14 @@ class Ticket extends AbstractAero {
             b2.timezone AS arrival2_timezone, b2.iata AS arrival2_iata,
             TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date) AS flight2_time,
 
+            null AS code3,
+            null AS departure3_date,
+            null AS arrival3_date,
+            null AS fare3,
+            null AS departure3_timezone, null AS departure3_iata,
+            null AS arrival3_timezone, null AS arrival3_iata,
+            null AS flight3_time,
+
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer
         FROM `flights` `f1`
         JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
@@ -304,7 +320,43 @@ class Ticket extends AbstractAero {
         JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`id`
         WHERE `f1`.`departure`=:departure_id AND `f2`.`arrival`=:arrival_id';
 
-    public $two_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
+    public $two_stop = '
+        SELECT
+            f1.code AS code1,
+            f1.departure_date AS departure1_date,
+            f1.arrival_date AS arrival1_date,
+            f1.fare AS fare1,
+            a1.timezone AS departure1_timezone, a1.iata AS departure1_iata,
+            b1.timezone AS arrival1_timezone, b1.iata AS arrival1_iata,
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight1_time,
+
+            f2.code AS code2,
+            f2.departure_date AS departure2_date,
+            f2.arrival_date AS arrival2_date,
+            f2.fare AS fare2,
+            a2.timezone AS departure2_timezone, a2.iata AS departure2_iata,
+            b2.timezone AS arrival2_timezone, b2.iata AS arrival2_iata,
+            TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date) AS flight2_time,
+
+            f3.code AS code3,
+            f3.departure_date AS departure3_date,
+            f3.arrival_date AS arrival3_date,
+            f3.fare AS fare3,
+            a3.timezone AS departure3_timezone, a3.iata AS departure3_iata,
+            b3.timezone AS arrival3_timezone, b3.iata AS arrival3_iata,
+            TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date) AS flight3_time,
+
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer
+        FROM `flights` `f1`
+        JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
+        JOIN `flights` `f3` ON `f2`.`arrival`=`f3`.`departure`
+        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
+        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`id`
+        JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`id`
+        JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`id`
+        JOIN `airports` `a3` ON `f3`.`departure`=`a3`.`id`
+        JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`id`
+        WHERE `f1`.`departure`=:departure_id AND `f3`.`arrival`=:arrival_id';
 
     public function get($id = null) {
         return null;
@@ -321,6 +373,11 @@ class Ticket extends AbstractAero {
                 case 1:
                     $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop;
                     break;
+                case 2:
+                    $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop . " UNION " . $this -> two_stop;
+                    break;
+                default:
+                    $aero -> sql = $this -> no_stop;
             }
 
             $aero -> execute($value);

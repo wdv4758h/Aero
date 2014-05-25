@@ -43,12 +43,13 @@
                     <td>Flight Time</td>
                     <td>Transfer</td>
                     <td>Price</td>
+                    <td>Total Price</td>
                     <td>Options</td>
                 </tr>
             </thead>
             <tbody data-ng-repeat="result in formReturn track by $index">
                 <tr>
-                    <td rowspan="2">[[ result.result1_order ]]</td>
+                    <td rowspan="3">[[ $index+1 ]]</td>
                     <td>[[ result.code1 ]]</td>
                     <td>[[ result.departure1_iata ]]</td>
                     <td>[[ result.arrival1_iata ]]</td>
@@ -57,7 +58,8 @@
                     <td>[[ result.flight1_time ]]</td>
                     <td>[[ result.transfer1 ]]</td>
                     <td>[[ result.fare1 ]]</td>
-                    <td rowspan="2">
+                    <td rowspan="3">[[ result.total_fare ]]</td>
+                    <td rowspan="3">
                         {% if _SESSION %}
                         <!--
                         add to compare list
@@ -75,6 +77,16 @@
                     <td>[[ result.flight2_time ]]</td>
                     <td>[[ result.transfer2 ]]</td>
                     <td>[[ result.fare2 ]]</td>
+                </tr>
+                <tr data-ng-show="result.code3">
+                    <td>[[ result.code3 ]]</td>
+                    <td>[[ result.departure3_iata ]]</td>
+                    <td>[[ result.arrival3_iata ]]</td>
+                    <td>[[ result.departure3_date ]]</td>
+                    <td>[[ result.arrival3_date ]]</td>
+                    <td>[[ result.flight3_time ]]</td>
+                    <td>[[ result.transfer3 ]]</td>
+                    <td>[[ result.fare3 ]]</td>
                 </tr>
             </tbody>
         </table>
