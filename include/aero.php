@@ -279,7 +279,8 @@ class Ticket extends AbstractAero {
             null AS arrival3_timezone, null AS arrival3_iata,
             null AS flight3_time,
 
-            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer,
+            f1.fare AS total_fare
         FROM `flights` `f1`
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
         JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`id`
@@ -311,7 +312,11 @@ class Ticket extends AbstractAero {
             null AS arrival3_timezone, null AS arrival3_iata,
             null AS flight3_time,
 
-            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer
+            ADDTIME(
+                TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+            ) AS transfer,
+            (f1.fare + f2.fare)*0.9 AS total_fare
         FROM `flights` `f1`
         JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
@@ -346,7 +351,14 @@ class Ticket extends AbstractAero {
             b3.timezone AS arrival3_timezone, b3.iata AS arrival3_iata,
             TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date) AS flight3_time,
 
-            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS transfer
+            ADDTIME(
+                ADDTIME(
+                    TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                    TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                ),
+                TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date)
+            ) AS transfer,
+            (f1.fare + f2.fare + f3.fare)*0.8 AS total_fare
         FROM `flights` `f1`
         JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
         JOIN `flights` `f3` ON `f2`.`arrival`=`f3`.`departure`
