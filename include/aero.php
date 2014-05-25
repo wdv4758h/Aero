@@ -253,8 +253,17 @@ class Ticket extends AbstractAero {
     public $arrival_id;
     public $trans_time;
 
-    public $no_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
-    //public $no_stop = 'SELECT f.*, d.iata AS departure_iata, a.iata AS arrival_iata FROM `flights` f JOIN `airports` `d` ON `d`.`id`:=`f`.`departure` JOIN `airports` `a` ON `a`.`id`:=`f`.`arrival` WHERE `f`.`departure`=:departure_id AND `f`.`arrival`=:arrival_id';
+    public $no_stop = '
+        SELECT f.*,
+            a.timezone AS departure_timezone, a.iata AS departure_iata,
+            b.timezone AS arrival_timezone, b.iata AS arrival_iata,
+            TIMEDIFF(CONVERT_TZ(f.arrival_date, b.timezone, a.timezone), f.departure_date) AS flight_time,
+            TIMEDIFF(CONVERT_TZ(f.arrival_date, b.timezone, a.timezone), f.departure_date) AS transfer
+        FROM `flights` `f`
+        JOIN `airports` `a` ON `f`.`departure`=`a`.`id`
+        JOIN `airports` `b` ON `f`.`arrival`=`b`.`id`
+        WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
+
     public $one_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
     public $two_stop = 'SELECT * FROM `flights` WHERE `departure`=:departure_id AND `arrival`=:arrival_id';
 

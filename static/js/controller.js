@@ -219,6 +219,7 @@ app.controller('timezone', function($scope, $http){
 app.controller('formPost', function($scope, $http){
 
     $scope.formData = {}
+    $scope.formReturn = []
 
     // process the form
     $scope.processForm = function(url) {
@@ -230,6 +231,11 @@ app.controller('formPost', function($scope, $http){
         })
             .success(function(data) {
                 $scope.formReturn = data;
+                if($scope.formReturn.length == 0){
+                    alertify.error("沒有符合的 Ticket");
+                } else {
+                    alertify.success("已找到符合的 Ticket");
+                }
 
                 if (!data.success) {
                     // if not successful, bind errors to error variables
@@ -241,7 +247,7 @@ app.controller('formPost', function($scope, $http){
                 }
             })
             .error(function(data, status, headers, config){
-                    console.log('Ajax failed');
+                console.log('Ajax failed');
             });
 
     };

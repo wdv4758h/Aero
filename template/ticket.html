@@ -19,10 +19,9 @@
                 <li>
                     <label for="trans_time">轉機次數</label>
                     <select id="trans_time" name="trans_time" data-ng-init="formData.trans_time=0" data-ng-model="formData.trans_time">
-                        <option value="0" data-ng-selected="1">不設定</option>
-                        <option value="1">不轉機</option>
-                        <option value="2">至多一次</option>
-                        <option value="3">至多兩次</option>
+                        <option value="0" data-ng-selected="1">不轉機</option>
+                        <option value="1">至多一次</option>
+                        <option value="2">至多兩次</option>
                     </select>
                 </li>
                 <li><input type="submit" value="Search"></li>
@@ -32,7 +31,7 @@
 
     <div>
         <h1>Search Result</h1>
-        <table>
+        <table data-ng-show="formReturn.length">
             <thead>
                 <tr>
                     <td>Result</td>
@@ -48,7 +47,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-hide="!formReturn" data-ng-repeat="result in formReturn track by $index">
+                <tr data-ng-repeat="result in formReturn track by $index">
                     <td>[[ result.result_order ]]</td>
                     <td>[[ result.code ]]</td>
                     <td>[[ result.departure_iata ]]</td>
@@ -69,6 +68,7 @@
                 </tr>
             </tbody>
         </table>
+        <p data-ng-hide="formReturn.length">No Search Result</p>
     </div>
 </div>
 {% endblock %}
