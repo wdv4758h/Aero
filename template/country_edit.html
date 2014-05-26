@@ -9,9 +9,8 @@
 <div class="">
     <form action="/country/edit" method="post">
         <ul>
-            <li class="hide"><label for="id">id</label><input type="text" name="id" id="id" value="{{ country.id }}" readonly></li>
-            <li><label for="full_name">Full Name</label><input type="text" name="full_name" id="full_name" value="{{ country.full_name }}" required></li>
-            <li><label for="short_name">Short Name</label><input type="text" name="short_name" id="short_name" value="{{ country.short_name }}" required></li>
+            <li><label for="abbr">Abbreviation</label><input type="text" name="abbr" id="abbr" value="{{ country.abbr }}" required></li>
+            <li><label for="name">Full Name</label><input type="text" name="name" id="name" value="{{ country.name }}" required></li>
             <li><input type="submit" value="Confirm"></li>
         </ul>
     </form>
