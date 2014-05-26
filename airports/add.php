@@ -7,6 +7,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(trim($_POST['iata'])==='' || trim($_POST['name'])==='' || !isset($_POST['longitude']) || !isset($_POST['latitude']) || trim($_POST['timezone'])==='' || !isset($_POST['country_id'])) {
         echo "Can not be empty";
+        exit();
     }
 
     require_once('../include/aero.php');

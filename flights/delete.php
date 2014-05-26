@@ -1,33 +1,36 @@
 <?php
 
 require_once '../include/base.php';
+require_once('../include/aero.php');
 checkCredential(Credential::isAdmin);
 
-if($_POST['id'] && $_POST['code']) {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    require_once('../include/db.php');
+    if(!isset($_POST['id'])) {
+        echo "Can not be empty";
+        exit();
+    }
 
-    $aero = new Aero();
-    $aero -> sql = 'DELETE FROM `flights` WHERE `id`=?';
-    $aero -> execute(array($_POST['id']));
+    $flight = new Flight();
+    $flight -> delete($_POST['id']);
 
     header('location: /flights/');
 
 
-} else if($_GET['id']) {
+} else if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    require_once('../include/db.php');
+    if(!isset($_GET['id'])) {
+        header('location: /flights/');
+    }
 
-    $aero = new Aero();
-    $aero -> sql = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date, f.fare FROM flights f INNER JOIN airports a ON (f.departure=a.id) INNER JOIN airports b ON (f.arrival=b.id) WHERE f.id = ?';
-    $aero -> execute(array($_GET['id']));
-    $flights = $aero -> query -> fetchAll();
+    $flight = new Flight();
+    $flight -> get($_GET['id']);
 
-    render('flights_delete.html', compact('flights'));
+    render('flights_delete.html', array('flight' => $flight));
 
 } else {
 
-    header('location: /delete_flight/');
+    header('location: /flight/');
 
 }
 

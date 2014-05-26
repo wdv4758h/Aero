@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $a = new Airport();
     $value = array(
-        ':iata'         => $_POST['id'],
+        ':iata'         => $_POST['iata'],
         ':name'         => $_POST['name'],
         ':longitude'    => $_POST['longitude'],
         ':latitude'     => $_POST['latitude'],

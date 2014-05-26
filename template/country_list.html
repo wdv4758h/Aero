@@ -17,7 +17,6 @@
     <table data-ng-controller='countryList'>
         <thead>
             <tr>
-                <td data-ng-click="order = 'id'; reverse=!reverse">ID</td>
                 <td data-ng-click="order = 'name'; reverse=!reverse">Full Name</td>
                 <td data-ng-click="order = 'abbr'; reverse=!reverse">Short Name</td>
                 <td>Options</td>
@@ -29,8 +28,8 @@
                 <td>[[ country.abbr ]]</td>
                 <td>
                     {% if _SESSION.is_admin %}
-                    <a href="/country/edit?id=[[ country.id ]]">Edit</a>
-                    <a href="/country/delete?id=[[ country.id ]]">Delete</a>
+                    <a href="/country/edit?id=[[ country.abbr ]]">Edit</a>
+                    <a href="/country/delete?id=[[ country.abbr ]]">Delete</a>
                     {% endif %}
                 </td>
             </tr>

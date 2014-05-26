@@ -10,8 +10,8 @@
     <h1>You are about to delete:</h1>
     <form action="/country/delete" method="post">
         <ul>
-            <li><label for="abbr">Abbreviation</label><input type="text" name="abbr" id="abbr" value="{{ country.abbr }}" required></li>
-            <li><label for="full_name">Name</label><input type="text" full_name="name" id="name" value="{{ country.name }}" required></li>
+            <li><label for="abbr">Abbreviation</label><input type="text" name="abbr" id="abbr" value="{{ country.abbr }}" readonly></li>
+            <li><label for="full_name">Name</label><input type="text" full_name="name" id="name" value="{{ country.name }}" readonly></li>
             <li><input type="submit" value="Confirm"></li>
         </ul>
     </form>

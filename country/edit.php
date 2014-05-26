@@ -7,16 +7,16 @@ require_once('../include/aero.php');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if(!isset($_POST['id']) || trim($_POST['full_name'])=='' || trim($_POST['short_name'])=='') {
+    if(trim($_POST['name'])=='' || trim($_POST['abbr'])=='' || trim($_POST['old_abbr'])=='') {
         echo "Can not be empty";
         exit();
     }
 
     $a = new Country();
     $value = array(
-        ':id'           => $_POST['id'],
-        ':full_name'    => $_POST['full_name'],
-        ':short_name'   => $_POST['short_name'],
+        ':name'     => $_POST['name'],
+        ':abbr'     => $_POST['abbr'],
+        ':old_abbr' => $_POST['old_abbr'],
     );
     $a -> update($value);
 

@@ -7,6 +7,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(!isset($_POST['name']) || !isset($_POST['abbr'])) {
         echo "Can not be empty";
+        exit();
     }
 
     require_once('../include/aero.php');

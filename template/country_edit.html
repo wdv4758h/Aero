@@ -9,6 +9,7 @@
 <div class="">
     <form action="/country/edit" method="post">
         <ul>
+            <li class="hide"><label for="old_abbr">old_abbr</label><input type="text" name="old_abbr" id="old_abbr" value="{{ country.abbr }}" readonly></li>
             <li><label for="abbr">Abbreviation</label><input type="text" name="abbr" id="abbr" value="{{ country.abbr }}" required></li>
             <li><label for="name">Full Name</label><input type="text" name="name" id="name" value="{{ country.name }}" required></li>
             <li><input type="submit" value="Confirm"></li>

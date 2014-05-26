@@ -9,9 +9,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if(!isset($_POST['id'])) {
         echo "Can not be empty";
+        exit();
     }
     
-    $airport -> delete($_POST['id']);
+    $airport -> delete($_POST['iata'], 'iata');
 
     header('location: /airports/');
 

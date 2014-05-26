@@ -7,22 +7,22 @@
 
 {% block content %}
 <div class="">
-    <form action="/flights/edit" method="post">
+    <form action="/flights/edit" method="post" data-ng-controller='airportsList'>
         <ul>
-            {% for flight in flights %}
             <li class="hide"><label for="id">id</label><input type="text" name="id" id="id" value="{{ flight.id }}" readonly></li>
             <li><label for="code">Flight Number</label><input type="text" name="code" id="code" value="{{ flight.code }}" required></li>
-            <li><label for="departure">Departure</label><input type="text" name="departure" id="departure" value="{{ flight.departure }}" required></li>
-            <li><label for="arrival">Arrival</label><input type="text" name="arrival" id="arrival" value="{{ flight.arrival }}" required></li>
-            <li><label for="departure_date">Departing Time</label>
-                <input type="datetime-local" name="departure_date" id="departure_date" data-ng-model="departure_date" data-ng-init="departure_date='{{ flight.departure_date }}'" max="[[ arrival_date ]]" required>
+            <li>
+                <label for="departure">Departure</label>
+                {% include "include/airports.html" with { 'data': 'departure', 'airport': flight.departure } %}
             </li>
-            <li><label for="arrival_date">Arriving Time</label>
-                <input type="datetime-local" name="arrival_date" id="arrival_date" data-ng-model="arrival_date" data-ng-init="arrival_date='{{ flight.arrival_date }}'" min="[[ departure_date ]]" required>
+            <li>
+                <label for="arrival">Arrival</label>
+                {% include "include/airports.html" with { 'data': 'arrival', 'airport': flight.arrival } %}
             </li>
+            <li><label for="departure_date">Departing Time</label><input type="datetime-local" name="departure_date" id="departure_date" value="{{ flight.departure_date }}" required></li>
+            <li><label for="arrival_date">Arriving Time</label><input type="datetime-local" name="arrival_date" id="arrival_date" value="{{ flight.arrival_date }}" required></li>
             <li><label for="fare">Fare</label><input type="number" name="fare" id="fare" value="{{ flight.fare }}" required></li>
             <li><input type="submit" value="Confirm"></li>
-            {% endfor %}
         </ul>
     </form>
     <div class="cancel"><a href="/flights/">Cancel</a></div>

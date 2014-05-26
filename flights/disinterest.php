@@ -13,8 +13,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $p = new Plan();
 
     $value = array(
-        ':users_id' => $_SESSION['id'],
-	    ':flights_id' => $_POST['id'],
+        ':user_id' => $_SESSION['id'],
+	    ':flight_id' => $_POST['id'],
     );
     $p -> delete($value);
 }

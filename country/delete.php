@@ -9,9 +9,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if(!isset($_POST['id'])) {
         echo "Can not be empty";
+        exit();
     }
 
-    $country -> delete($_POST['id']);
+    $country -> delete($_POST['abbr'], 'abbr');
 
     header('location: /country/');
 
