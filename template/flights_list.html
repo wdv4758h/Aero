@@ -21,23 +21,25 @@
             <td class="sort" data-ng-class="{focus: order=='{{var}}', asc: order=='{{var}}' && !reverse, des: order=='{{var}}' && reverse}" data-ng-click="order = '{{var}}'; reverse=!reverse">{{name}}</td>
             {% endmacro %}
 
-            {% macro THEAD() %}
-            {% import _self as inner %}
             <tr>
-                {{ inner.COLUMN('id', 'ID') }}
-                {{ inner.COLUMN('code', 'Flight Number') }}
-                {{ inner.COLUMN('departure', 'Departure') }}
-                {{ inner.COLUMN('departure_timezone', 'Departure Timezone') }}
-                {{ inner.COLUMN('departure_date', 'Departuring Time') }}
-                {{ inner.COLUMN('arrival', 'Arrival') }}
-                {{ inner.COLUMN('arrival_timezone', 'Arrival Timezone') }}
-                {{ inner.COLUMN('arrival_date', 'Arrivaing Time') }}
-                {{ inner.COLUMN('fare', 'Fare') }}
+                {% macro THEAD() %}
+                    {% import _self as inner %}
+                    {{ inner.COLUMN('id', 'ID') }}
+                    {{ inner.COLUMN('code', 'Flight Number') }}
+                    {{ inner.COLUMN('departure', 'Departure') }}
+                    {{ inner.COLUMN('departure_timezone', 'Departure Timezone') }}
+                    {{ inner.COLUMN('departure_date', 'Departuring Time') }}
+                    {{ inner.COLUMN('arrival', 'Arrival') }}
+                    {{ inner.COLUMN('arrival_timezone', 'Arrival Timezone') }}
+                    {{ inner.COLUMN('arrival_date', 'Arrivaing Time') }}
+                    {{ inner.COLUMN('fare', 'Fare') }}
+                {% endmacro %}
+                {{ m.THEAD() }}
+                {% if _SESSION %}
                 <td>Operations</td>
+                {% endif %}
             </tr>
-            {% endmacro %}
 
-            {{ m.THEAD() }}
         </thead>
         <tbody>
             <tr data-ng-repeat='flight in flights | orderBy:order:reverse | filter:flightsFilter'>
@@ -53,6 +55,7 @@
                 <td>[[ flight.fare | currency ]]</td>
                 {% endmacro %}
                 {{ m.TBODY() }}
+                {% if _SESSION %}
                 <td>
                     <a data-ng-click="interest(flight.id)">Compare</a>
                     {% if _SESSION.is_admin %}
@@ -60,12 +63,14 @@
                     <a href="/flights/delete?id=[[ flight.id ]]">Delete</a>
                     {% endif %}
                 </td>
+                {% endif %}
             </tr>
         </tbody>
     </table>
 </section>
 
 
+{% if _SESSION %}
 <section class="flight-schedule">
     <div class="option-bar">
         <h1 class="left">Compare Flights</h1>
@@ -76,7 +81,12 @@
 
     <table data-ng-hide="plansIsEmpty()" data-ng-controller='flightList'>
         <thead>
-            {{ m.THEAD() }}
+            <tr>
+                {{ m.THEAD() }}
+                {% if _SESSION %}
+                <td>Operations</td>
+                {% endif %}
+            </tr>
         </thead>
         <tbody>
         <tr data-ng-repeat='flight in plans | orderBy:order:reverse | filter:compareFilter'>
@@ -88,5 +98,6 @@
         </tbody>
     </table>
 </section>
+{% endif %}
 
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends '_section.html' %}
+{% import _self as m %}
 
 {% block title %} Tickets {% endblock %}
 
@@ -34,6 +35,7 @@
         <table data-ng-show="formReturn.length">
             <thead>
                 <tr>
+                    {% macro TD() %}
                     <td>Result</td>
                     <td>Flight Number</td>
                     <td>Departure IATA</td>
@@ -44,7 +46,11 @@
                     <td>Transfer</td>
                     <td>Price</td>
                     <td>Total Price</td>
+                    {% endmacro %}
+                    {{ m.TD() }}
+                    {% if _SESSION %}
                     <td>Options</td>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody data-ng-repeat="result in formReturn track by $index">
@@ -59,14 +65,14 @@
                     <td rowspan="3">[[ result.transfer ]]</td>
                     <td>[[ result.fare1 ]]</td>
                     <td rowspan="3">[[ result.total_fare ]]</td>
+                    {% if _SESSION %}
                     <td rowspan="3">
-                        {% if _SESSION %}
                         <!--
                         add to compare list
                         <a data-ng-click="interest(result.id)">Compare</a>
                         -->
-                        {% endif %}
                     </td>
+                    {% endif %}
                 </tr>
                 <tr data-ng-show="result.code2">
                     <td>[[ result.code2 ]]</td>
@@ -91,4 +97,31 @@
         <p data-ng-hide="formReturn.length">No Search Result</p>
     </div>
 </div>
+
+{% if _SESSION %}
+<div class="interest-tickets">
+    <div class="option-bar">
+        <h1 class="left">Compare Tickets</h1>
+        <div class="option-group right">
+            <input data-ng-model='search2' type="search">
+        </div>
+    </div>
+
+    <table data-ng-hide="ticketsIsEmpty()" data-ng-controller='ticketList'>
+        <thead>
+            <tr>
+                {{ m.TD() }}
+                <td>Operations</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat='ticket in tickets'>
+                <td>
+                    <a data-ng-click="disinterest(ticket.id)">Remove</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+{% endif %}
 {% endblock %}

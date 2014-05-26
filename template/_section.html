@@ -19,7 +19,11 @@
 	    <li><a href="/country/">Country</a></li>
 	    <li><a href="/users/">Users</a></li>
 	    {% endif %}
+	    {% if _SESSION %}
 	    <li><a href="/logout">Sign Out</a></li>
+        {% else %}
+	    <li><a href="/login">Sign In</a></li>
+        {% endif %}
 	</ul>
     {% endblock %}</div>
 </header>
