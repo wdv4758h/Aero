@@ -80,16 +80,15 @@ class Airport extends AbstractAero {
     public $latitude;
 
     protected $sql_insert = 'INSERT INTO `airports` (`iata`, `name`, `longitude`, `latitude`, `timezone`, `country_id`) VALUES (:iata, :name, :longitude, :latitude, :timezone, :country_id)';
-    protected $sql_select = 'SELECT `a`.*, `c`.`name`, `c`.`abbr` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`id`';
-    protected $sql_selectID = 'SELECT `a`.*, `c`.`name`, `c`.`abbr` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr` WHERE `a`.`id`=:id';
-    protected $sql_update = 'UPDATE `airports` SET `iata`=:iata, `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `id`=:id';
-    protected $sql_delete = 'DELETE FROM `airports` WHERE `id`=:id';
+    protected $sql_select = 'SELECT `a`.*, `c`.* FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr`';
+    protected $sql_selectID = 'SELECT `a`.*, `c`.`name`, `c`.`abbr` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr` WHERE `a`.`iata`=:iata';
+    protected $sql_update = 'UPDATE `airports` SET `iata`=:iata, `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `iata`=:iata';
+    protected $sql_delete = 'DELETE FROM `airports` WHERE `iata`=:iata';
 
     public function get($id = null) {
         if ($id) {
             $result = $this -> fetch($id);
 
-            $this -> id = $result -> id;
             $this -> iata = $result -> iata;
             $this -> name = $result -> name;
             $this -> longitude = $result -> longitude;
@@ -246,10 +245,10 @@ class Country extends AbstractAero {
     public $short_name;
     public $timezone;
 
-    protected $sql_insert = 'INSERT INTO `country` (`abbr`, `name`) VALUES (:full_name, :short_name)';
-    protected $sql_select = 'SELECT `name` AS `full_name`, `abbr` AS `short_name` FROM `country`';
-    protected $sql_update = 'UPDATE `country` SET `name`=:full_name, `abbr`=:short_name WHERE `name`=:full_name';
-    protected $sql_delete = 'DELETE FROM `country` WHERE `name`=:full_name';
+    protected $sql_insert = 'INSERT INTO `country` (`abbr`, `name`) VALUES (:name, :abbr)';
+    protected $sql_select = 'SELECT * FROM `country`';
+    protected $sql_update = 'UPDATE `country` SET `name`=:name, `abbr`=:abbr WHERE `name`=:name';
+    protected $sql_delete = 'DELETE FROM `country` WHERE `name`=:name';
 
     public function get($id = null) {
         if ($id) {

@@ -5,15 +5,15 @@ checkCredential(Credential::isAdmin);
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if(!isset($_POST['full_name']) || !isset($_POST['short_name'])) {
+    if(!isset($_POST['name']) || !isset($_POST['abbr'])) {
         echo "Can not be empty";
     }
 
     require_once('../include/aero.php');
     $a = new Country();
     $value = array(
-	    ':full_name'    => $_POST['full_name'],
-	    ':short_name'   => $_POST['short_name'],
+	    ':name'   => $_POST['name'],
+	    ':abbr'   => $_POST['abbr'],
     );
     $a -> add($value);
 

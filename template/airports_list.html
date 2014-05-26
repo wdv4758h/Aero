@@ -22,9 +22,8 @@
     <table data-ng-controller='airportsList'>
         <thead>
             <tr>
-                <td>ID</td>
                 <td>IATA</td>
-                <td>Name</td>
+                <td>Airport Name</td>
                 <td>Country</td>
                 <td>Longitude</td>
                 <td>Latitude</td>
@@ -34,26 +33,27 @@
         </thead>
         <tbody>
             <tr data-ng-repeat="airport in airports | filter:search">
-                <td>[[ airport.id ]]</td>
                 <td>[[ airport.iata ]]</td>
                 <td>[[ airport.name ]]</td>
-                <td>[[ airport.full_name ]]</td>
+                <td>[[ airport.country_id ]]</td>
                 <td>[[ airport.longitude ]]</td>
                 <td>[[ airport.latitude ]]</td>
                 <td>[[ airport.timezone ]]</td>
                 <td>
                     {% if _SESSION.is_admin %}
-                    <a href="/airports/edit?id=[[ airport.id ]]">Edit</a>
-                    <a href="/airports/delete?id=[[ airport.id ]]">Delete</a>
+                    <a href="/airports/edit?id=[[ airport.iata ]]">Edit</a>
+                    <a href="/airports/delete?id=[[ airport.iata ]]">Delete</a>
                     {% endif %}
                 </td>
             </tr>
         </tbody>
     </table>
 
+    <!--
     <div data-ng-controller='mapControl'>
         <div id="map" class="map"></div>
     </div>
+    -->
 
 </section>
 

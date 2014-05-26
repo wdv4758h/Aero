@@ -1,9 +1,9 @@
 {% if readonly == true %}
 <select data-ng-controller="countryList" id="country_id" name="country_id" required>
-    <option data-ng-repeat="i in countrys" data-ng-if="i.id == '{{ country}}'" value="[[ i.id ]]">[[ i.name ]]</option>
+    <option data-ng-repeat="i in countrys" data-ng-if="i.abbr == '{{ country }}'" value="[[ i.abbr ]]">[[ i.name ]]</option>
 </select>
 {% else %}
 <select data-ng-controller="countryList" id="country_id" name="country_id" required>
-    <option data-ng-repeat="i in countrys" data-ng-selected="i.value == '{{ country }}'" value="[[ i.id ]]">[[ i.name ]]</option>
+    <option data-ng-repeat="i in countrys" data-ng-selected="i.abbr == '{{ country }}'" value="[[ i.abbr ]]">[[ i.name ]]</option>
 </select>
 {% endif %}
