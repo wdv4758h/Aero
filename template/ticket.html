@@ -10,12 +10,12 @@
         <form ng-submit="processForm('/api/ticket/search')">
             <ul>
                 <li>
-                    <label for="departure_id">Departure</label>
-                    {% include "include/airports.html" with {'id': 'departure_id', 'ng': 'formData.departure_id'} %}
+                    <label for="departure">Departure</label>
+                    {% include "include/airports.html" with {'data': 'departure', 'value': 'formData.departure'} %}
                 </li>
                 <li>
-                    <label for="arrival_id">Arrival</label>
-                    {% include "include/airports.html" with {'id': 'arrival_id', 'ng': 'formData.arrival_id'} %}
+                    <label for="arrival">Arrival</label>
+                    {% include "include/airports.html" with {'data': 'arrival', 'value': 'formData.arrival'} %}
                 </li>
                 <li>
                     <label for="trans_time">轉機次數</label>

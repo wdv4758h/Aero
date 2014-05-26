@@ -31,8 +31,7 @@ app.controller('flightList', function($scope, $http){
             data: 'id=' + id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
-        tmp.error(function(){ console.log("Post of Interest failed")});
-        $scope.$apply(getCompare);
+        //tmp.error(function(){ console.log("Post of Interest failed")});
     };
 
     $scope.disinterest = function(id){
@@ -42,13 +41,12 @@ app.controller('flightList', function($scope, $http){
             data: 'id=' + id,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         });
-        $scope.$apply(getCompare);
     };
 
     var timer = setInterval(function() {
         $scope.$apply(getFlightList);
         $scope.$apply(getCompare);
-    }, 10000);
+    }, 2000);
 
     search = function(object, key) {
 
@@ -251,4 +249,7 @@ app.controller('formPost', function($scope, $http){
             });
 
     };
+});
+
+app.controller('ticketList', function($scope, $http){
 });

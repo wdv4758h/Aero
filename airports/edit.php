@@ -7,13 +7,14 @@ require_once('../include/aero.php');
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if(trim($_POST['iata'])==='' || trim($_POST['name'])==='' || !isset($_POST['longitude']) || !isset($_POST['latitude']) || trim($_POST['timezone'])==='' || !isset($_POST['country_id'])) {
+    if(trim($_POST['old_iata'])==='' || trim($_POST['iata'])==='' || trim($_POST['name'])==='' || !isset($_POST['longitude']) || !isset($_POST['latitude']) || trim($_POST['timezone'])==='' || !isset($_POST['country_id'])) {
         echo "Can not be empty";
         exit();
     }
 
     $a = new Airport();
     $value = array(
+        ':old_iata'         => $_POST['old_iata'],
         ':iata'         => $_POST['iata'],
         ':name'         => $_POST['name'],
         ':longitude'    => $_POST['longitude'],

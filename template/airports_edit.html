@@ -9,7 +9,7 @@
 <div class="">
     <form action="/airports/edit" method="post">
         <ul>
-            <li class="hide"><label for="id">id</label><input type="text" name="id" id="id" value="{{ airports.id }}" readonly></li>
+            <li class="hide"><label for="old_iata">old_iata</label><input type="text" name="old_iata" id="old_iata" value="{{ airports.iata }}" readonly></li>
             <li><label for="iata">IATA</label><input type="text" name="iata" id="iata" value="{{ airports.iata }}" required></li>
             <li><label for="name">Name</label><input type="text" name="name" id="name" value="{{ airports.name }}" required></li>
             <li><label for="longitude">Longitude</label><input type="text" name="longitude" id="longitude" value="{{ airports.longitude }}" required></li>

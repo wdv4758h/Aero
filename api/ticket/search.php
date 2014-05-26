@@ -16,8 +16,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Initial and Get tickets...
     $a = new Ticket();
     $value = array(
-        ':departure_id'     => $request -> departure_id,
-        ':arrival_id'       => $request -> arrival_id,
+        ':departure'     => $request -> departure,
+        ':arrival'       => $request -> arrival,
     );
     $tickets = $a -> search($value, $request -> trans_time);
 

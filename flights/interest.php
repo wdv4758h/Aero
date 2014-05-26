@@ -3,8 +3,8 @@
 require_once '../include/base.php';
 checkCredential();
 
-if($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if(!isset($_GET['id'])) {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if(!isset($_POST['id'])) {
         echo 'Can not be empty';
         exit();
     }
@@ -14,9 +14,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $value = array(
         ':user_id' => $_SESSION['id'],
-	    ':flight_id' => $_GET['id'],
+	    ':flight_id' => $_POST['id'],
     );
-    
     $p -> add($value);
 
     header('location: /flights/');

@@ -82,7 +82,7 @@ class Airport extends AbstractAero {
     protected $sql_insert = 'INSERT INTO `airports` (`iata`, `name`, `longitude`, `latitude`, `timezone`, `country_id`) VALUES (:iata, :name, :longitude, :latitude, :timezone, :country_id)';
     protected $sql_select = 'SELECT `a`.*, `c`.`name` as `country` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr`';
     protected $sql_selectID = 'SELECT `a`.*, `c`.* FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr` WHERE `a`.`iata`=:iata';
-    protected $sql_update = 'UPDATE `airports` SET `iata`=:iata, `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `iata`=:iata';
+    protected $sql_update = 'UPDATE `airports` SET `iata`=:iata, `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `iata`=:old_iata';
     protected $sql_delete = 'DELETE FROM `airports` WHERE `iata`=:iata';
 
     public function get($id = null) {
@@ -157,7 +157,7 @@ class Plan extends AbstractAero {
     public $flight_id;
 
     protected $sql_insert = 'INSERT INTO `plans` (`user_id`, `flight_id`) VALUES (:user_id, :flight_id)';
-    protected $sql_select = 'SELECT f.id, f.code, a.name AS departure, a.timezone AS departure_timezone, b.name AS arrival, b.timezone AS arrival_timezone, f.departure_date, f.arrival_date, f.fare FROM `plans` p INNER JOIN `flight` f ON (p.flight_id=f.id) INNER JOIN `airports` a ON (f.departure=a.id) INNER JOIN `airports` b ON (f.arrival=b.id) WHERE `user_id`=:id';
+    protected $sql_select = 'SELECT f.id, f.code, a.name AS departure, a.timezone AS departure_timezone, b.name AS arrival, b.timezone AS arrival_timezone, f.departure_date, f.arrival_date, f.fare FROM `plans` p INNER JOIN `flights` f ON (p.flight_id=f.id) INNER JOIN `airports` a ON (f.departure=a.iata) INNER JOIN `airports` b ON (f.arrival=b.iata) WHERE `user_id`=:id';
     protected $sql_update = '';
     protected $sql_delete = 'DELETE FROM `plans` WHERE `user_id`=:user_id AND `flight_id`=:flight_id';
 
@@ -178,7 +178,7 @@ class Plan extends AbstractAero {
             $aero -> sql = 'SELECT * FROM `plans` WHERE `user_id`=:user_id AND `flight_id`=:flight_id';
             $aero -> execute($value);
             $result = $aero -> query -> fetchObject();
-            
+
             if(!$result) {
                 $aero -> sql = $this -> sql_insert;
                 $aero -> execute($value);
@@ -301,7 +301,7 @@ class Ticket extends AbstractAero {
         FROM `flights` `f1`
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
         JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
-        WHERE `f1`.`departure`=:departure_id AND `f1`.`arrival`=:arrival_id';
+        WHERE `f1`.`departure`=:departure AND `f1`.`arrival`=:arrival';
 
     public $one_stop = '
         SELECT
@@ -342,7 +342,7 @@ class Ticket extends AbstractAero {
         JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
         JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
         JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
-        WHERE `f1`.`departure`=:departure_id AND `f2`.`arrival`=:arrival_id';
+        WHERE `f1`.`departure`=:departure AND `f2`.`arrival`=:arrival';
 
     public $two_stop = '
         SELECT
@@ -392,7 +392,7 @@ class Ticket extends AbstractAero {
         JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
         JOIN `airports` `a3` ON `f3`.`departure`=`a3`.`iata`
         JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`iata`
-        WHERE `f1`.`departure`=:departure_id AND `f3`.`arrival`=:arrival_id';
+        WHERE `f1`.`departure`=:departure AND `f3`.`arrival`=:arrival';
 
     public function get($id = null) {
         return null;

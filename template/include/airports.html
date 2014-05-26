@@ -1,3 +1,3 @@
-<select data-ng-controller="airportsList" id="{{ data }}" name="{{ data }}" data-ng-model="{{ data }}" required>
+<select data-ng-controller="airportsList" id="{{ data }}" name="{{ data }}" data-ng-model="{{ value }}" required>
     <option data-ng-repeat="i in airportsOnce" data-ng-selected="i.name == '{{ airport }}'" value="[[ i.iata ]]">[[ i.name ]]</option>
 </select>
