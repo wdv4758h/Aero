@@ -79,9 +79,9 @@ class Airport extends AbstractAero {
     public $longitude;
     public $latitude;
 
-    protected $sql_insert = 'INSERT INTO `airports` (`id`, `iata`, `name`, `longitude`, `latitude`, `timezone`, `country_id`) VALUES (NULL, :iata, :name, :longitude, :latitude, :timezone, :country_id)';
-    protected $sql_select = 'SELECT `a`.*, `c`.`full_name`, `c`.`short_name` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`id`';
-    protected $sql_selectID = 'SELECT `a`.*, `c`.`full_name`, `c`.`short_name` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`id` WHERE `a`.`id`=:id';
+    protected $sql_insert = 'INSERT INTO `airports` (`iata`, `name`, `longitude`, `latitude`, `timezone`, `country_id`) VALUES (:iata, :name, :longitude, :latitude, :timezone, :country_id)';
+    protected $sql_select = 'SELECT `a`.*, `c`.`name`, `c`.`abbr` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`id`';
+    protected $sql_selectID = 'SELECT `a`.*, `c`.`name`, `c`.`abbr` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr` WHERE `a`.`id`=:id';
     protected $sql_update = 'UPDATE `airports` SET `iata`=:iata, `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `airports` WHERE `id`=:id';
 
@@ -111,10 +111,27 @@ class Flight extends AbstractAero {
     public $arrival_date;
     public $fare;
 
-    protected $sql_insert = 'INSERT INTO `flights` (`id`, `code`, `departure`, `arrival`, `departure_date`, `arrival_date`, `fare`) VALUES (NULL, :code, (SELECT id FROM airports WHERE name=:departure), (SELECT id FROM airports WHERE name=:arrival), :departure_date, :arrival_date, :fare)';
-    protected $sql_select = 'SELECT f.id, f.code, a.name AS departure, a.timezone AS departure_timezone, a.iata AS departure_iata, b.name AS arrival, b.timezone AS arrival_timezone, b.iata AS arrival_iata, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.id) INNER JOIN `airports` b ON (f.arrival=b.id)';
-    protected $sql_selectID = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.id) INNER JOIN `airports` b ON (f.arrival=b.id) WHERE f.id=:id';
-    protected $sql_update = 'UPDATE `flights` SET `code`=:code, `departure`=(SELECT id FROM `airports` WHERE name=:departure), `arrival`=(SELECT id FROM `airports` WHERE name=:arrival), `departure_date`=:departure_date, `arrival_date`=:arrival_date, `fare`=:fare WHERE `id`=:id';
+    protected $sql_insert = '
+        INSERT INTO `flights` (
+            `id`,
+            `code`,
+            `departure`,
+            `arrival`,
+            `departure_date`,
+            `arrival_date`,
+            `fare`
+        ) VALUES (
+            NULL, :code,
+            (SELECT iata FROM airports WHERE name=:departure),
+            (SELECT iata FROM airports WHERE name=:arrival),
+            :departure_date,
+            :arrival_date,
+            :fare
+        )';
+
+    protected $sql_select = 'SELECT f.id, f.code, a.name AS departure, a.timezone AS departure_timezone, a.iata AS departure_iata, b.name AS arrival, b.timezone AS arrival_timezone, b.iata AS arrival_iata, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.iata) INNER JOIN `airports` b ON (f.arrival=b.iata)';
+    protected $sql_selectID = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.iata) INNER JOIN `airports` b ON (f.arrival=b.iata) WHERE f.id=:id';
+    protected $sql_update = 'UPDATE `flights` SET `code`=:code, `departure`=(SELECT iata FROM `airports` WHERE name=:departure), `arrival`=(SELECT iata FROM `airports` WHERE name=:arrival), `departure_date`=:departure_date, `arrival_date`=:arrival_date, `fare`=:fare WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `flights` WHERE `id`=:id';
 
     public function get($id = null) {
@@ -141,7 +158,7 @@ class Plan extends AbstractAero {
     public $users_id;
     public $flights_id;
 
-    protected $sql_insert = 'INSERT INTO `plans` (`id`, `users_id`, `flights_id`) VALUES (NULL, :users_id, :flights_id)';
+    protected $sql_insert = 'INSERT INTO `plans` (`users_id`, `flights_id`) VALUES (:users_id, :flights_id)';
     protected $sql_select = 'SELECT f.id, f.code, a.name AS departure, a.timezone AS departure_timezone, b.name AS arrival, b.timezone AS arrival_timezone, f.departure_date, f.arrival_date, f.fare FROM `plans` p INNER JOIN `flights` f ON (p.flights_id=f.id) INNER JOIN `airports` a ON (f.departure=a.id) INNER JOIN `airports` b ON (f.arrival=b.id) WHERE `users_id`=:id';
     protected $sql_update = '';
     protected $sql_delete = 'DELETE FROM `plans` WHERE `users_id`=:users_id AND `flights_id`=:flights_id';
@@ -229,18 +246,17 @@ class Country extends AbstractAero {
     public $short_name;
     public $timezone;
 
-    protected $sql_insert = 'INSERT INTO `country` (`id`, `full_name`, `short_name`) VALUES (NULL, :full_name, :short_name)';
-    protected $sql_select = 'SELECT `id`, `full_name`, `short_name` FROM `country`';
-    protected $sql_update = 'UPDATE `country` SET `full_name`=:full_name, `short_name`=:short_name WHERE `id`=:id';
-    protected $sql_delete = 'DELETE FROM `country` WHERE `id`=:id';
+    protected $sql_insert = 'INSERT INTO `country` (`abbr`, `name`) VALUES (:full_name, :short_name)';
+    protected $sql_select = 'SELECT `name` AS `full_name`, `abbr` AS `short_name` FROM `country`';
+    protected $sql_update = 'UPDATE `country` SET `name`=:full_name, `abbr`=:short_name WHERE `name`=:full_name';
+    protected $sql_delete = 'DELETE FROM `country` WHERE `name`=:full_name';
 
     public function get($id = null) {
         if ($id) {
             $result = $this -> fetch($id);
 
-            $this -> id         = $result -> id;
-            $this -> full_name  = $result -> full_name;
-            $this -> short_name = $result -> short_name;
+            $this -> name  = $result -> name;
+            $this -> abbr = $result -> abbr;
         } else {
             $result = $this -> fetchAll();
         }
@@ -284,8 +300,8 @@ class Ticket extends AbstractAero {
             0 AS transfer,
             f1.fare AS total_fare
         FROM `flights` `f1`
-        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
-        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`id`
+        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
+        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
         WHERE `f1`.`departure`=:departure_id AND `f1`.`arrival`=:arrival_id';
 
     public $one_stop = '
@@ -323,10 +339,10 @@ class Ticket extends AbstractAero {
             (f1.fare + f2.fare)*0.9 AS total_fare
         FROM `flights` `f1`
         JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
-        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
-        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`id`
-        JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`id`
-        JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`id`
+        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
+        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
+        JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
+        JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
         WHERE `f1`.`departure`=:departure_id AND `f2`.`arrival`=:arrival_id';
 
     public $two_stop = '
@@ -371,12 +387,12 @@ class Ticket extends AbstractAero {
         FROM `flights` `f1`
         JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
         JOIN `flights` `f3` ON `f2`.`arrival`=`f3`.`departure`
-        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`id`
-        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`id`
-        JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`id`
-        JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`id`
-        JOIN `airports` `a3` ON `f3`.`departure`=`a3`.`id`
-        JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`id`
+        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
+        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
+        JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
+        JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
+        JOIN `airports` `a3` ON `f3`.`departure`=`a3`.`iata`
+        JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`iata`
         WHERE `f1`.`departure`=:departure_id AND `f3`.`arrival`=:arrival_id';
 
     public function get($id = null) {
