@@ -25,6 +25,7 @@
                         <option value="2">至多兩次</option>
                     </select>
                 </li>
+                <li><label for="round_trip">來回票</label><input type="checkbox" name="round_trip" value="1"></li>
                 <li><input type="submit" value="Search"></li>
             </ul>
         </form>
@@ -45,6 +46,7 @@
                     <td>Flight Time</td>
                     <td>Total Flight Time</td>
                     <td>Transfer</td>
+                    <td>Total Spend Time</td>
                     <td>Price</td>
                     <td>Total Price</td>
                     {% endmacro %}
@@ -65,6 +67,7 @@
                     <td>[[ result.flight1_time ]]</td>
                     <td rowspan="3">[[ result.flight_time ]]</td>
                     <td rowspan="3">[[ result.transfer ]]</td>
+                    <td rowspan="3">[[ result.total_time ]]</td>
                     <td>[[ result.fare1 ]]</td>
                     <td rowspan="3">[[ result.total_fare ]]</td>
                     {% if _SESSION %}

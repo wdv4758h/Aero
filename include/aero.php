@@ -81,7 +81,7 @@ class Airport extends AbstractAero {
 
     protected $sql_insert = 'INSERT INTO `airports` (`iata`, `name`, `longitude`, `latitude`, `timezone`, `country_id`) VALUES (:iata, :name, :longitude, :latitude, :timezone, :country_id)';
     protected $sql_select = 'SELECT `a`.*, `c`.`name` as `country` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr`';
-    protected $sql_selectID = 'SELECT `a`.*, `c`.* FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr` WHERE `a`.`iata`=:iata';
+    protected $sql_selectID = 'SELECT `a`.*, `c`.`name` as `country` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr` WHERE `a`.`iata`=:iata';
     protected $sql_update = 'UPDATE `airports` SET `iata`=:iata, `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `iata`=:old_iata';
     protected $sql_delete = 'DELETE FROM `airports` WHERE `iata`=:iata';
 
@@ -297,6 +297,7 @@ class Ticket extends AbstractAero {
             f1.arrival_date AS arrival_date,
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight_time,
             0 AS transfer,
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS total_time,
             f1.fare AS total_fare
         FROM `flights` `f1`
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
@@ -335,6 +336,15 @@ class Ticket extends AbstractAero {
                 TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
             ) AS flight_time,
             TIMEDIFF(f2.departure_date, f1.arrival_date) AS transfer,
+
+            ADDTIME(
+                ADDTIME(
+                    TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                    TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                ),
+                TIMEDIFF(f2.departure_date, f1.arrival_date)
+            ) AS total_time,
+
             (f1.fare + f2.fare)*0.9 AS total_fare
         FROM `flights` `f1`
         JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
@@ -382,6 +392,21 @@ class Ticket extends AbstractAero {
                 TIMEDIFF(f2.departure_date, f1.arrival_date),
                 TIMEDIFF(f3.departure_date, f2.arrival_date)
             ) AS transfer,
+
+            ADDTIME(
+                ADDTIME(
+                    ADDTIME(
+                        TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                        TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                    ),
+                    TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date)
+                ),
+                ADDTIME(
+                    TIMEDIFF(f2.departure_date, f1.arrival_date),
+                    TIMEDIFF(f3.departure_date, f2.arrival_date)
+                )
+            ) AS total_time,
+
             (f1.fare + f2.fare + f3.fare)*0.8 AS total_fare
         FROM `flights` `f1`
         JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
@@ -398,7 +423,7 @@ class Ticket extends AbstractAero {
         return null;
     }
 
-    public function search($value, $trans_time) {
+    public function search($value, $trans_time, $round_trip) {
         try {
             $aero = new Aero();
 
@@ -417,6 +442,11 @@ class Ticket extends AbstractAero {
             }
 
             $aero -> sql = $aero -> sql . " ORDER BY total_fare, departure1_date, arrival_date";
+
+            if($round_trip) {
+                $value[':r_departure'] = $value[':departure'];
+                $value[':r_arrival'] = $value[':arrival'];
+            }
 
             $aero -> execute($value);
             return $aero -> query -> fetchAll();
