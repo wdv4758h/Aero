@@ -218,6 +218,8 @@ app.controller('formPost', function($scope, $http){
 
     $scope.formData = {}
     $scope.formReturn = []
+    $scope.formData.order = ""
+    $scope.formData.asc_desc = ""
 
     // process the form
     $scope.processForm = function(url) {
@@ -229,25 +231,51 @@ app.controller('formPost', function($scope, $http){
         })
             .success(function(data) {
                 $scope.formReturn = data;
-                if($scope.formReturn.length == 0){
-                    alertify.error("沒有符合的 Ticket");
-                } else {
-                    alertify.success("已找到符合的 Ticket");
-                }
+                if ($scope.formData.sort == "") {
+                    if ($scope.formReturn.length == 0) {
+                        alertify.error("沒有符合的 Ticket");
+                    } else {
+                        alertify.success("已找到符合的 Ticket");
+                    }
 
-                if (!data.success) {
-                    // if not successful, bind errors to error variables
-                    //$scope.errorName = data.errors.name;
-                    //$scope.errorSuperhero = data.errors.superheroAlias;
-                } else {
-                    // if successful, bind success message to message
-                    $scope.message = data.message;
+                    if (!data.success) {
+                        // if not successful, bind errors to error variables
+                        //$scope.errorName = data.errors.name;
+                        //$scope.errorSuperhero = data.errors.superheroAlias;
+                    } else {
+                        // if successful, bind success message to message
+                        $scope.message = data.message;
+                    }
                 }
             })
             .error(function(data, status, headers, config){
                 console.log('Ajax failed');
             });
 
+    };
+
+    $scope.newForm = function(url) {
+        $scope.formData.order = "";
+        $scope.formData.asc_desc = ""
+        $scope.processForm('/api/ticket/search');
+    }
+
+    $scope.sort = function(data) {
+        if ($scope.formData.order == data) {
+            switch ($scope.formData.asc_desc) {
+                case "ASC":
+                    $scope.formData.asc_desc = "DESC";
+                    break;
+                case "DESC":
+                    $scope.formData.order = "";
+                    $scope.formData.asc_desc = "";
+                    break;
+            }
+        } else {
+            $scope.formData.order = data;
+            $scope.formData.asc_desc = "ASC";
+        }
+        $scope.processForm('/api/ticket/search');
     };
 });
 

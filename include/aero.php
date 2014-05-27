@@ -423,7 +423,7 @@ class Ticket extends AbstractAero {
         return null;
     }
 
-    public function search($value, $trans_time, $round_trip) {
+    public function search($value, $trans_time, $round_trip, $order, $asc_desc) {
         try {
             $aero = new Aero();
 
@@ -441,7 +441,10 @@ class Ticket extends AbstractAero {
                     $aero -> sql = $this -> no_stop;
             }
 
-            $aero -> sql = $aero -> sql . " ORDER BY total_fare, departure1_date, arrival_date";
+            if ($order)
+                $asc_desc = $asc_desc . ", ";
+
+            $aero -> sql = $aero -> sql . " ORDER BY " . $order . " " . $asc_desc . " total_fare, departure1_date, arrival_date";
 
             if($round_trip) {
                 $value[':r_departure'] = $value[':departure'];
