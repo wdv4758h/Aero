@@ -302,7 +302,10 @@ class Ticket extends AbstractAero {
         FROM `flights` `f1`
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
         JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
-        WHERE `f1`.`departure`=:departure AND `f1`.`arrival`=:arrival';
+        WHERE
+                `f1`.`departure`=:departure
+            AND `f1`.`arrival`=:arrival
+        ';
 
     public $one_stop = '
         SELECT
@@ -352,7 +355,11 @@ class Ticket extends AbstractAero {
         JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
         JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
         JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
-        WHERE `f1`.`departure`=:departure AND `f2`.`arrival`=:arrival';
+        WHERE
+                `f1`.`departure`=:departure
+            AND `f2`.`arrival`=:arrival
+            AND (`f1`.`arrival_date` + INTERVAL 2 HOUR) <= `f2`.`departure_date`
+        ';
 
     public $two_stop = '
         SELECT
@@ -417,7 +424,12 @@ class Ticket extends AbstractAero {
         JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
         JOIN `airports` `a3` ON `f3`.`departure`=`a3`.`iata`
         JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`iata`
-        WHERE `f1`.`departure`=:departure AND `f3`.`arrival`=:arrival';
+        WHERE
+                `f1`.`departure`=:departure
+            AND `f3`.`arrival`=:arrival
+            AND (`f1`.`arrival_date` + INTERVAL 2 HOUR) <= `f2`.`departure_date`
+            AND (`f2`.`arrival_date` + INTERVAL 2 HOUR) <= `f3`.`departure_date`
+        ';
 
     public function get($id = null) {
         return null;
