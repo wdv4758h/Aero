@@ -1,4 +1,4 @@
-var app = angular.module('Airline', [], function($interpolateProvider) {
+var app = angular.module('Airline', ['ui.bootstrap'], function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 });
