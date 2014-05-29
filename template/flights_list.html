@@ -57,11 +57,12 @@
                 {{ m.TBODY() }}
                 {% if _SESSION %}
                 <td>
-                    <a data-ng-click="interest(flight.id)">Compare</a>
+                    <a data-ng-click="interest(flight.id)">Compare</a><!--
                     {% if _SESSION.is_admin %}
-                    <a href="/flights/edit?id=[[ flight.id ]]">Edit</a>
-                    <a href="/flights/delete?id=[[ flight.id ]]">Delete</a>
+                 --><a href="/flights/edit?id=[[ flight.id ]]">Edit</a><!--
+                 --><a href="/flights/delete?id=[[ flight.id ]]">Delete</a><!--
                     {% endif %}
+                 -->
                 </td>
                 {% endif %}
             </tr>

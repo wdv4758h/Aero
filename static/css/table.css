@@ -86,19 +86,22 @@ tbody tr:hover {
     background-color: #d9ecff;
 }
 
-tbody td {
-
+tbody td:last-child {
+    padding-left: 0;
 }
 
 tbody td:last-child a {
     background-color: #fff;
     border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
     display: none;
     color: black;
     text-decoration: none;
     padding: 0px 5px;
     cursor: pointer;
+}
+
+tbody td:last-child a:last-child {
+    border-right: 1px solid #ccc;
 }
 
 tbody td:last-child a:active {

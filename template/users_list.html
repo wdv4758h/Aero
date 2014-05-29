@@ -30,8 +30,8 @@
                 <td>[[ user.is_admin ]]</td>
                 <td>
                     {% if _SESSION.is_admin %}
-                    <a data-ng-hide="user.is_admin" href="/users/edit?id=[[ user.id ]]">Edit</a>
-                    <a href="/users/delete?id=[[ user.id ]]">Delete</a>
+                    <a data-ng-hide="user.is_admin" href="/users/edit?id=[[ user.id ]]">Edit</a><!--
+                 --><a href="/users/delete?id=[[ user.id ]]">Delete</a>
                     {% endif %}
                 </td>
             </tr>
