@@ -277,6 +277,23 @@ app.controller('formPost', function($scope, $http){
         }
         $scope.processForm('/api/ticket/search');
     };
+
+    $scope.interestPost = function(url) {
+        $http({
+            method  : 'POST',
+            url     : url,
+            data    : $scope.interestTicket,
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+            .error(function(data, status, headers, config){
+                console.log('Ajax failed');
+            });
+
+    };
+
+    $scope.interest = function(ticket) {
+        interetPost('/api/ticket/interest');
+    }
 });
 
 app.controller('ticketList', function($scope, $http){
