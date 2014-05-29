@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':departure'     => $request -> departure,
         ':arrival'       => $request -> arrival,
     );
-    $tickets = $a -> search($value, $request -> trans_time, $request -> round_trip, $request -> order, $request -> asc_desc);
+    $tickets = $a -> search($value, $request -> trans_time, $request -> round_trip, $request -> order, $request -> asc_desc, $request -> night);
 
     echo json_encode($tickets, JSON_NUMERIC_CHECK);
 

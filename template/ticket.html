@@ -4,7 +4,7 @@
 {% block title %} Tickets {% endblock %}
 
 {% block content %}
-<div data-ng-controller="formPost">
+<section class="ticket-list" data-ng-controller="formPost">
     <div>
         <h1>Ticket Search</h1>
         <form ng-submit="newForm('/api/ticket/search')">
@@ -27,7 +27,11 @@
                 </li>
                 <li>
                     <label for="round_trip">來回票</label>
-                    <input type="checkbox" name="round_trip" value="1" data-ng-model="formData.round_trip" data-ng-true-value="1" data-ng-false-value="0">
+                    <input type="checkbox" name="round_trip" data-ng-model="formData.round_trip" data-ng-true-value="1" data-ng-false-value="0">
+                </li>
+                <li>
+                    <label for="night">轉機過夜</label>
+                    <input type="checkbox" name="night" data-ng-model="formData.night" data-ng-init="formData.night = 1" data-ng-true-value="1" data-ng-false-value="0" data-ng-checked="formData.night">
                 </li>
                 <li><input type="submit" value="Search"></li>
             </ul>
@@ -104,10 +108,10 @@
         </table>
         <p data-ng-hide="formReturn.length">No Search Result</p>
     </div>
-</div>
+</section>
 
 {% if _SESSION %}
-<div class="interest-tickets">
+<section class="ticket-list">
     <div class="option-bar">
         <h1 class="left">Compare Tickets</h1>
         <div class="option-group right">
@@ -125,7 +129,7 @@
         <tbody>
         <tr data-ng-repeat='ticket in tickets'>
                 <td>
-                    <a data-ng-click="disinterest(ticket.id)">Remove</a>
+                    <a data-ng-click="disinterest(ticket)">Remove</a>
                 </td>
             </tr>
         </tbody>

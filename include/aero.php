@@ -431,11 +431,19 @@ class Ticket extends AbstractAero {
             AND (`f2`.`arrival_date` + INTERVAL 2 HOUR) <= `f3`.`departure_date`
         ';
 
+    public $night1 = ' AND
+         TIME(`f1`.`arrival_date`) < TIME(`f2`.`departure_date`)
+         AND DATE(`f1`.`arrival_date`) = DATE(`f2`.`departure_date`) ';
+
+     public $night2 = ' AND
+         TIME(`f1`.`arrival_date`) < TIME(`f2`.`departure_date`)
+         AND DATE(`f1`.`arrival_date`) = DATE(`f2`.`departure_date`) ';
+
     public function get($id = null) {
         return null;
     }
 
-    public function search($value, $trans_time, $round_trip, $order, $asc_desc) {
+    public function search($value, $trans_time, $round_trip, $order, $asc_desc, $night) {
         try {
             $aero = new Aero();
 
@@ -444,10 +452,18 @@ class Ticket extends AbstractAero {
                     $aero -> sql = $this -> no_stop;
                     break;
                 case 1:
-                    $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop;
+                    if ($night) {
+                        $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop;
+                    } else {
+                        $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop . $this -> night1;
+                    }
                     break;
                 case 2:
-                    $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop . " UNION " . $this -> two_stop;
+                    if ($night) {
+                        $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop . " UNION " . $this -> two_stop;
+                    } else {
+                        $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop . $this -> night1 . " UNION " . $this -> two_stop . $this -> night2;
+                    }
                     break;
                 default:
                     $aero -> sql = $this -> no_stop;
