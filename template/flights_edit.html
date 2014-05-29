@@ -13,11 +13,11 @@
             <li><label for="code">Flight Number</label><input type="text" name="code" id="code" value="{{ flight.code }}" required></li>
             <li>
                 <label for="departure">Departure</label>
-                {% include "include/airports.html" with { 'data': 'departure', 'airport': flight.departure, 'value': 'tmp1' } %}
+                {% include "include/airports.html" with { 'data': 'departure', 'airport': flight.departure, 'iata': flight.departure_iata, 'value': 'tmp1' } %}
             </li>
             <li>
                 <label for="arrival">Arrival</label>
-                {% include "include/airports.html" with { 'data': 'arrival', 'airport': flight.arrival, 'value': 'tmp2' } %}
+                {% include "include/airports.html" with { 'data': 'arrival', 'airport': flight.arrival, 'iata': flight.arrival_iata, 'value': 'tmp2' } %}
             </li>
             <li><label for="departure_date">Departing Time</label><input type="datetime-local" name="departure_date" id="departure_date" value="{{ flight.departure_date }}" required></li>
             <li><label for="arrival_date">Arriving Time</label><input type="datetime-local" name="arrival_date" id="arrival_date" value="{{ flight.arrival_date }}" required></li>

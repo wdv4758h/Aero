@@ -11,11 +11,11 @@
             <ul>
                 <li>
                     <label for="departure">Departure</label>
-                    {% include "include/airports.html" with {'data': 'departure', 'value': 'formData.departure'} %}
+                    {% include "include/airports.html" with {'data': 'departure', 'value': 'formData.departure', 'new': true} %}
                 </li>
                 <li>
                     <label for="arrival">Arrival</label>
-                    {% include "include/airports.html" with {'data': 'arrival', 'value': 'formData.arrival'} %}
+                    {% include "include/airports.html" with {'data': 'arrival', 'value': 'formData.arrival', 'new': true} %}
                 </li>
                 <li>
                     <label for="trans_time">轉機次數</label>
@@ -27,7 +27,7 @@
                 </li>
                 <li>
                     <label for="round_trip">來回票</label>
-                    <input type="checkbox" name="round_trip" data-ng-model="formData.round_trip" data-ng-true-value="1" data-ng-false-value="0">
+                    <input type="checkbox" name="round_trip" data-ng-model="formData.round_trip" data-ng-init="formData.round_trip = 0" data-ng-true-value="1" data-ng-false-value="0">
                 </li>
                 <li>
                     <label for="night">轉機過夜</label>

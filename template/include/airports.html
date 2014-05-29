@@ -1,3 +1,21 @@
+{% if not new %}
+
 <select data-ng-controller="airportsList" id="{{ data }}" name="{{ data }}" data-ng-model="{{ value }}" required>
     <option data-ng-repeat="i in airportsOnce" data-ng-selected="i.name == '{{ airport }}'" value="[[ i.iata ]]">[[ i.name ]]</option>
 </select>
+
+{% else %}
+
+<div data-ng-controller="airportsList">
+<input
+    type="text"  id="{{ data }}" name="{{ data }}"
+    data-ng-model="tmp"
+    data-ng-init="tmp.name = '{{ airport }}'"
+    data-typeahead-on-select="{{ value }} = tmp.iata"
+    data-typeahead="i as i.name for i in airportsOnce | filter:$viewValue"
+    class="form-control"
+required>
+
+</div>
+
+{% endif %}

@@ -130,7 +130,7 @@ class Flight extends AbstractAero {
         )';
 
     protected $sql_select = 'SELECT f.id, f.code, a.name AS departure, a.timezone AS departure_timezone, a.iata AS departure_iata, b.name AS arrival, b.timezone AS arrival_timezone, b.iata AS arrival_iata, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.iata) INNER JOIN `airports` b ON (f.arrival=b.iata)';
-    protected $sql_selectID = 'SELECT f.id, f.code, a.name AS departure, b.name AS arrival, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.iata) INNER JOIN `airports` b ON (f.arrival=b.iata) WHERE f.id=:id';
+    protected $sql_selectID = 'SELECT f.id, f.code, a.name AS departure, a.iata AS departure_iata, b.name AS arrival, b.iata AS arrival_iata, f.departure_date, f.arrival_date, f.fare FROM `flights` f INNER JOIN `airports` a ON (f.departure=a.iata) INNER JOIN `airports` b ON (f.arrival=b.iata) WHERE f.id=:id';
     protected $sql_update = 'UPDATE `flights` SET `code`=:code, `departure`=:departure, `arrival`=:arrival, `departure_date`=:departure_date, `arrival_date`=:arrival_date, `fare`=:fare WHERE `id`=:id';
     protected $sql_delete = 'DELETE FROM `flights` WHERE `id`=:id';
 
