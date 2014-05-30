@@ -350,15 +350,16 @@ class Ticket extends AbstractAero {
 
             (f1.fare + f2.fare)*0.9 AS total_fare
         FROM `flights` `f1`
-        JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
+        JOIN `flights` `f2`
+            ON `f1`.`arrival`=`f2`.`departure`
+            AND `f2`.`arrival`=:arrival
+            AND (`f1`.`arrival_date` + INTERVAL 2 HOUR) <= `f2`.`departure_date`
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
         JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
         JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
         JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
         WHERE
                 `f1`.`departure`=:departure
-            AND `f2`.`arrival`=:arrival
-            AND (`f1`.`arrival_date` + INTERVAL 2 HOUR) <= `f2`.`departure_date`
         ';
 
     public $two_stop = '
@@ -416,8 +417,13 @@ class Ticket extends AbstractAero {
 
             (f1.fare + f2.fare + f3.fare)*0.8 AS total_fare
         FROM `flights` `f1`
-        JOIN `flights` `f2` ON `f1`.`arrival`=`f2`.`departure`
-        JOIN `flights` `f3` ON `f2`.`arrival`=`f3`.`departure`
+        JOIN `flights` `f2`
+            ON `f1`.`arrival`=`f2`.`departure`
+            AND (`f1`.`arrival_date` + INTERVAL 2 HOUR) <= `f2`.`departure_date`
+        JOIN `flights` `f3`
+            ON `f2`.`arrival`=`f3`.`departure`
+            AND (`f2`.`arrival_date` + INTERVAL 2 HOUR) <= `f3`.`departure_date`
+            AND `f3`.`arrival`=:arrival
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
         JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
         JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
@@ -426,16 +432,13 @@ class Ticket extends AbstractAero {
         JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`iata`
         WHERE
                 `f1`.`departure`=:departure
-            AND `f3`.`arrival`=:arrival
-            AND (`f1`.`arrival_date` + INTERVAL 2 HOUR) <= `f2`.`departure_date`
-            AND (`f2`.`arrival_date` + INTERVAL 2 HOUR) <= `f3`.`departure_date`
         ';
 
     public $night1 = ' AND
          TIME(`f1`.`arrival_date`) < TIME(`f2`.`departure_date`)
          AND DATE(`f1`.`arrival_date`) = DATE(`f2`.`departure_date`) ';
 
-     public $night2 = ' AND
+    public $night2 = ' AND
          TIME(`f1`.`arrival_date`) < TIME(`f2`.`departure_date`)
          AND DATE(`f1`.`arrival_date`) = DATE(`f2`.`departure_date`) ';
 
@@ -480,7 +483,8 @@ class Ticket extends AbstractAero {
             }
 
             $aero -> execute($value);
-            return $aero -> query -> fetchAll();
+            //return $aero -> query -> fetchAll();
+            return array('sql' => $aero -> sql, 'data' => $aero -> query -> fetchAll());
         } catch(PDOException $e) {
             echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
         }

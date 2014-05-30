@@ -7,7 +7,7 @@
 <section class="ticket-list" data-ng-controller="formPost">
     <div>
         <h1>Ticket Search</h1>
-        <form ng-submit="newForm('/api/ticket/search')">
+        <form ng-submit="newForm_sql('/api/ticket/search')">
             <ul>
                 <li>
                     <label for="departure">Departure</label>
@@ -51,9 +51,9 @@
                     <td>Departure Time (local time)</td>
                     <td>Arrival Time (local time)</td>
                     <td>Flight Time</td>
-                    <td class="sort" data-ng-class="{focus: formData.order=='flight_time', asc: formData.order=='flight_time' && formData.asc_desc=='ASC', des: formData.order=='flight_time' && formData.asc_desc=='DESC'}" data-ng-click="sort('flight_time')">Total Flight Time</td>
-                    <td class="sort" data-ng-class="{focus: formData.order=='transfer', asc: formData.order=='transfer' && formData.asc_desc=='ASC', des: formData.order=='transfer' && formData.asc_desc=='DESC'}" data-ng-click="sort('transfer')">Transfer</td>
-                    <td class="sort" data-ng-class="{focus: formData.order=='total_time', asc: formData.order=='total_time' && formData.asc_desc=='ASC', des: formData.order=='total_time' && formData.asc_desc=='DESC'}" data-ng-click="sort('total_time')">Total Spend Time</td>
+                    <td class="sort" data-ng-class="{focus: formData.order=='flight_time', asc: formData.order=='flight_time' && formData.asc_desc=='ASC', des: formData.order=='flight_time' && formData.asc_desc=='DESC'}" data-ng-click="sort_sql('flight_time')">Total Flight Time</td>
+                    <td class="sort" data-ng-class="{focus: formData.order=='transfer', asc: formData.order=='transfer' && formData.asc_desc=='ASC', des: formData.order=='transfer' && formData.asc_desc=='DESC'}" data-ng-click="sort_sql('transfer')">Transfer</td>
+                    <td class="sort" data-ng-class="{focus: formData.order=='total_time', asc: formData.order=='total_time' && formData.asc_desc=='ASC', des: formData.order=='total_time' && formData.asc_desc=='DESC'}" data-ng-click="sort_sql('total_time')">Total Spend Time</td>
                     <td>Price</td>
                     <td>Total Price</td>
                     {% endmacro %}

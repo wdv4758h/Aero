@@ -254,10 +254,52 @@ app.controller('formPost', function($scope, $http){
 
     };
 
+    // process the form with SQL output for demo ...
+    $scope.processForm_sql = function(url) {
+        $http({
+            method  : 'POST',
+            url     : url,
+            data    : $scope.formData,
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+        })
+            .success(function(data) {
+                $scope.formReturn = data.data;
+                //alertify.success(data.sql);
+                alertify.alert(data.sql);
+                //alertify.log(data.sql, "", 0);
+                if ($scope.formData.sort == "") {
+                    if ($scope.formReturn.length == 0) {
+                        alertify.error("沒有符合的 Ticket");
+                    } else {
+                        alertify.success("已找到符合的 Ticket");
+                    }
+
+                    if (!data.success) {
+                        // if not successful, bind errors to error variables
+                        //$scope.errorName = data.errors.name;
+                        //$scope.errorSuperhero = data.errors.superheroAlias;
+                    } else {
+                        // if successful, bind success message to message
+                        $scope.message = data.message;
+                    }
+                }
+            })
+            .error(function(data, status, headers, config){
+                console.log('Ajax failed');
+            });
+
+    };
+
     $scope.newForm = function(url) {
         $scope.formData.order = "";
         $scope.formData.asc_desc = ""
         $scope.processForm('/api/ticket/search');
+    }
+
+    $scope.newForm_sql = function(url) {
+        $scope.formData.order = "";
+        $scope.formData.asc_desc = ""
+        $scope.processForm_sql('/api/ticket/search');
     }
 
     $scope.sort = function(data) {
@@ -276,6 +318,24 @@ app.controller('formPost', function($scope, $http){
             $scope.formData.asc_desc = "ASC";
         }
         $scope.processForm('/api/ticket/search');
+    };
+
+    $scope.sort_sql = function(data) {
+        if ($scope.formData.order == data) {
+            switch ($scope.formData.asc_desc) {
+                case "ASC":
+                    $scope.formData.asc_desc = "DESC";
+                    break;
+                case "DESC":
+                    $scope.formData.order = "";
+                    $scope.formData.asc_desc = "";
+                    break;
+            }
+        } else {
+            $scope.formData.order = data;
+            $scope.formData.asc_desc = "ASC";
+        }
+        $scope.processForm_sql('/api/ticket/search');
     };
 
     $scope.interestPost = function(url) {
