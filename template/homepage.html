@@ -26,8 +26,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="col" data-ng-controller="formPost">
+<div class="col">
+    <h2>AERO</h2>
+    <p>Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+</div>
 
+<div class="col" data-ng-controller="formPost">
     <h2>Find Flights</h2>
     <form class="block" ng-submit="newForm_sql('/api/ticket/search')">
         <ul>
@@ -62,12 +66,5 @@
             </li>
         </ul>
     </form>
-
-    </div><!--
-    --><div class="col">
-
-    <h2>AERO</h2>
-    <p>Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
-
-    </div>
+</div>
 {% endblock %}
