@@ -292,16 +292,22 @@ class Ticket extends AbstractAero {
             null AS fare3,
             null AS departure3_timezone, null AS departure3_iata,
             null AS arrival3_timezone, null AS arrival3_iata,
-            null AS flight3_time,
+            null AS flight3_time, ';
 
-            f1.arrival_date AS arrival_date,
-            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight_time,
-            0 AS transfer,
-            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS total_time,
-            f1.fare AS total_fare
+
+    public $no_total = '
+        f1.arrival_date AS arrival_date,
+        TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight_time,
+        0 AS transfer,
+        TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS total_time,
+        f1.fare AS total_fare ';
+
+    public $no_join = '
         FROM `flights` `f1`
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
-        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
+        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata` ';
+
+    public $no_where = '
         WHERE
                 `f1`.`departure`=:departure
             AND `f1`.`arrival`=:arrival
@@ -331,8 +337,9 @@ class Ticket extends AbstractAero {
             null AS fare3,
             null AS departure3_timezone, null AS departure3_iata,
             null AS arrival3_timezone, null AS arrival3_iata,
-            null AS flight3_time,
+            null AS flight3_time, ';
 
+    public $one_total = '
             f2.arrival_date AS arrival_date,
             ADDTIME(
                 TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
@@ -348,7 +355,9 @@ class Ticket extends AbstractAero {
                 TIMEDIFF(f2.departure_date, f1.arrival_date)
             ) AS total_time,
 
-            (f1.fare + f2.fare)*0.9 AS total_fare
+            (f1.fare + f2.fare)*0.9 AS total_fare ';
+
+    public $one_join = '
         FROM `flights` `f1`
         JOIN `flights` `f2`
             ON `f1`.`arrival`=`f2`.`departure`
@@ -357,7 +366,9 @@ class Ticket extends AbstractAero {
         JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
         JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
         JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
-        JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
+        JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata` ';
+
+    public $one_where = '
         WHERE
                 `f1`.`departure`=:departure
         ';
@@ -386,8 +397,9 @@ class Ticket extends AbstractAero {
             f3.fare AS fare3,
             a3.timezone AS departure3_timezone, a3.iata AS departure3_iata,
             b3.timezone AS arrival3_timezone, b3.iata AS arrival3_iata,
-            TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date) AS flight3_time,
+            TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date) AS flight3_time, ';
 
+    public $two_total = '
             f3.arrival_date AS arrival_date,
             ADDTIME(
                 ADDTIME(
@@ -414,8 +426,9 @@ class Ticket extends AbstractAero {
                     TIMEDIFF(f3.departure_date, f2.arrival_date)
                 )
             ) AS total_time,
+            (f1.fare + f2.fare + f3.fare)*0.8 AS total_fare ';
 
-            (f1.fare + f2.fare + f3.fare)*0.8 AS total_fare
+    public $two_join = '
         FROM `flights` `f1`
         JOIN `flights` `f2`
             ON `f1`.`arrival`=`f2`.`departure`
@@ -429,7 +442,9 @@ class Ticket extends AbstractAero {
         JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
         JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
         JOIN `airports` `a3` ON `f3`.`departure`=`a3`.`iata`
-        JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`iata`
+        JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`iata` ';
+
+    public $two_where = '
         WHERE
                 `f1`.`departure`=:departure
         ';
@@ -442,6 +457,257 @@ class Ticket extends AbstractAero {
          TIME(`f1`.`arrival_date`) < TIME(`f2`.`departure_date`)
          AND DATE(`f1`.`arrival_date`) = DATE(`f2`.`departure_date`) ';
 
+    public $no_select = '
+        null AS code4,
+        null AS departure4_date,
+        null AS arrival4_date,
+        null AS fare4,
+        null AS departure4_timezone, null AS departure4_iata,
+        null AS arrival4_timezone, null AS arrival4_iata,
+        null AS flight4_time,
+
+        null AS code5,
+        null AS departure5_date,
+        null AS arrival5_date,
+        null AS fare5,
+        null AS departure5_timezone, null AS departure5_iata,
+        null AS arrival5_timezone, null AS arrival5_iata,
+        null AS flight5_time,
+
+        null AS code6,
+        null AS departure6_date,
+        null AS arrival6_date,
+        null AS fare6,
+        null AS departure6_timezone, null AS departure6_iata,
+        null AS arrival6_timezone, null AS arrival6_iata,
+        null AS flight6_time, ';
+
+    public $no_round_select = '
+        f4.code AS code4,
+        f4.departure_date AS departure4_date,
+        f4.arrival_date AS arrival4_date,
+        f4.fare AS fare4,
+        a4.timezone AS departure4_timezone, a4.iata AS departure4_iata,
+        b4.timezone AS arrival4_timezone, b4.iata AS arrival4_iata,
+        TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date) AS flight4_time,
+
+        null AS code5,
+        null AS departure5_date,
+        null AS arrival5_date,
+        null AS fare5,
+        null AS departure5_timezone, null AS departure5_iata,
+        null AS arrival5_timezone, null AS arrival5_iata,
+        null AS flight5_time,
+
+        null AS code6,
+        null AS departure6_date,
+        null AS arrival6_date,
+        null AS fare6,
+        null AS departure6_timezone, null AS departure6_iata,
+        null AS arrival6_timezone, null AS arrival6_iata,
+        null AS flight6_time, ';
+
+    public $no_round_total = '
+        f1.arrival_date AS arrival_date,
+        ADDTIME(
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+            TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date)
+        ) AS flight_time,
+        0 AS transfer,
+        ADDTIME(
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+            TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date)
+        ) AS total_time,
+        (f1.fare + f4.fare) AS total_fare ';
+
+    public $no_round_join = '
+        JOIN `flights` `f4`
+            ON `f4`.`departure`=`f1`.`arrival`
+            AND `f4`.`arrival`=`f1`.`departure`
+            AND (`f1`.`arrival_date` + INTERVAL 2 HOUR) <= `f4`.`departure_date`
+        JOIN `airports` `a4` ON `f4`.`departure`=`a4`.`iata`
+        JOIN `airports` `b4` ON `f4`.`arrival`=`b4`.`iata` ';
+
+    public $one_round_select = '
+        f4.code AS code4,
+        f4.departure_date AS departure4_date,
+        f4.arrival_date AS arrival4_date,
+        f4.fare AS fare4,
+        a4.timezone AS departure4_timezone, a4.iata AS departure4_iata,
+        b4.timezone AS arrival4_timezone, b4.iata AS arrival4_iata,
+        TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date) AS flight4_time,
+
+        f5.code AS code5,
+        f5.departure_date AS departure5_date,
+        f5.arrival_date AS arrival5_date,
+        f5.fare AS fare5,
+        a5.timezone AS departure5_timezone, a5.iata AS departure5_iata,
+        b5.timezone AS arrival5_timezone, b5.iata AS arrival5_iata,
+        TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date) AS flight5_time,
+
+        null AS code6,
+        null AS departure6_date,
+        null AS arrival6_date,
+        null AS fare6,
+        null AS departure6_timezone, null AS departure6_iata,
+        null AS arrival6_timezone, null AS arrival6_iata,
+        null AS flight6_time, ';
+
+    public $one_round_total = '
+        f2.arrival_date AS arrival_date,
+        ADDTIME(
+            ADDTIME(
+                TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+            ),
+            ADDTIME(
+                TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date),
+                TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date)
+            )
+        ) AS flight_time,
+
+        ADDTIME(
+            TIMEDIFF(f2.departure_date, f1.arrival_date),
+            TIMEDIFF(f5.departure_date, f4.arrival_date)
+        ) AS transfer,
+
+        ADDTIME(
+            ADDTIME(
+                ADDTIME(
+                    TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                    TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                ),
+                ADDTIME(
+                    TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date),
+                    TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date)
+                )
+            ),
+            ADDTIME(
+                TIMEDIFF(f2.departure_date, f1.arrival_date),
+                TIMEDIFF(f5.departure_date, f4.arrival_date)
+            )
+        ) AS total_time,
+        (f1.fare + f2.fare + f4.fare + f5.fare) AS total_fare ';
+
+    public $one_round_join = '
+        JOIN `flights` `f4`
+            ON `f4`.`departure`=`f2`.`arrival`
+            AND `f4`.`arrival`=`f2`.`departure`
+            AND (`f2`.`arrival_date` + INTERVAL 2 HOUR) <= `f4`.`departure_date`
+        JOIN `flights` `f5`
+            ON `f5`.`departure`=`f1`.`arrival`
+            AND `f5`.`arrival`=`f1`.`departure`
+            AND (`f4`.`arrival_date` + INTERVAL 2 HOUR) <= `f5`.`departure_date`
+        JOIN `airports` `a4` ON `f4`.`departure`=`a4`.`iata`
+        JOIN `airports` `b4` ON `f4`.`arrival`=`b4`.`iata`
+        JOIN `airports` `a5` ON `f5`.`departure`=`a5`.`iata`
+        JOIN `airports` `b5` ON `f5`.`arrival`=`b5`.`iata` ';
+
+    public $two_round_select = '
+        f4.code AS code4,
+        f4.departure_date AS departure4_date,
+        f4.arrival_date AS arrival4_date,
+        f4.fare AS fare4,
+        a4.timezone AS departure4_timezone, a4.iata AS departure4_iata,
+        b4.timezone AS arrival4_timezone, b4.iata AS arrival4_iata,
+        TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date) AS flight4_time,
+
+        f5.code AS code5,
+        f5.departure_date AS departure5_date,
+        f5.arrival_date AS arrival5_date,
+        f5.fare AS fare5,
+        a5.timezone AS departure5_timezone, a5.iata AS departure5_iata,
+        b5.timezone AS arrival5_timezone, b5.iata AS arrival5_iata,
+        TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date) AS flight5_time,
+
+        f6.code AS code6,
+        f6.departure_date AS departure6_date,
+        f6.arrival_date AS arrival6_date,
+        f6.fare AS fare6,
+        a6.timezone AS departure6_timezone, a6.iata AS departure6_iata,
+        b6.timezone AS arrival6_timezone, b6.iata AS arrival6_iata,
+        TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date) AS flight6_time, ';
+
+    public $two_round_total = '
+        f3.arrival_date AS arrival_date,
+        ADDTIME(
+            ADDTIME(
+                ADDTIME(
+                    TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                    TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                ),
+                TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date)
+            ),
+            ADDTIME(
+                ADDTIME(
+                    TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date),
+                    TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date)
+                ),
+                TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date)
+            )
+        ) AS flight_time,
+
+        ADDTIME(
+            ADDTIME(
+                TIMEDIFF(f2.departure_date, f1.arrival_date),
+                TIMEDIFF(f3.departure_date, f2.arrival_date)
+            ),
+            ADDTIME(
+                TIMEDIFF(f5.departure_date, f4.arrival_date),
+                TIMEDIFF(f6.departure_date, f5.arrival_date)
+            )
+        ) AS transfer,
+
+        ADDTIME(
+            ADDTIME(
+                ADDTIME(
+                    ADDTIME(
+                        TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                        TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                    ),
+                    TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date)
+                ),
+                ADDTIME(
+                    ADDTIME(
+                        TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date),
+                        TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date)
+                    ),
+                    TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date)
+                )
+            ),
+            ADDTIME(
+                ADDTIME(
+                    TIMEDIFF(f2.departure_date, f1.arrival_date),
+                    TIMEDIFF(f3.departure_date, f2.arrival_date)
+                ),
+                ADDTIME(
+                    TIMEDIFF(f5.departure_date, f4.arrival_date),
+                    TIMEDIFF(f6.departure_date, f5.arrival_date)
+                )
+            )
+        ) AS total_time,
+        (f1.fare + f2.fare + f3.fare + f4.fare + f5.fare + f6.fare) AS total_fare ';
+
+    public $two_round_join = '
+        JOIN `flights` `f4`
+            ON `f4`.`departure`=`f3`.`arrival`
+            AND `f4`.`arrival`=`f3`.`departure`
+            AND (`f3`.`arrival_date` + INTERVAL 2 HOUR) <= `f4`.`departure_date`
+        JOIN `flights` `f5`
+            ON `f5`.`departure`=`f2`.`arrival`
+            AND `f5`.`arrival`=`f2`.`departure`
+            AND (`f4`.`arrival_date` + INTERVAL 2 HOUR) <= `f5`.`departure_date`
+        JOIN `flights` `f6`
+            ON `f6`.`departure`=`f1`.`arrival`
+            AND `f6`.`arrival`=`f1`.`departure`
+            AND (`f5`.`arrival_date` + INTERVAL 2 HOUR) <= `f6`.`departure_date`
+        JOIN `airports` `a4` ON `f4`.`departure`=`a4`.`iata`
+        JOIN `airports` `b4` ON `f4`.`arrival`=`b4`.`iata`
+        JOIN `airports` `a5` ON `f5`.`departure`=`a5`.`iata`
+        JOIN `airports` `b5` ON `f5`.`arrival`=`b5`.`iata`
+        JOIN `airports` `a6` ON `f6`.`departure`=`a6`.`iata`
+        JOIN `airports` `b6` ON `f6`.`arrival`=`b6`.`iata` ';
+
     public function get($id = null) {
         return null;
     }
@@ -450,22 +716,88 @@ class Ticket extends AbstractAero {
         try {
             $aero = new Aero();
 
+            if ($round_trip) {
+                $this -> no_stop =
+                    $this -> no_stop .
+                    $this -> no_round_select .
+                    $this -> no_round_total .
+                    $this -> no_join .
+                    $this -> no_round_join .
+                    $this -> no_where;
+
+                $this -> one_stop =
+                    $this -> one_stop .
+                    $this -> one_round_select .
+                    $this -> one_round_total .
+                    $this -> one_join .
+                    $this -> one_round_join .
+                    $this -> one_where;
+
+                $this -> two_stop =
+                    $this -> two_stop .
+                    $this -> two_round_select .
+                    $this -> two_round_total .
+                    $this -> two_join .
+                    $this -> two_round_join .
+                    $this -> two_where;
+            } else {
+                $this -> no_stop =
+                    $this -> no_stop .
+                    $this -> no_select .
+                    $this -> no_total .
+                    $this -> no_join .
+                    $this -> no_where;
+
+                $this -> one_stop =
+                    $this -> one_stop .
+                    $this -> no_select .
+                    $this -> one_total .
+                    $this -> one_join .
+                    $this -> one_where;
+
+                $this -> two_stop =
+                    $this -> two_stop .
+                    $this -> no_select .
+                    $this -> two_total .
+                    $this -> two_join .
+                    $this -> two_where;
+            }
+
             switch ($trans_time){
                 case 0:
                     $aero -> sql = $this -> no_stop;
                     break;
                 case 1:
                     if ($night) {
-                        $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop;
+                        $aero -> sql =
+                            $this -> no_stop .
+                            " UNION " .
+                            $this -> one_stop;
                     } else {
-                        $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop . $this -> night1;
+                        $aero -> sql =
+                            $this -> no_stop .
+                            " UNION " .
+                            $this -> one_stop .
+                            $this -> night1;
                     }
                     break;
                 case 2:
                     if ($night) {
-                        $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop . " UNION " . $this -> two_stop;
+                        $aero -> sql =
+                            $this -> no_stop .
+                            " UNION " .
+                            $this -> one_stop .
+                            " UNION " .
+                            $this -> two_stop;
                     } else {
-                        $aero -> sql = $this -> no_stop . " UNION " . $this -> one_stop . $this -> night1 . " UNION " . $this -> two_stop . $this -> night2;
+                        $aero -> sql =
+                            $this -> no_stop .
+                            " UNION " .
+                            $this -> one_stop .
+                            $this -> night1 .
+                            " UNION " .
+                            $this -> two_stop .
+                            $this -> night2;
                     }
                     break;
                 default:
@@ -475,16 +807,18 @@ class Ticket extends AbstractAero {
             if ($order)
                 $asc_desc = $asc_desc . ", ";
 
-            $aero -> sql = $aero -> sql . " ORDER BY " . $order . " " . $asc_desc . " total_fare, departure1_date, arrival_date";
-
-            if($round_trip) {
-                $value[':r_departure'] = $value[':departure'];
-                $value[':r_arrival'] = $value[':arrival'];
-            }
+            $aero -> sql =
+                $aero -> sql .
+                " ORDER BY " .
+                $order .
+                " " .
+                $asc_desc .
+                " total_fare, departure1_date, arrival_date";
 
             $aero -> execute($value);
-            //return $aero -> query -> fetchAll();
             return array('sql' => $aero -> sql, 'data' => $aero -> query -> fetchAll());
+            //return $aero -> query -> fetchAll();
+            //return array('sql' => $aero -> sql);
         } catch(PDOException $e) {
             echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
         }
