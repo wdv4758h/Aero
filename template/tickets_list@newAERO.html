@@ -1,0 +1,207 @@
+{% extends '_newAERO.html' %}
+
+{% block title %}AERO{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block content %}
+
+    <h2>Find Flights</h2>
+    <div class="col">
+        <form class="block">
+            <ul>
+                <li><label for="departure">Leaving From</label><input type="text" name="departure" id="departure"></li>
+                <li><label for="arrival">Traving To</label><input type="text" name="arrival" id="arrival"></li>
+                <li><label for="trans_time">Transfers?</label><select id="trans_time" name="trans_time" ><option value="0" data-ng-selected="1" selected="selected">No transfer</option><option value="1">At most once</option><option value="2">At most twice</option></select></li>
+                <ul class="col-group duo">
+                    <li><label for="night">Overnight?</label><input type="checkbox" name="night" id="night"></li>
+                    <li><label for="round_trip">Round Trip?</label><input type="checkbox" name="round_trip" id="round_trip"></li>
+                </ul>
+                <li><button>Find!</button></li>
+            </ul>
+        </form>
+    </div>
+</section>
+<section class="content">
+    <h3>Your finding...</h3>
+    <div class="ticket-grp">
+        <ol>
+            <li>
+                <div class="ticket">
+                    <div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>13:00</div>
+                            <span>America/Chicago</span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>ORD</div>
+                            <span>Chicago O`Hare International</span>
+                        </div>
+                    </div><div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>12:00</div>
+                            <span>America/New_York</span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>ORD</div>
+                            <span>Chicago O`Hare International</span>
+                        </div>
+                    </div>
+                </div><div class="option block">
+                    <ul>
+                        <li><div>Direct</div></li>
+                        <li>Flight No.<div>ARO-1024</div></li>
+                        <li>Fare<div>$99,999</div></li>
+                        <li>Flight Time<div>19:00:00</div></li>
+                    </ul>
+                    <a href="" class="btn">Marks This</a>
+                </div>
+            </li>
+            <li>
+                <div class="ticket">
+                    <div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>13:00</div>
+                            <span>America/Chicago</span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>ORD</div>
+                            <span>Chicago O`Hare International</span>
+                        </div>
+                    </div><div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>12:00</div>
+                            <span>America/New_York</span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>ORD</div>
+                            <span>Chicago O`Hare International</span>
+                        </div>
+                    </div>
+                </div><div class="option block">
+                    <ul>
+                        <li><div>Direct</div></li>
+                        <li>Flight No.<div>ARO-1024</div></li>
+                        <li>Fare<div>$99,999</div></li>
+                        <li>Flight Time<div>19:00:00</div></li>
+                    </ul>
+                    <a href="" class="btn">Marks This</a>
+                </div>
+            </li>
+        </ol>
+    </div>
+    
+    <div class="ticket-grp">
+        <ol>
+            <li>
+                <div class="ticket">
+                    <div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>01:00</div>
+                            <span>America/Chicago</span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>ORD</div>
+                            <span>Chicago O`Hare International</span>
+                        </div>
+                    </div><div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>12:00</div>
+                            <span>Asia/Tokyo </span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>HND</div>
+                            <span>Haneda Airport </span>
+                        </div>
+                    </div><div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>20:00</div>
+                            <span>Asia/Bangkok </span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>BKK</div>
+                            <span>Suvarnabhumi Airport </span>
+                        </div>
+                    </div>
+                </div><div class="option block">
+                    <ul>
+                        <li><div>1 Transfer</div></li>
+                        <li>Flight No.<div>ARO-1024</div></li>
+                        <li><div>ARO-1010</div></li>
+                        <li>Fare<div>$99,999</div></li>
+                        <li>Flight Time<div>19:00:00</div></li>
+                    </ul>
+                    <a href="" class="btn">Marks This</a>
+                </div>
+            </li>
+        </ol>
+    </div>
+    
+    <div class="ticket-grp">
+        <ol>
+            <li>
+                <div class="ticket">
+                    <div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>01:00</div>
+                            <span>America/Chicago</span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>ORD</div>
+                            <span>Chicago O`Hare International</span>
+                        </div>
+                    </div><div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>12:00</div>
+                            <span>Asia/Tokyo </span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>HND</div>
+                            <span>Haneda Airport</span>
+                        </div>
+                    </div><div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>17:00</div>
+                            <span>Asia/Taipei</span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>TPE</div>
+                            <span>Taiwan Taoyuan International Airport </span>
+                        </div>
+                    </div><div class="grping">
+                        <div>
+                            <span>2014-06-12</span>
+                            <div>20:00</div>
+                            <span>Asia/Bangkok </span>
+                        </div><div>
+                            <span>&nbsp;</span>
+                            <div>BKK</div>
+                            <span>Suvarnabhumi Airport </span>
+                        </div>
+                    </div>
+                </div><div class="option block">
+                    <ul>
+                        <li><div>2 Transfers</div></li>
+                        <li>Flight No.<div>ARO-1024</div></li>
+                        <li><div>ARO-1010</div></li>
+                        <li><div>ARO-2031</div></li>
+                        <li>Fare<div>$99,999</div></li>
+                        <li>Flight Time<div>19:00:00</div></li>
+                    </ul>
+                    <a href="" class="btn">Marks This</a>
+                </div>
+            </li>
+        </ol>
+    </div>
+
+{% endblock %}
