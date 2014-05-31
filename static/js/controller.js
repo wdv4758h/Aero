@@ -133,7 +133,7 @@ app.controller('flightList', function($scope, $http){
                 return false;
         }
         return true;
-    }
+    };
 
     getFlightList();
     getCompare();
@@ -345,6 +345,8 @@ app.controller('formPost', function($scope, $http){
             data    : $scope.interestTicket,
             headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
+            .success(function(data){
+            })
             .error(function(data, status, headers, config){
                 console.log('Ajax failed');
             });
@@ -352,9 +354,54 @@ app.controller('formPost', function($scope, $http){
     };
 
     $scope.interest = function(ticket) {
-        interetPost('/api/ticket/interest');
-    }
+        $scope.interestTicket = ticket;
+        $scope.interestPost('/api/ticket/interest');
+        $scope.interestTicket = '';
+    };
 });
 
 app.controller('ticketList', function($scope, $http){
+    $scope.ticketsIsEmpty = function() {
+        for(var key in $scope.tickets) {
+            if($scope.tickets.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    };
+
+    $scope.getCompare = function(){
+        var tickets = $http.get('/api/ticket/interest');
+        tickets.success(function(data, status, headers, config){
+            $scope.tickets = data;
+        });
+        tickets.error(function(data, status, headers, config){
+            console.log('Ajax failed');
+        });
+    };
+
+    $scope.disinterestPost = function(url) {
+        $http({
+            method  : 'POST',
+            url     : url,
+            data    : $scope.disinterestTicket,
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+            .success(function(data){
+            })
+            .error(function(data, status, headers, config){
+                console.log('Ajax failed');
+            });
+
+    };
+
+    $scope.disinterest = function(ticket) {
+        $scope.disinterestTicket = ticket;
+        $scope.disinterestPost('/api/ticket/disinterest');
+    };
+
+    var timer = setInterval(function() {
+        $scope.$apply($scope.getCompare);
+    }, 2000);
+
+    $scope.getCompare();
 });

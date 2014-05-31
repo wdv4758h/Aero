@@ -877,7 +877,7 @@ class TicketPlan extends AbstractAero {
         ';
 
     protected $sql_select = '
-        SELECT
+        SELECT DISTINCT
             f1.id AS id1,
             f1.code AS code1,
             f1.departure_date AS departure1_date,
@@ -1038,12 +1038,61 @@ class TicketPlan extends AbstractAero {
         WHERE
                 `user_id`=:user_id
             AND `flight1_id`=:flight1_id
-            AND `flight2_id`=:flight2_id
-            AND `flight3_id`=:flight3_id
-            AND `flight4_id`=:flight4_id
-            AND `flight5_id`=:flight5_id
-            AND `flight6_id`=:flight6_id
         ';
+    protected $d2 = ' AND `flight2_id`=:flight2_id ';
+    protected $d3 = ' AND `flight3_id`=:flight3_id ';
+    protected $d4 = ' AND `flight4_id`=:flight4_id ';
+    protected $d5 = ' AND `flight5_id`=:flight5_id ';
+    protected $d6 = ' AND `flight6_id`=:flight6_id ';
+
+    public function get($id = null) {
+        if ($id) {
+            $aero = new Aero();
+            $aero -> sql = $this -> sql_select;
+            $aero -> execute(array(':id'=>$id));
+            return $aero -> query -> fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, get_class($this));
+        } else {
+        }
+    }
+
+    public function delete($value) {
+        $data = array(
+            ':user_id' => $value[':user_id'],
+            ':flight1_id' => $value[':flight1_id']
+        );
+        if ($value[':flight2_id']) {
+            $this -> sql_delete = $this -> sql_delete . $this -> d2;
+            $data[':flight2_id'] = $value[':flight2_id'];
+        }
+
+        if ($value[':flight3_id']) {
+            $this -> sql_delete = $this -> sql_delete . $this -> d3;
+            $data[':flight3_id'] = $value[':flight3_id'];
+        }
+
+        if ($value[':flight4_id']) {
+            $this -> sql_delete = $this -> sql_delete . $this -> d4;
+            $data[':flight4_id'] = $value[':flight4_id'];
+        }
+
+        if ($value[':flight5_id']) {
+            $this -> sql_delete = $this -> sql_delete . $this -> d5;
+            $data[':flight5_id'] = $value[':flight5_id'];
+        }
+
+        if ($value[':flight6_id']) {
+            $this -> sql_delete = $this -> sql_delete . $this -> d6;
+            $data[':flight6_id'] = $value[':flight6_id'];
+        }
+
+        try {
+            $aero = new Aero();
+            $aero -> sql = $this -> sql_delete;
+            $aero -> execute($data);
+        } catch(PDOException $e) {
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
+        }
+    }
 
 }
 

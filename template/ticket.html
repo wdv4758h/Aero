@@ -79,10 +79,7 @@
                     <td rowspan="3">[[ result.total_fare ]]</td>
                     {% if _SESSION %}
                     <td rowspan="3">
-                        <!--
-                        add to compare list
-                        <a data-ng-click="interest(result.id)">Compare</a>
-                        -->
+                        <a data-ng-click="interest(result)">Compare</a>
                     </td>
                     {% endif %}
                 </tr>
@@ -153,11 +150,68 @@
                 <td>Operations</td>
             </tr>
         </thead>
-        <tbody>
-        <tr data-ng-repeat='ticket in tickets'>
-                <td>
-                    <a data-ng-click="disinterest(ticket)">Remove</a>
+        <tbody data-ng-repeat='result in tickets track by $index'>
+            <tr>
+                <td rowspan="3">[[ $index+1 ]]</td>
+                <td>[[ result.code1 ]]</td>
+                <td>[[ result.departure1_iata ]]</td>
+                <td>[[ result.arrival1_iata ]]</td>
+                <td>[[ result.departure1_date ]]</td>
+                <td>[[ result.arrival1_date ]]</td>
+                <td>[[ result.flight1_time ]]</td>
+                <td rowspan="3">[[ result.flight_time ]]</td>
+                <td rowspan="3">[[ result.transfer ]]</td>
+                <td rowspan="3">[[ result.total_time ]]</td>
+                <td>[[ result.fare1 ]]</td>
+                <td rowspan="3">[[ result.total_fare ]]</td>
+                <td rowspan="3">
+                    <a data-ng-click="disinterest(result)">Remove</a>
                 </td>
+            </tr>
+            <tr data-ng-show="result.code2">
+                <td>[[ result.code2 ]]</td>
+                <td>[[ result.departure2_iata ]]</td>
+                <td>[[ result.arrival2_iata ]]</td>
+                <td>[[ result.departure2_date ]]</td>
+                <td>[[ result.arrival2_date ]]</td>
+                <td>[[ result.flight2_time ]]</td>
+                <td>[[ result.fare2 ]]</td>
+            </tr>
+            <tr data-ng-show="result.code3">
+                <td>[[ result.code3 ]]</td>
+                <td>[[ result.departure3_iata ]]</td>
+                <td>[[ result.arrival3_iata ]]</td>
+                <td>[[ result.departure3_date ]]</td>
+                <td>[[ result.arrival3_date ]]</td>
+                <td>[[ result.flight3_time ]]</td>
+                <td>[[ result.fare3 ]]</td>
+            </tr>
+            <tr data-ng-show="result.code4">
+                <td>[[ result.code4 ]]</td>
+                <td>[[ result.departure4_iata ]]</td>
+                <td>[[ result.arrival4_iata ]]</td>
+                <td>[[ result.departure4_date ]]</td>
+                <td>[[ result.arrival4_date ]]</td>
+                <td>[[ result.flight4_time ]]</td>
+                <td>[[ result.fare4 ]]</td>
+            </tr>
+            <tr data-ng-show="result.code5">
+                <td>[[ result.code5 ]]</td>
+                <td>[[ result.departure5_iata ]]</td>
+                <td>[[ result.arrival5_iata ]]</td>
+                <td>[[ result.departure5_date ]]</td>
+                <td>[[ result.arrival5_date ]]</td>
+                <td>[[ result.flight5_time ]]</td>
+                <td>[[ result.fare5 ]]</td>
+            </tr>
+            <tr data-ng-show="result.code6">
+                <td>[[ result.code6 ]]</td>
+                <td>[[ result.departure6_iata ]]</td>
+                <td>[[ result.arrival6_iata ]]</td>
+                <td>[[ result.departure6_date ]]</td>
+                <td>[[ result.arrival6_date ]]</td>
+                <td>[[ result.flight6_time ]]</td>
+                <td>[[ result.fare6 ]]</td>
             </tr>
         </tbody>
     </table>
