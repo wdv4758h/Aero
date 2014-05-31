@@ -270,6 +270,7 @@ class Ticket extends AbstractAero {
 
     public $no_stop = '
         SELECT
+            f1.id AS id1,
             f1.code AS code1,
             f1.departure_date AS departure1_date,
             f1.arrival_date AS arrival1_date,
@@ -278,6 +279,7 @@ class Ticket extends AbstractAero {
             b1.timezone AS arrival1_timezone, b1.iata AS arrival1_iata,
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight1_time,
 
+            null AS id2,
             null AS code2,
             null AS departure2_date,
             null AS arrival2_date,
@@ -286,6 +288,7 @@ class Ticket extends AbstractAero {
             null AS arrival2_timezone, null AS arrival2_iata,
             null AS flight2_time,
 
+            null AS id3,
             null AS code3,
             null AS departure3_date,
             null AS arrival3_date,
@@ -315,6 +318,7 @@ class Ticket extends AbstractAero {
 
     public $one_stop = '
         SELECT
+            f1.id AS id1,
             f1.code AS code1,
             f1.departure_date AS departure1_date,
             f1.arrival_date AS arrival1_date,
@@ -323,6 +327,7 @@ class Ticket extends AbstractAero {
             b1.timezone AS arrival1_timezone, b1.iata AS arrival1_iata,
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight1_time,
 
+            f2.id AS id2,
             f2.code AS code2,
             f2.departure_date AS departure2_date,
             f2.arrival_date AS arrival2_date,
@@ -331,6 +336,7 @@ class Ticket extends AbstractAero {
             b2.timezone AS arrival2_timezone, b2.iata AS arrival2_iata,
             TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date) AS flight2_time,
 
+            null AS id3,
             null AS code3,
             null AS departure3_date,
             null AS arrival3_date,
@@ -375,6 +381,7 @@ class Ticket extends AbstractAero {
 
     public $two_stop = '
         SELECT
+            f1.id AS id1,
             f1.code AS code1,
             f1.departure_date AS departure1_date,
             f1.arrival_date AS arrival1_date,
@@ -383,6 +390,7 @@ class Ticket extends AbstractAero {
             b1.timezone AS arrival1_timezone, b1.iata AS arrival1_iata,
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight1_time,
 
+            f2.id AS id2,
             f2.code AS code2,
             f2.departure_date AS departure2_date,
             f2.arrival_date AS arrival2_date,
@@ -391,6 +399,7 @@ class Ticket extends AbstractAero {
             b2.timezone AS arrival2_timezone, b2.iata AS arrival2_iata,
             TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date) AS flight2_time,
 
+            f3.id AS id3,
             f3.code AS code3,
             f3.departure_date AS departure3_date,
             f3.arrival_date AS arrival3_date,
@@ -458,6 +467,7 @@ class Ticket extends AbstractAero {
          AND DATE(`f1`.`arrival_date`) = DATE(`f2`.`departure_date`) ';
 
     public $no_select = '
+        null AS id4,
         null AS code4,
         null AS departure4_date,
         null AS arrival4_date,
@@ -466,6 +476,7 @@ class Ticket extends AbstractAero {
         null AS arrival4_timezone, null AS arrival4_iata,
         null AS flight4_time,
 
+        null AS id5,
         null AS code5,
         null AS departure5_date,
         null AS arrival5_date,
@@ -474,6 +485,7 @@ class Ticket extends AbstractAero {
         null AS arrival5_timezone, null AS arrival5_iata,
         null AS flight5_time,
 
+        null AS id6,
         null AS code6,
         null AS departure6_date,
         null AS arrival6_date,
@@ -483,6 +495,7 @@ class Ticket extends AbstractAero {
         null AS flight6_time, ';
 
     public $no_round_select = '
+        f4.id AS id4,
         f4.code AS code4,
         f4.departure_date AS departure4_date,
         f4.arrival_date AS arrival4_date,
@@ -491,6 +504,7 @@ class Ticket extends AbstractAero {
         b4.timezone AS arrival4_timezone, b4.iata AS arrival4_iata,
         TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date) AS flight4_time,
 
+        null AS id5,
         null AS code5,
         null AS departure5_date,
         null AS arrival5_date,
@@ -499,6 +513,7 @@ class Ticket extends AbstractAero {
         null AS arrival5_timezone, null AS arrival5_iata,
         null AS flight5_time,
 
+        null AS id4,
         null AS code6,
         null AS departure6_date,
         null AS arrival6_date,
@@ -529,6 +544,7 @@ class Ticket extends AbstractAero {
         JOIN `airports` `b4` ON `f4`.`arrival`=`b4`.`iata` ';
 
     public $one_round_select = '
+        f4.id AS id4,
         f4.code AS code4,
         f4.departure_date AS departure4_date,
         f4.arrival_date AS arrival4_date,
@@ -537,6 +553,7 @@ class Ticket extends AbstractAero {
         b4.timezone AS arrival4_timezone, b4.iata AS arrival4_iata,
         TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date) AS flight4_time,
 
+        f5.id AS id5,
         f5.code AS code5,
         f5.departure_date AS departure5_date,
         f5.arrival_date AS arrival5_date,
@@ -545,6 +562,7 @@ class Ticket extends AbstractAero {
         b5.timezone AS arrival5_timezone, b5.iata AS arrival5_iata,
         TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date) AS flight5_time,
 
+        null AS id6,
         null AS code6,
         null AS departure6_date,
         null AS arrival6_date,
@@ -604,6 +622,7 @@ class Ticket extends AbstractAero {
         JOIN `airports` `b5` ON `f5`.`arrival`=`b5`.`iata` ';
 
     public $two_round_select = '
+        f4.id AS id4,
         f4.code AS code4,
         f4.departure_date AS departure4_date,
         f4.arrival_date AS arrival4_date,
@@ -612,6 +631,7 @@ class Ticket extends AbstractAero {
         b4.timezone AS arrival4_timezone, b4.iata AS arrival4_iata,
         TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date) AS flight4_time,
 
+        f5.id AS id5,
         f5.code AS code5,
         f5.departure_date AS departure5_date,
         f5.arrival_date AS arrival5_date,
@@ -620,6 +640,7 @@ class Ticket extends AbstractAero {
         b5.timezone AS arrival5_timezone, b5.iata AS arrival5_iata,
         TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date) AS flight5_time,
 
+        f6.id AS id6,
         f6.code AS code6,
         f6.departure_date AS departure6_date,
         f6.arrival_date AS arrival6_date,
