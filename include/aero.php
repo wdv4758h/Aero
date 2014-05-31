@@ -1045,32 +1045,6 @@ class TicketPlan extends AbstractAero {
             AND `flight6_id`=:flight6_id
         ';
 
-    public function get($id = null) {
-        if ($id) {
-            $aero = new Aero();
-            $aero -> sql = $this -> sql_select;
-            $aero -> execute(array(':id'=>$id));
-            return $aero -> query -> fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Flight');
-        } else {
-            //$result = $this -> fetchAll();
-        }
-    }
-
-    public function delete($id) { // $id = array('users_id','flights_id')
-        try {
-            $aero = new Aero();
-            $aero -> sql = 'SELECT * FROM `plans` WHERE `user_id`=:user_id AND `flight_id`=:flight_id';
-            $aero -> execute($id);
-            $result = $aero -> query -> fetchObject();
-
-            if($result) {
-                $aero -> sql = $this -> sql_delete;
-                $aero -> execute($id);
-            }
-        } catch(PDOExeception $e) {
-            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
-        }
-    }
 }
 
 ?>
