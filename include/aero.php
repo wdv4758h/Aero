@@ -587,7 +587,7 @@ class Ticket extends AbstractAero {
                 TIMEDIFF(f5.departure_date, f4.arrival_date)
             )
         ) AS total_time,
-        (f1.fare + f2.fare + f4.fare + f5.fare) AS total_fare ';
+        (f1.fare + f2.fare + f4.fare + f5.fare) * 0.9 AS total_fare ';
 
     public $one_round_join = '
         JOIN `flights` `f4`
@@ -686,7 +686,7 @@ class Ticket extends AbstractAero {
                 )
             )
         ) AS total_time,
-        (f1.fare + f2.fare + f3.fare + f4.fare + f5.fare + f6.fare) AS total_fare ';
+        (f1.fare + f2.fare + f3.fare + f4.fare + f5.fare + f6.fare) * 0.8 AS total_fare ';
 
     public $two_round_join = '
         JOIN `flights` `f4`
