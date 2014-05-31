@@ -846,4 +846,231 @@ class Ticket extends AbstractAero {
     }
 }
 
+class TicketPlan extends AbstractAero {
+    public $user_id;
+    public $flight1_id;
+    public $flight2_id;
+    public $flight3_id;
+    public $flight4_id;
+    public $flight5_id;
+    public $flight6_id;
+
+    protected $sql_insert = '
+        INSERT INTO `tickets`
+            (
+                `user_id`,
+                `flight1_id`,
+                `flight2_id`,
+                `flight3_id`,
+                `flight4_id`,
+                `flight5_id`,
+                `flight6_id`
+            ) VALUES (
+                :user_id,
+                :flight1_id,
+                :flight2_id,
+                :flight3_id,
+                :flight4_id,
+                :flight5_id,
+                :flight6_id
+            )
+        ';
+
+    protected $sql_select = '
+        SELECT
+            f1.id AS id1,
+            f1.code AS code1,
+            f1.departure_date AS departure1_date,
+            f1.arrival_date AS arrival1_date,
+            f1.fare AS fare1,
+            a1.timezone AS departure1_timezone, a1.iata AS departure1_iata,
+            b1.timezone AS arrival1_timezone, b1.iata AS arrival1_iata,
+            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight1_time,
+
+            f2.id AS id2,
+            f2.code AS code2,
+            f2.departure_date AS departure2_date,
+            f2.arrival_date AS arrival2_date,
+            f2.fare AS fare2,
+            a2.timezone AS departure2_timezone, a2.iata AS departure2_iata,
+            b2.timezone AS arrival2_timezone, b2.iata AS arrival2_iata,
+            TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date) AS flight2_time,
+
+            f3.id AS id3,
+            f3.code AS code3,
+            f3.departure_date AS departure3_date,
+            f3.arrival_date AS arrival3_date,
+            f3.fare AS fare3,
+            a3.timezone AS departure3_timezone, a3.iata AS departure3_iata,
+            b3.timezone AS arrival3_timezone, b3.iata AS arrival3_iata,
+            TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date) AS flight3_time,
+
+            f4.id AS id4,
+            f4.code AS code4,
+            f4.departure_date AS departure4_date,
+            f4.arrival_date AS arrival4_date,
+            f4.fare AS fare4,
+            a4.timezone AS departure4_timezone, a4.iata AS departure4_iata,
+            b4.timezone AS arrival4_timezone, b4.iata AS arrival4_iata,
+            TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date) AS flight4_time,
+
+            f5.id AS id5,
+            f5.code AS code5,
+            f5.departure_date AS departure5_date,
+            f5.arrival_date AS arrival5_date,
+            f5.fare AS fare5,
+            a5.timezone AS departure5_timezone, a5.iata AS departure5_iata,
+            b5.timezone AS arrival5_timezone, b5.iata AS arrival5_iata,
+            TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date) AS flight5_time,
+
+            f6.id AS id6,
+            f6.code AS code6,
+            f6.departure_date AS departure6_date,
+            f6.arrival_date AS arrival6_date,
+            f6.fare AS fare6,
+            a6.timezone AS departure6_timezone, a6.iata AS departure6_iata,
+            b6.timezone AS arrival6_timezone, b6.iata AS arrival6_iata,
+            TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date) AS flight6_time,
+
+            f3.arrival_date AS arrival_date,
+            CASE f3.arrival_date
+                WHEN null THEN
+                    CASE f2.arrival_date
+                        WHEN null THEN f1.arrival_date
+                        ELSE f2.arrival_date
+                    END
+                ELSE f3.arrival_date
+            END AS arrival_date,
+
+            ADDTIME(
+                ADDTIME(
+                    ADDTIME(
+                        TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                        TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                    ),
+                    TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date)
+                ),
+                ADDTIME(
+                    ADDTIME(
+                        TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date),
+                        TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date)
+                    ),
+                    TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date)
+                )
+            ) AS flight_time,
+
+            ADDTIME(
+                ADDTIME(
+                    TIMEDIFF(f2.departure_date, f1.arrival_date),
+                    TIMEDIFF(f3.departure_date, f2.arrival_date)
+                ),
+                ADDTIME(
+                    TIMEDIFF(f5.departure_date, f4.arrival_date),
+                    TIMEDIFF(f6.departure_date, f5.arrival_date)
+                )
+            ) AS transfer,
+
+            ADDTIME(
+                ADDTIME(
+                    ADDTIME(
+                        ADDTIME(
+                            TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                            TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                        ),
+                        TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date)
+                    ),
+                    ADDTIME(
+                        ADDTIME(
+                            TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date),
+                            TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date)
+                        ),
+                        TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date)
+                    )
+                ),
+                ADDTIME(
+                    ADDTIME(
+                        TIMEDIFF(f2.departure_date, f1.arrival_date),
+                        TIMEDIFF(f3.departure_date, f2.arrival_date)
+                    ),
+                    ADDTIME(
+                        TIMEDIFF(f5.departure_date, f4.arrival_date),
+                        TIMEDIFF(f6.departure_date, f5.arrival_date)
+                    )
+                )
+            ) AS total_time,
+
+            CASE f3.fare
+                WHEN null THEN
+                    CASE f2.fare
+                        WHEN null THEN (f1.fare + f4.fare)
+                        ELSE (f1.fare + f2.fare + f4.fare + f5.fare) * 0.9
+                    END
+                ELSE (f1.fare + f2.fare + f3.fare + f4.fare + f5.fare + f6.fare) * 0.8
+            END AS total_fare
+
+        FROM `tickets` `t`
+        JOIN `flights` `f1` ON `t`.`flight1_id`=`f1`.`id`
+        LEFT JOIN `flights` `f2` ON `t`.`flight2_id`=`f2`.`id`
+        LEFT JOIN `flights` `f3` ON `t`.`flight3_id`=`f3`.`id`
+        LEFT JOIN `flights` `f4` ON `t`.`flight4_id`=`f4`.`id`
+        LEFT JOIN `flights` `f5` ON `t`.`flight5_id`=`f5`.`id`
+        LEFT JOIN `flights` `f6` ON `t`.`flight6_id`=`f6`.`id`
+
+        JOIN `airports` `a1` ON `f1`.`departure`=`a1`.`iata`
+        JOIN `airports` `b1` ON `f1`.`arrival`=`b1`.`iata`
+        LEFT JOIN `airports` `a2` ON `f2`.`departure`=`a2`.`iata`
+        LEFT JOIN `airports` `b2` ON `f2`.`arrival`=`b2`.`iata`
+        LEFT JOIN `airports` `a3` ON `f3`.`departure`=`a3`.`iata`
+        LEFT JOIN `airports` `b3` ON `f3`.`arrival`=`b3`.`iata`
+        LEFT JOIN `airports` `a4` ON `f4`.`departure`=`a4`.`iata`
+        LEFT JOIN `airports` `b4` ON `f4`.`arrival`=`b4`.`iata`
+        LEFT JOIN `airports` `a5` ON `f5`.`departure`=`a5`.`iata`
+        LEFT JOIN `airports` `b5` ON `f5`.`arrival`=`b5`.`iata`
+        LEFT JOIN `airports` `a6` ON `f6`.`departure`=`a6`.`iata`
+        LEFT JOIN `airports` `b6` ON `f6`.`arrival`=`b6`.`iata`
+
+        WHERE `user_id`=:id';
+
+    protected $sql_update = '';
+
+    protected $sql_delete = '
+        DELETE FROM `tickets`
+        WHERE
+                `user_id`=:user_id
+            AND `flight1_id`=:flight1_id
+            AND `flight2_id`=:flight2_id
+            AND `flight3_id`=:flight3_id
+            AND `flight4_id`=:flight4_id
+            AND `flight5_id`=:flight5_id
+            AND `flight6_id`=:flight6_id
+        ';
+
+    public function get($id = null) {
+        if ($id) {
+            $aero = new Aero();
+            $aero -> sql = $this -> sql_select;
+            $aero -> execute(array(':id'=>$id));
+            return $aero -> query -> fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Flight');
+        } else {
+            //$result = $this -> fetchAll();
+        }
+    }
+
+    public function delete($id) { // $id = array('users_id','flights_id')
+        try {
+            $aero = new Aero();
+            $aero -> sql = 'SELECT * FROM `plans` WHERE `user_id`=:user_id AND `flight_id`=:flight_id';
+            $aero -> execute($id);
+            $result = $aero -> query -> fetchObject();
+
+            if($result) {
+                $aero -> sql = $this -> sql_delete;
+                $aero -> execute($id);
+            }
+        } catch(PDOExeception $e) {
+            echo 'Error[' . $e->getCode() . ']: ' . $e->getMessage();
+        }
+    }
+}
+
 ?>
