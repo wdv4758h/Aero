@@ -26,22 +26,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="col">
+<div class="col" data-ng-controller="formPost">
 
     <h2>Find Flights</h2>
-    <form class="block">
+    <form class="block" ng-submit="newForm_sql('/api/ticket/search')">
         <ul>
             <li>
                 <label for="departure">Leaving From</label>
-                <input type="text" name="departure" id="departure">
+                {% include "include/airports.html" with {'data': 'departure', 'value': 'formData.departure', 'new': true} %}
             </li>
             <li>
                 <label for="arrival">Traving To</label>
-                <input type="text" name="arrival" id="arrival">
+                {% include "include/airports.html" with {'data': 'arrival', 'value': 'formData.arrival', 'new': true} %}
             </li>
             <li>
                 <label for="trans_time">Transfers?</label>
-                <select id="trans_time" name="trans_time" >
+                <select id="trans_time" name="trans_time" data-ng-init="formData.trans_time=0" data-ng-model="formData.trans_time">
                     <option value="0" data-ng-selected="1" selected="selected">No transfer</option>
                     <option value="1">At most once</option>
                     <option value="2">At most twice</option>
@@ -50,11 +50,11 @@
             <ul class="col-group duo">
                 <li>
                     <label for="night">Overnight?</label>
-                    <input type="checkbox" name="night" id="night">
+                    <input type="checkbox" name="night" id="night" data-ng-model="formData.night" data-ng-init="formData.night = 1" data-ng-true-value="1" data-ng-false-value="0" data-ng-checked="formData.night">
                 </li>
                 <li>
                     <label for="round_trip">Round Trip?</label>
-                    <input type="checkbox" name="round_trip" id="round_trip">
+                    <input type="checkbox" name="round_trip" id="round_trip" data-ng-model="formData.round_trip" data-ng-init="formData.round_trip = 0" data-ng-true-value="1" data-ng-false-value="0">
                 </li>
             </ul>
             <li>
