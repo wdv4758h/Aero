@@ -1,0 +1,73 @@
+{% extends '_newAERO.html' %}
+
+{% block title %}AERO{% endblock %}
+
+{% block greeting %}Welcome back, USERNAME. <a href="">SIGN OUT</a>{% endblock %}
+
+{% block deepblue %}
+<h2>SIGN IN</h2>
+<form action="login" method="post" class="block">
+    <ul>
+        <li>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username">
+        </li>
+        <li>
+            <label for="password">Password</label>
+            <input type="text" name="password" id="arrpasswordival">
+        </li>
+        <li>
+            <button>Sign In</button>
+        </li>
+    </ul>
+</form>
+<hr>
+<a href="/signup" class="btn block transparent">Join AERO</a>
+{% endblock %}
+
+{% block content %}
+<div class="col">
+
+    <h2>Find Flights</h2>
+    <form class="block">
+        <ul>
+            <li>
+                <label for="departure">Leaving From</label>
+                <input type="text" name="departure" id="departure">
+            </li>
+            <li>
+                <label for="arrival">Traving To</label>
+                <input type="text" name="arrival" id="arrival">
+            </li>
+            <li>
+                <label for="trans_time">Transfers?</label>
+                <select id="trans_time" name="trans_time" >
+                    <option value="0" data-ng-selected="1" selected="selected">No transfer</option>
+                    <option value="1">At most once</option>
+                    <option value="2">At most twice</option>
+                </select>
+            </li>
+            <ul class="col-group duo">
+                <li>
+                    <label for="night">Overnight?</label>
+                    <input type="checkbox" name="night" id="night">
+                </li>
+                <li>
+                    <label for="round_trip">Round Trip?</label>
+                    <input type="checkbox" name="round_trip" id="round_trip">
+                </li>
+            </ul>
+            <li>
+                <button>Find!</button>
+            </li>
+        </ul>
+    </form>
+
+    </div><!--
+    --><div class="col">
+
+    <h2>AERO</h2>
+    <p>Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
+
+    </div>
+{% endblock %}
