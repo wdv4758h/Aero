@@ -1,8 +1,9 @@
 <?php
 session_start();
+require_once 'include/base.php';
 
 if(!isset($_SESSION['id']))
-    header('location: /login');
+    render('homepage.html', array());
 else
     header('location: /flights/');
 ?>
