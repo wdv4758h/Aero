@@ -80,7 +80,13 @@ class Airport extends AbstractAero {
     public $latitude;
 
     protected $sql_insert = 'INSERT INTO `airports` (`iata`, `name`, `longitude`, `latitude`, `timezone`, `country_id`) VALUES (:iata, :name, :longitude, :latitude, :timezone, :country_id)';
-    protected $sql_select = 'SELECT `a`.*, `c`.`name` as `country` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr`';
+    protected $sql_select = '
+        SELECT
+            `a`.*,
+            `c`.`name` as `country`
+        FROM `airports` `a`
+        JOIN country `c` ON `a`.`country_id`=`c`.`abbr`
+        ORDER BY `c`.`name`';
     protected $sql_selectID = 'SELECT `a`.*, `c`.`name` as `country` FROM `airports` `a` JOIN country `c` ON `a`.`country_id`=`c`.`abbr` WHERE `a`.`iata`=:iata';
     protected $sql_update = 'UPDATE `airports` SET `iata`=:iata, `name`=:name, `longitude`=:longitude, `latitude`=:latitude, `timezone`=:timezone, `country_id`=:country_id WHERE `iata`=:old_iata';
     protected $sql_delete = 'DELETE FROM `airports` WHERE `iata`=:iata';
