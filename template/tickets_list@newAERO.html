@@ -6,35 +6,37 @@
 
 {% block content %}
 <section>
-   <h2>Find Flights</h2>
-   <div class="col">
-       <form class="block">
-           <ul>
-               <li><label for="departure">Leaving From</label><input type="text" name="departure" id="departure"></li>
-               <li><label for="arrival">Traving To</label><input type="text" name="arrival" id="arrival"></li>
-               <li><label for="trans_time">Transfers?</label><select id="trans_time" name="trans_time" ><option value="0" data-ng-selected="1" selected="selected">No transfer</option><option value="1">At most once</option><option value="2">At most twice</option></select></li>
-               <ul class="col-group duo">
-                   <li><label for="night">Overnight?</label><input type="checkbox" name="night" id="night"></li>
-                   <li><label for="round_trip">Round Trip?</label><input type="checkbox" name="round_trip" id="round_trip"></li>
-               </ul>
-               <li><button>Find!</button></li>
-           </ul>
-       </form>
-   </div>
+    <h2>Find Flights</h2>
+    <div class="col">
+        <form class="block">
+            <ul>
+                <li><label for="departure">Leaving From</label><input type="text" name="departure" id="departure"></li>
+                <li><label for="arrival">Traving To</label><input type="text" name="arrival" id="arrival"></li>
+                <li><label for="trans_time">Transfers?</label><select id="trans_time" name="trans_time" ><option value="0" data-ng-selected="1" selected="selected">No transfer</option><option value="1">At most once</option><option value="2">At most twice</option></select></li>
+                <ul class="col-group duo">
+                    <li><label for="night">Overnight?</label><input type="checkbox" name="night" id="night"></li>
+                    <li><label for="round_trip">Round Trip?</label><input type="checkbox" name="round_trip" id="round_trip"></li>
+                </ul>
+                <li><button>Find!</button></li>
+            </ul>
+        </form>
+    </div>
 </section>
 <section>
     <h3>Your finding...</h3>
     
-    <div class="ticket-grp">
+    <div class="tickets-grp">
         <header>
-            <h4>2 Transfering Promotion</h4>
+            <h4>Title</h4>
         </header>
         <table>
             <thead>
+                <tr><td colspan="4">Leaving Flights</td></tr>
                 <tr>
                     <td></td>
                     <td>From</td>
                     <td>To</td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
@@ -42,99 +44,39 @@
                     <td>1</td>
                     <td>
                         <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>01:00</div>
-                            <span>America/Chicago</span>
+                            2014-06-12<em>23:00</em>America/Chicaco
                         </div><div class="airport">
-                            <div>ORD</div>
-                            <span>Chicago O`Hare International</span>
+                            <em>XXX</em>
                         </div>
                     </td>
                     <td>
                         <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>11:00</div>
-                            <span>Asia/Tokyo</span>
+                            2014-06-12<em>23:00</em>America/Chicaco
                         </div><div class="airport">
-                            <div>HND</div>
-                            <span>Haneda Airport</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>13:00</div>
-                            <span>Asia/Tokyo</span>
-                        </div><div class="airport">
-                            <div>HND</div>
-                            <span>Haneda Airport</span>
+                            <em>XXX</em>
                         </div>
                     </td>
                     <td>
-                        <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>15:00</div>
-                            <span>Asia/Taipei</span>
-                        </div><div class="airport">
-                            <div>TPE</div>
-                            <span>Taiwan Taoyuan International Airport</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>
-                        <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>17:00</div>
-                            <span>Asia/Taipei</span>
-                        </div><div class="airport">
-                            <div>TPE</div>
-                            <span>Taiwan Taoyuan International Airport</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>23:00</div>
-                            <span>Asia/Bangkok</span>
-                        </div><div class="airport">
-                            <div>BKK</div>
-                            <span>Suvarnabhumi Airport</span>
+                        <ul class="label">
+                            <li>Flight No.: <em>XXX-0000</em></li>
+                            <li>Fare: <em>99,999</em></li>
+                            <li>Duration: <em>999:99:99</em></li>
+                        </ul><div class="options-list block">
+                            <a href="" class="btn">Marks This</a>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="option">
-            <div class="flights">
-                Flight No.
-                <ul>
-                    <li>ARO-2020</li>
-                    <li>ARO-2031</li>
-                    <li>ARO-2012</li>
-                </ul>
-            </div><div class="duration">
-                Flight Duration<em>99:99:99</em>
-                Transfer Duration<em>99:99:99</em>
-            </div><div class="duration">
-                Total Duration<em>99:99:99</em>
-            </div><div class="fare">
-                Fare<em>99,999</em>
-            </div><div class="options block">
-                Options
-                <a href="" class="btn">Marks This</a>
-            </div>
-        </div>
+        <div> <!-- Reserve --> </div>
         <table>
             <thead>
+                <tr><td colspan="4">Returning Flights</td></tr>
                 <tr>
                     <td></td>
                     <td>From</td>
                     <td>To</td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
@@ -142,94 +84,71 @@
                     <td>1</td>
                     <td>
                         <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>01:00</div>
-                            <span>America/Chicago</span>
+                            2014-06-12<em>23:00</em>America/Chicaco
                         </div><div class="airport">
-                            <div>ORD</div>
-                            <span>Chicago O`Hare International</span>
+                            <em>XXX</em>
                         </div>
                     </td>
                     <td>
                         <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>11:00</div>
-                            <span>Asia/Tokyo</span>
+                            2014-06-12<em>23:00</em>America/Chicaco
                         </div><div class="airport">
-                            <div>HND</div>
-                            <span>Haneda Airport</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>13:00</div>
-                            <span>Asia/Tokyo</span>
-                        </div><div class="airport">
-                            <div>HND</div>
-                            <span>Haneda Airport</span>
+                            <em>XXX</em>
                         </div>
                     </td>
                     <td>
-                        <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>15:00</div>
-                            <span>Asia/Taipei</span>
-                        </div><div class="airport">
-                            <div>TPE</div>
-                            <span>Taiwan Taoyuan International Airport</span>
+                        <ul class="label">
+                            <li>Flight No.: <em>XXX-0000</em></li>
+                            <li>Fare: <em>99,999</em></li>
+                            <li>Duration: <em>999:99:99</em></li>
+                        </ul><div class="options-list block">
+                            <a href="" class="btn">Marks This</a>
                         </div>
                     </td>
                 </tr>
+                
                 <tr>
-                    <td>3</td>
+                    <td>1</td>
                     <td>
                         <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>17:00</div>
-                            <span>Asia/Taipei</span>
+                            2014-06-12<em>23:00</em>America/Chicaco
                         </div><div class="airport">
-                            <div>TPE</div>
-                            <span>Taiwan Taoyuan International Airport</span>
+                            <em>XXX</em>
                         </div>
                     </td>
                     <td>
                         <div class="datetime">
-                            <span>2014-06-01</span>
-                            <div>23:00</div>
-                            <span>Asia/Bangkok</span>
+                            2014-06-12<em>23:00</em>America/Chicaco
                         </div><div class="airport">
-                            <div>BKK</div>
-                            <span>Suvarnabhumi Airport</span>
+                            <em>XXX</em>
+                        </div>
+                    </td>
+                    <td>
+                        <ul class="label">
+                            <li>Flight No.: <em>XXX-0000</em></li>
+                            <li>Fare: <em>99,999</em></li>
+                            <li>Duration: <em>999:99:99</em></li>
+                        </ul><div class="options-list block">
+                            <a href="" class="btn">Marks This</a>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div class="option">
-            <div class="flights">
-                Flight No.
-                <ul>
-                    <li>ARO-2020</li>
-                    <li>ARO-2031</li>
-                    <li>ARO-2012</li>
-                </ul>
-            </div><div class="duration">
-                Flight Duration<em>99:99:99</em>
-                Transfer Duration<em>99:99:99</em>
-            </div><div class="duration">
-                Total Duration<em>99:99:99</em>
-            </div><div class="fare">
-                Fare<em>99,999</em>
-            </div><div class="options block">
-                Options
+        <footer>
+            <ul class="label">
+                <li>
+                    Flight Duration: <em>999:99:99</em>
+                </li><li>
+                    Total Duration: <em>999:99:99</em>
+                </li><li class="fare">
+                    Fare: <em>99,999</em>
+                </li>
+            </ul><div class="options-list block">
                 <a href="" class="btn">Marks This</a>
             </div>
-        </div>
+        </footer>
     </div>
+    
 </section>
-
 {% endblock %}
