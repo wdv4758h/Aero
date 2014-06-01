@@ -1,0 +1,256 @@
+{% extends '_newAERO.html' %}
+
+{% block title %}AERO{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block content %}
+<section data-ng-controller="formPost">
+    <div>
+        <h2>Find Flights</h2>
+        <div class="col">
+            <form class="block" ng-submit="newForm('/api/ticket/search')">
+                <ul>
+                    <li>
+                        <label for="departure">Leaving From</label>
+                        {% include "include/airports.html" with {'data': 'departure', 'value': 'formData.departure', 'new': true} %}
+                    </li>
+                    <li>
+                        <label for="arrival">Traving To</label>
+                        {% include "include/airports.html" with {'data': 'arrival', 'value': 'formData.arrival', 'new': true} %}
+                    </li>
+                    <li>
+                        <label for="trans_time">Transfers?</label>
+                        <select id="trans_time" name="trans_time" data-ng-init="formData.trans_time=0" data-ng-model="formData.trans_time">
+                            <option value="0" data-ng-selected="1" selected="selected">No transfer</option>
+                            <option value="1">At most once</option>
+                            <option value="2">At most twice</option>
+                        </select>
+                    </li>
+                    <ul class="col-group duo">
+                        <li>
+                            <label for="night">Overnight?</label>
+                            <input type="checkbox" name="night" data-ng-model="formData.night" data-ng-init="formData.night = 1" data-ng-true-value="1" data-ng-false-value="0" data-ng-checked="formData.night">
+                        </li>
+                        <li>
+                            <label for="round_trip">Round Trip?</label>
+                            <input type="checkbox" name="round_trip" data-ng-model="formData.round_trip" data-ng-init="formData.round_trip = 0" data-ng-true-value="1" data-ng-false-value="0">
+                        </li>
+                    </ul>
+                    <li><button>Find!</button></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+    <div data-ng-show="formReturn.length">
+        <h3>Your finding...</h3>
+        <div>
+            <div class="ticket-grp" data-ng-hide="result.code2">
+                <ol>
+                    <li data-ng-repeat="result in formReturn track by $index" data-ng-if="!result.code2">
+                        <div class="ticket">
+                            <div class="grping">
+                                <div>
+                                    <span>[[ result.departure1_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.departure1_date.split(' ')[1] ]]</div>
+                                </div><div>
+                                    <span>&nbsp;</span>
+                                    <div>[[ result.departure1_iata ]]</div>
+                                </div>
+                            </div><div class="grping">
+                                <div>
+                                    <span>[[ result.departure1_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.departure1_date.split(' ')[1] ]]</div>
+                                </div><div>
+                                    <span>&nbsp;</span>
+                                    <div>[[ result.arrival1_iata ]]</div>
+                                </div>
+                            </div>
+                        </div><div class="option block">
+                            <ul>
+                                <li><div>Direct</div></li>
+                                <li>Flight No.<div>[[ result.code1 ]]</div></li>
+                                <li>Fare<div>$[[ result.total_fare ]]</div></li>
+                                <li>Flight Time<div>[[ result.flight_time ]]</div></li>
+                            </ul>
+                            {% if _SESSION %}
+                            <a class="btn" data-ng-click="interest(result)">Marks This</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="ticket-grp" data-ng-repeat="result in formReturn track by $index" data-ng-if="!result.code3 && result.code2">
+                <header>
+                    <h4>1 Transfering Package</h4>
+                </header>
+                <table>
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>From</td>
+                            <td>To</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.departure1_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.departure1_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.departure1_iata ]]</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.arrival1_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.arrival1_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.arrival1_iata ]]</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.departure2_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.departure2_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.departure2_iata ]]</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.arrival2_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.arrival2_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.arrival2_iata ]]</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <footer>
+                    <div class="flights">
+                        Flight No.
+                        <ul>
+                            <li>[[ result.code1 ]]</li>
+                            <li>[[ result.code2 ]]</li>
+                        </ul>
+                    </div><div class="fare">
+                        Fare<em>[[ result.total_fare ]]</em>
+                    </div><div class="duration">
+                        Flight Duration<em>[[ result.flight_time ]]</em>
+                    </div>
+                    {% if _SESSION %}
+                    <div class="options block">
+                        Options
+                        <a class="btn" data-ng-click="interest(result)">Marks This</a>
+                    </div>
+                    {% endif %}
+                </footer>
+            </div>
+
+            <div class="ticket-grp" data-ng-repeat="result in formReturn track by $index" data-ng-if="result.code3">
+                <header>
+                    <h4>2 Transfering Promotion</h4>
+                </header>
+                <table>
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>From</td>
+                            <td>To</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.departure1_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.departure1_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.departure1_iata ]]</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.arrival1_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.arrival1_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.arrival1_iata ]]</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.departure2_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.departure2_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.departure2_iata ]]</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.arrival2_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.arrival2_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.arrival2_iata ]]</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.departure3_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.departure3_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.departure3_iata ]]</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="datetime">
+                                    <span>[[ result.arrival3_date.split(' ')[0] ]]</span>
+                                    <div>[[ result.arrival3_date.split(' ')[1] ]]</div>
+                                </div><div class="airport">
+                                    <div>[[ result.arrival3_iata ]]</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <footer>
+                    <div class="flights">
+                        Flight No.
+                        <ul>
+                            <li>[[ result.code1 ]]</li>
+                            <li>[[ result.code2 ]]</li>
+                            <li>[[ result.code3 ]]</li>
+                        </ul>
+                    </div><div class="fare">
+                        Fare<em>[[ result.total_fare ]]</em>
+                    </div><div class="duration">
+                        Flight Duration<em>[[ result.flight_time ]]</em>
+                    </div>
+                    {% if _SESSION %}
+                    <div class="options block">
+                        Options
+                        <a class="btn" data-ng-click="interest(result)">Marks This</a>
+                    </div>
+                    {% endif %}
+                </footer>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
