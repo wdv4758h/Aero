@@ -5,24 +5,24 @@
 {% block head %}{% endblock %}
 
 {% block content %}
-
-<h2>Find Flights</h2>
-<div class="col">
-    <form class="block">
-        <ul>
-            <li><label for="departure">Leaving From</label><input type="text" name="departure" id="departure"></li>
-            <li><label for="arrival">Traving To</label><input type="text" name="arrival" id="arrival"></li>
-            <li><label for="trans_time">Transfers?</label><select id="trans_time" name="trans_time" ><option value="0" data-ng-selected="1" selected="selected">No transfer</option><option value="1">At most once</option><option value="2">At most twice</option></select></li>
-            <ul class="col-group duo">
-                <li><label for="night">Overnight?</label><input type="checkbox" name="night" id="night"></li>
-                <li><label for="round_trip">Round Trip?</label><input type="checkbox" name="round_trip" id="round_trip"></li>
-            </ul>
-            <li><button>Find!</button></li>
-        </ul>
-    </form>
-</div>
+<section>
+   <h2>Find Flights</h2>
+   <div class="col">
+       <form class="block">
+           <ul>
+               <li><label for="departure">Leaving From</label><input type="text" name="departure" id="departure"></li>
+               <li><label for="arrival">Traving To</label><input type="text" name="arrival" id="arrival"></li>
+               <li><label for="trans_time">Transfers?</label><select id="trans_time" name="trans_time" ><option value="0" data-ng-selected="1" selected="selected">No transfer</option><option value="1">At most once</option><option value="2">At most twice</option></select></li>
+               <ul class="col-group duo">
+                   <li><label for="night">Overnight?</label><input type="checkbox" name="night" id="night"></li>
+                   <li><label for="round_trip">Round Trip?</label><input type="checkbox" name="round_trip" id="round_trip"></li>
+               </ul>
+               <li><button>Find!</button></li>
+           </ul>
+       </form>
+   </div>
 </section>
-<section class="content">
+<section>
     <h3>Your finding...</h3>
     
     <div class="ticket-grp">
@@ -277,6 +277,6 @@
             </div>
         </footer>
     </div>
-    
+</section>    
     
 {% endblock %}
