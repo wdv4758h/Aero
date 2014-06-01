@@ -301,7 +301,7 @@ class Ticket extends AbstractAero {
     public $no_total = '
         f1.arrival_date AS arrival_date,
         TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS flight_time,
-        0 AS transfer,
+        DATE_FORMAT(0, "%H:%i:%s") AS transfer,
         TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date) AS total_time,
         f1.fare AS total_fare ';
 
@@ -528,7 +528,7 @@ class Ticket extends AbstractAero {
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
             TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date)
         ) AS flight_time,
-        0 AS transfer,
+        DATE_FORMAT(0, "%H:%i:%s") AS transfer,
         ADDTIME(
             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
             TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date)
@@ -932,80 +932,95 @@ class TicketPlan extends AbstractAero {
             b6.timezone AS arrival6_timezone, b6.iata AS arrival6_iata,
             TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date) AS flight6_time,
 
-            f3.arrival_date AS arrival_date,
-            CASE f3.arrival_date
-                WHEN null THEN
-                    CASE f2.arrival_date
-                        WHEN null THEN f1.arrival_date
+            CASE ifnull(f3.arrival_date, 0)
+                WHEN 0 THEN
+                    CASE ifnull(f2.arrival_date, 0)
+                        WHEN 0 THEN f1.arrival_date
                         ELSE f2.arrival_date
                     END
                 ELSE f3.arrival_date
             END AS arrival_date,
 
-            ADDTIME(
-                ADDTIME(
-                    ADDTIME(
-                        TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
-                        TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
-                    ),
-                    TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date)
-                ),
-                ADDTIME(
-                    ADDTIME(
-                        TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date),
-                        TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date)
-                    ),
-                    TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date)
-                )
-            ) AS flight_time,
-
-            ADDTIME(
-                ADDTIME(
-                    TIMEDIFF(f2.departure_date, f1.arrival_date),
-                    TIMEDIFF(f3.departure_date, f2.arrival_date)
-                ),
-                ADDTIME(
-                    TIMEDIFF(f5.departure_date, f4.arrival_date),
-                    TIMEDIFF(f6.departure_date, f5.arrival_date)
-                )
-            ) AS transfer,
-
-            ADDTIME(
+            DATE_FORMAT(
                 ADDTIME(
                     ADDTIME(
                         ADDTIME(
                             TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
-                            TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date)
+                            IFNULL(TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date), 0)
                         ),
-                        TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date)
+                        IFNULL(TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date), 0)
                     ),
                     ADDTIME(
                         ADDTIME(
-                            TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date),
-                            TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date)
+                            IFNULL(TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date), 0),
+                            IFNULL(TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date), 0)
                         ),
-                        TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date)
+                        IFNULL(TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date), 0)
                     )
+                )
+            , "%H:%i:%s") AS flight_time,
+
+            ADDTIME(
+                ADDTIME(
+                    IFNULL(TIMEDIFF(f2.departure_date, f1.arrival_date), 0),
+                    IFNULL(TIMEDIFF(f3.departure_date, f2.arrival_date), 0)
                 ),
                 ADDTIME(
+                    IFNULL(TIMEDIFF(f5.departure_date, f4.arrival_date), 0),
+                    IFNULL(TIMEDIFF(f6.departure_date, f5.arrival_date), 0)
+                )
+            ) AS transfer,
+
+            ADDTIME(
+                DATE_FORMAT(
                     ADDTIME(
-                        TIMEDIFF(f2.departure_date, f1.arrival_date),
-                        TIMEDIFF(f3.departure_date, f2.arrival_date)
+                        ADDTIME(
+                            ADDTIME(
+                                TIMEDIFF(CONVERT_TZ(f1.arrival_date, b1.timezone, a1.timezone), f1.departure_date),
+                                IFNULL(TIMEDIFF(CONVERT_TZ(f2.arrival_date, b2.timezone, a2.timezone), f2.departure_date), 0)
+                            ),
+                            IFNULL(TIMEDIFF(CONVERT_TZ(f3.arrival_date, b3.timezone, a3.timezone), f3.departure_date), 0)
+                        ),
+                        ADDTIME(
+                            ADDTIME(
+                                IFNULL(TIMEDIFF(CONVERT_TZ(f4.arrival_date, b4.timezone, a4.timezone), f4.departure_date), 0),
+                                IFNULL(TIMEDIFF(CONVERT_TZ(f5.arrival_date, b5.timezone, a5.timezone), f5.departure_date), 0)
+                            ),
+                            IFNULL(TIMEDIFF(CONVERT_TZ(f6.arrival_date, b6.timezone, a6.timezone), f6.departure_date), 0)
+                        )
+                    )
+                , "%H:%i:%s"),
+                ADDTIME(
+                    ADDTIME(
+                        IFNULL(TIMEDIFF(f2.departure_date, f1.arrival_date), 0),
+                        IFNULL(TIMEDIFF(f3.departure_date, f2.arrival_date), 0)
                     ),
                     ADDTIME(
-                        TIMEDIFF(f5.departure_date, f4.arrival_date),
-                        TIMEDIFF(f6.departure_date, f5.arrival_date)
+                        IFNULL(TIMEDIFF(f5.departure_date, f4.arrival_date), 0),
+                        IFNULL(TIMEDIFF(f6.departure_date, f5.arrival_date), 0)
                     )
                 )
             ) AS total_time,
 
-            CASE f3.fare
-                WHEN null THEN
-                    CASE f2.fare
-                        WHEN null THEN (f1.fare + f4.fare)
-                        ELSE (f1.fare + f2.fare + f4.fare + f5.fare) * 0.9
+            CASE IFNULL(f3.fare, 0)
+                WHEN 0 THEN
+                    CASE IFNULL(f2.fare, 0)
+                        WHEN 0 THEN
+                            CASE IFNULL(f4.fare, 0)
+                                WHEN 0 THEN (f1.fare)
+                                ELSE (f1.fare + f4.fare)
+                            END
+                        ELSE
+                            CASE IFNULL(f4.fare, 0)
+                                WHEN 0 THEN (f1.fare + f2.fare) * 0.9
+                                ELSE (f1.fare + f2.fare + f4.fare + f5.fare) * 0.9
+                            END
                     END
-                ELSE (f1.fare + f2.fare + f3.fare + f4.fare + f5.fare + f6.fare) * 0.8
+                ELSE
+                    CASE IFNULL(f4.fare, 0)
+                        WHEN 0 THEN (f1.fare + f2.fare + f3.fare) * 0.8
+                        ELSE (f1.fare + f2.fare + f3.fare + f4.fare + f5.fare + f6.fare) * 0.8
+                    END
             END AS total_fare
 
         FROM `tickets` `t`
@@ -1029,7 +1044,9 @@ class TicketPlan extends AbstractAero {
         LEFT JOIN `airports` `a6` ON `f6`.`departure`=`a6`.`iata`
         LEFT JOIN `airports` `b6` ON `f6`.`arrival`=`b6`.`iata`
 
-        WHERE `user_id`=:id';
+        WHERE `user_id`=:id
+
+        ORDER BY total_fare, departure1_date, arrival_date';
 
     protected $sql_update = '';
 
