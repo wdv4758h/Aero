@@ -230,7 +230,7 @@ app.controller('formPost', function($scope, $http){
             headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
         })
             .success(function(data) {
-                $scope.formReturn = data;
+                $scope.formReturn = data.data;
                 if ($scope.formData.sort == "") {
                     if ($scope.formReturn.length == 0) {
                         alertify.error("沒有符合的 Ticket");
