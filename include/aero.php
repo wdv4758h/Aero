@@ -519,7 +519,7 @@ class Ticket extends AbstractAero {
         null AS arrival5_timezone, null AS arrival5_iata,
         null AS flight5_time,
 
-        null AS id4,
+        null AS id6,
         null AS code6,
         null AS departure6_date,
         null AS arrival6_date,
