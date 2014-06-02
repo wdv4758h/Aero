@@ -447,6 +447,7 @@ class Ticket extends AbstractAero {
         FROM `flights` `f1`
         JOIN `flights` `f2`
             ON `f1`.`arrival`=`f2`.`departure`
+            AND (`f2`.`arrival` != `f1`.`departure`)
             AND (`f1`.`arrival_date` + INTERVAL 2 HOUR) <= `f2`.`departure_date`
         JOIN `flights` `f3`
             ON `f2`.`arrival`=`f3`.`departure`
