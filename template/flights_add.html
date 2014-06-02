@@ -15,7 +15,7 @@
             {% macro SELECT(var) %}
             <li>
                 <label for="{{ var }}">{{ var }}</label>
-                <select data-ng-model="{{ var }}" data-ng-options="i.name for i in airportsOnce"></select>
+                <select data-ng-model="{{ var }}" data-ng-options="i.iata + ' - ' + i.name for i in airportsOnce"></select>
                 <input name="{{ var }}" id="{{ var }}" type="hidden" value="[[ {{ var }}.iata ]]" required/>
             </li>
             {% endmacro %}
