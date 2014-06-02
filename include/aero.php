@@ -833,7 +833,9 @@ class Ticket extends AbstractAero {
             }
 
             if ($order)
-                $asc_desc = $asc_desc . ", ";
+                $asc_desc = " " . $asc_desc . ", ";
+
+            $order = join($asc_desc, explode(",",$order));
 
             $aero -> sql =
                 $aero -> sql .
