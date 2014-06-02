@@ -6,6 +6,12 @@
 
 {% else %}
 
+<script type="text/ng-template" id="itemTpl.html">
+   <a tabindex="-1">
+      <span class="country" data-ng-class="{hide: match.model.hide}">[[ match.model.country ]]</span>
+      [[ match.model.name ]]
+   </a>
+</script>
 <div data-ng-controller="airportsList">
 <input
     type="text"  id="{{ data }}" name="{{ data }}"
@@ -13,6 +19,7 @@
     data-ng-init="tmp.name = '{{ airport }}'"
     data-typeahead-on-select="{{ value }} = tmp.iata"
     data-typeahead="i as i.name for i in airportsOnce | filter:$viewValue"
+    data-typeahead-template-url="itemTpl.html"
     class="form-control"
     autocomplete="off"
     autocorrect="off"

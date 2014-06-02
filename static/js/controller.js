@@ -161,20 +161,24 @@ app.controller('airportsList', function($scope, $http){
     var getAirportsList = function(){
         var airports = $http.get('/api/airports');
         airports.success(function(data, status, headers, config){
-                $scope.airports = data;
+            $scope.airports = data;
         });
         airports.error(function(data, status, headers, config){
-                console.log('Ajax failed');
+            console.log('Ajax failed');
         });
     };
 
     var getAirportsListOnce = function(){
         var airports = $http.get('/api/airports');
         airports.success(function(data, status, headers, config){
-                $scope.airportsOnce = data;
+            for(var i = 0, len = data.length, tmp = ''; i < len; i++){
+                data[i].hide = (tmp == data[i].country_id)
+                tmp = data[i].country_id;
+            }
+            $scope.airportsOnce = data;
         });
         airports.error(function(data, status, headers, config){
-                console.log('Ajax failed');
+            console.log('Ajax failed');
         });
     };
 
