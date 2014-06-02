@@ -85,3 +85,8 @@ thead td:last-child {
 .ticket-list thead td:nth-child(11){ min-width: 100px }
 .ticket-list thead td:nth-child(12){ min-width: 100px }
 .ticket-list tbody tr { background-color: transparent; }
+
+section.alertify.alertify-alert {
+    height: 60%;
+    overflow-y: scroll;
+}
