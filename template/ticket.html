@@ -65,20 +65,20 @@
             </thead>
             <tbody data-ng-repeat="result in formReturn track by $index">
                 <tr>
-                    <td rowspan="3">[[ $index+1 ]]</td>
+                    <td rowspan="6">[[ $index+1 ]]</td>
                     <td>[[ result.code1 ]]</td>
                     <td>[[ result.departure1_iata ]]</td>
                     <td>[[ result.arrival1_iata ]]</td>
                     <td>[[ result.departure1_date ]]</td>
                     <td>[[ result.arrival1_date ]]</td>
                     <td>[[ result.flight1_time ]]</td>
-                    <td rowspan="3">[[ result.flight_time ]]</td>
-                    <td rowspan="3">[[ result.transfer ]]</td>
-                    <td rowspan="3">[[ result.total_time ]]</td>
+                    <td rowspan="6">[[ result.flight_time ]]</td>
+                    <td rowspan="6">[[ result.transfer ]]</td>
+                    <td rowspan="6">[[ result.total_time ]]</td>
                     <td>[[ result.fare1 ]]</td>
-                    <td rowspan="3">[[ result.total_fare ]]</td>
+                    <td rowspan="6">[[ result.total_fare ]]</td>
                     {% if _SESSION %}
-                    <td rowspan="3">
+                    <td rowspan="6">
                         <a data-ng-click="interest(result)">Compare</a>
                     </td>
                     {% endif %}
@@ -152,19 +152,19 @@
         </thead>
         <tbody data-ng-repeat='result in tickets track by $index'>
             <tr>
-                <td rowspan="3">[[ $index+1 ]]</td>
+                <td rowspan="6">[[ $index+1 ]]</td>
                 <td>[[ result.code1 ]]</td>
                 <td>[[ result.departure1_iata ]]</td>
                 <td>[[ result.arrival1_iata ]]</td>
                 <td>[[ result.departure1_date ]]</td>
                 <td>[[ result.arrival1_date ]]</td>
                 <td>[[ result.flight1_time ]]</td>
-                <td rowspan="3">[[ result.flight_time ]]</td>
-                <td rowspan="3">[[ result.transfer ]]</td>
-                <td rowspan="3">[[ result.total_time ]]</td>
+                <td rowspan="6">[[ result.flight_time ]]</td>
+                <td rowspan="6">[[ result.transfer ]]</td>
+                <td rowspan="6">[[ result.total_time ]]</td>
                 <td>[[ result.fare1 ]]</td>
-                <td rowspan="3">[[ result.total_fare ]]</td>
-                <td rowspan="3">
+                <td rowspan="6">[[ result.total_fare ]]</td>
+                <td rowspan="6">
                     <a data-ng-click="disinterest(result)">Remove</a>
                 </td>
             </tr>
