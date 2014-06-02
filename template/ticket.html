@@ -48,8 +48,8 @@
                     <td>Flight Number</td>
                     <td>Departure IATA</td>
                     <td>Arrival IATA</td>
-                    <td>Departure Time (local time)</td>
-                    <td>Arrival Time (local time)</td>
+                    <td class="sort" data-ng-class="{focus: formData.order=='departure1_date', asc: formData.order=='departure1_date' && formData.asc_desc=='ASC', des: formData.order=='departure1_date' && formData.asc_desc=='DESC'}" data-ng-click="sort_sql('departure1_date')">Departure Time (local time)</td>
+                    <td class="sort" data-ng-class="{focus: formData.order=='arrival_date', asc: formData.order=='arrival_date' && formData.asc_desc=='ASC', des: formData.order=='arrival_date' && formData.asc_desc=='DESC'}" data-ng-click="sort_sql('arrival_date')">Arrival Time (local time)</td>
                     <td>Flight Time</td>
                     <td class="sort" data-ng-class="{focus: formData.order=='flight_time', asc: formData.order=='flight_time' && formData.asc_desc=='ASC', des: formData.order=='flight_time' && formData.asc_desc=='DESC'}" data-ng-click="sort_sql('flight_time')">Total Flight Time</td>
                     <td class="sort" data-ng-class="{focus: formData.order=='transfer', asc: formData.order=='transfer' && formData.asc_desc=='ASC', des: formData.order=='transfer' && formData.asc_desc=='DESC'}" data-ng-click="sort_sql('transfer')">Transfer</td>
