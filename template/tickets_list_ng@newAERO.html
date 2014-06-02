@@ -8,6 +8,7 @@
 {% block content %}
 <section data-ng-controller="formPost">
     <h2>Find Flights</h2>
+    <div class="sort-options">Sorts By: <a href="" class="btn transparent">Departure Time</a>&nbsp;<a href="" class="btn transparent">Arrival Time</a>&nbsp;<a href="" class="btn transparent active">Price</a></div>
     <div class="col">
         <form class="block" ng-submit="newForm('/api/ticket/search')">
             <ul>
