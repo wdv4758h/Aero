@@ -8,7 +8,6 @@
 {% block content %}
 <section data-ng-controller="formPost">
     <h2>Find Flights</h2>
-    <div class="sort-options">Sorts By: <a href="" class="btn transparent">Departure Time</a>&nbsp;<a href="" class="btn transparent">Arrival Time</a>&nbsp;<a href="" class="btn transparent active">Price</a></div>
     <div class="col">
         <form class="block" ng-submit="newForm('/api/ticket/search')">
             <ul>
@@ -43,6 +42,33 @@
         </form>
     </div>
 
+    <div data-ng-show="formReturn.length" class="sort-options">
+        Sorts By:&nbsp;
+        <a class="btn transparent"
+            data-ng-class="{
+                active: formData.order=='departure1_date, departure2_date, departure3_date',
+                asc: formData.order=='departure1_date, departure2_date, departure3_date' && formData.asc_desc=='ASC',
+                des: formData.order=='departure1_date, departure2_date, departure3_date' && formData.asc_desc=='DESC'
+            }"
+            data-ng-click="sort('departure1_date, departure2_date, departure3_date')"
+        >Departure Time</a>&nbsp;
+        <a class="btn transparent"
+            data-ng-class="{
+                active: formData.order=='arrival1_date, arrival2_date, arrival3_date',
+                asc: formData.order=='arrival1_date, arrival2_date, arrival3_date' && formData.asc_desc=='ASC',
+                des: formData.order=='arrival1_date, arrival2_date, arrival3_date' && formData.asc_desc=='DESC'
+            }"
+            data-ng-click="sort('arrival1_date, arrival2_date, arrival3_date')"
+        >Arrival Time</a>&nbsp;
+        <a class="btn transparent active"
+            data-ng-class="{
+                active: formData.order=='total_fare',
+                asc: formData.order=='total_fare' && formData.asc_desc=='ASC',
+                des: formData.order=='total_fare' && formData.asc_desc=='DESC'
+            }"
+            data-ng-click="sort('total_fare')"
+        >Price</a>
+    </div>
 
     <div class="tickets-grp" data-ng-show="formReturn.length" data-ng-repeat="result in formReturn track by $index">
         <header>
