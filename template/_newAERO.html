@@ -7,6 +7,8 @@
 {% block greeting %}
     {% if _SESSION %}
 Welcome back, {{ _SESSION.username }}. <a href="/logout">SIGN OUT</a>
+    {% else %}
+        <a href="/login">SIGN IN</a>
     {% endif %}
 {% endblock %}
 

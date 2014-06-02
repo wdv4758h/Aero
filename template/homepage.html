@@ -10,25 +10,27 @@
         <h2>AERO</h2>
         <p>Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque.</p>
     </div>
-    <div class="col">
-        <h2>SIGN IN</h2>
-        <form action="login" method="post" class="block">
-            <ul>
-                <li>
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username">
-                </li>
-                <li>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="arrpasswordival">
-                </li>
-                <li>
-                    <button>Sign In</button>
-                </li>
-            </ul>
-        </form>
-        <hr>
-        <a href="/signup" class="btn block transparent">Join AERO</a> 
-    </div>
+    {% if not _SESSION %}
+        <div class="col">
+            <h2>SIGN IN</h2>
+            <form action="login" method="post" class="block">
+                <ul>
+                    <li>
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username">
+                    </li>
+                    <li>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="arrpasswordival">
+                    </li>
+                    <li>
+                        <button>Sign In</button>
+                    </li>
+                </ul>
+            </form>
+            <hr>
+            <a href="/signup" class="btn block transparent">Join AERO</a> 
+        </div>
+    {% endif %}
 </section>
 {% endblock %}
