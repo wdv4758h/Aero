@@ -7,7 +7,7 @@ $airport = new Airport();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    if(!isset($_POST['id'])) {
+    if(!isset($_POST['iata'])) {
         echo "Can not be empty";
         exit();
     }
