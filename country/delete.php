@@ -7,7 +7,7 @@ $country = new Country();
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if(!isset($_POST['id'])) {
+    if(!isset($_POST['abbr'])) {
         echo "Can not be empty";
         exit();
     }
