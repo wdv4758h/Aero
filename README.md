@@ -133,7 +133,9 @@ We have Self-signed certificate (as it's just a homework) and force user to use 
 Code Explain
 ----------------------------------------
 
-### include
+### PHP
+
+#### include
 
 - base.php
 
@@ -151,7 +153,25 @@ Code Explain
         + execute : function to execute the sql
         + query : the query result
 
-### api
+#### api
 
 The PHP files in this directory will return a JSON files,
 some may need to pass in parameters to get the data (like **search**)
+
+### HTML/AngularJS
+
+All the HTML is in the **template** directory,
+and the HTML files will be processed by template engine before output to the users.
+
+In each HTML files, it may contain some attributes that have **data-** prefix,
+this prefix is the standard of **Custom Data Attributes** in **HTML5**,
+and if there is a **ng-** after **data-** (which means **data-ng-**)
+means it is the custom data attributes defined by AngularJS.
+
+### CSS
+
+All the CSS files are put in static/css/ directory.
+
+### Javascript
+
+All the Javascript files are put in static/js/ directory.
