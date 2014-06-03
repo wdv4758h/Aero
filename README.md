@@ -168,6 +168,13 @@ this prefix is the standard of **Custom Data Attributes** in **HTML5**,
 and if there is a **ng-** after **data-** (which means **data-ng-**)
 means it is the custom data attributes defined by AngularJS.
 
+In the HTML template, you may see something like **{% extends 'other/template' %}**,
+it tells the template engine to "extends" this template with another template,
+so that we may have another template that contains the general HTML structure
+with some blocks (**{% block 'blockname' %}**) defined inside.
+The child template will have some blocks also, and we will write some extra content in the blocks,
+then the template engine will put these blocks into the blocks which have the same block name in the extended template.
+
 ### CSS
 
 All the CSS files are put in static/css/ directory.
@@ -175,3 +182,9 @@ All the CSS files are put in static/css/ directory.
 ### Javascript
 
 All the Javascript files are put in static/js/ directory.
+
+As this is a database homework,
+so the table sorting functionality is asked to implement in SQL.
+Thus, the sort of the table of tickets is done by calling SQL again instead of using Javascript to sort,
+the javascript will save the information if user click the table to sort
+and then use AJAX to call search api again to get the data with specific order.
