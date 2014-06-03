@@ -5,7 +5,7 @@ DB project written by Chiu-Hsiang Hsu & Pu-Hsuan Wu
 
 This is a homework which contain scary, terrible, horrible code.
 
-contribute
+Contribute
 ----------------------------------------
 
 - Chiu-Hsiang Hsu (wdv4758h@gmail.com)
@@ -88,26 +88,7 @@ Composer
     require_once "vendor/autoload.php";
     ```
 
-include
-----------------------------------------
-
-- base.php
-
-    * session start
-    * php packages autoload (Composer)
-    * function used by other php files
-
-        + render(template name, array to pass into)
-
-- db.php
-
-    * Aero class
-
-        + sql : sql syntax
-        + execute : function to execute the sql
-        + query : the query result
-
-gitweb
+Gitweb
 ----------------------------------------
 
 - [Gitweb - ArchWiki](https://wiki.archlinux.org/index.php/gitweb)
@@ -136,3 +117,41 @@ gitweb
             </Directory>
         </IfModule>
         ```
+
+HTTPS
+----------------------------------------
+
+We have Self-signed certificate (as it's just a homework) and force user to use HTTPS by redirect.
+
+```apache
+<VirtualHost *:80>
+    ServerName www.example.com
+    Redirect permanent / https://www.example.com/
+</VirtualHost>
+```
+
+Code Explain
+----------------------------------------
+
+### include
+
+- base.php
+
+    * session start
+    * php packages autoload (Composer)
+    * function used by other php files
+
+        + render(template name, array to pass into)
+
+- db.php
+
+    * Aero class
+
+        + sql : sql syntax
+        + execute : function to execute the sql
+        + query : the query result
+
+### api
+
+The PHP files in this directory will return a JSON files,
+some may need to pass in parameters to get the data (like **search**)
